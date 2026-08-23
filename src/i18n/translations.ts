@@ -87,14 +87,23 @@ export const translations = {
       },
       liveDemo: "Live Demo",
       viewCode: "View Code",
+      viewDetails: "View Details",
+      backToProjects: "Back to Projects",
+      overview: "Overview",
+      manualHeading: "How it works",
+      manualSubheading: "A quick walkthrough of the experience, step by step.",
+      step: "Step",
+      of: "of",
+      previous: "Previous",
+      next: "Next",
       items: {
         brandpeth: {
           description:
-            "An eco-friendly home store for the UAE, offering plant-based, pet-safe, and organic home products with delivery across Dubai, Abu Dhabi, and all emirates. A live e-commerce experience built for clarity, trust, and smooth checkout.",
+            "I built this for my own business — an eco-friendly home store for the UAE, offering plant-based, pet-safe, and organic home products with delivery across Dubai, Abu Dhabi, and all emirates. A live e-commerce experience designed for clarity, trust, and a smooth checkout.",
         },
         pestbrand: {
           description:
-            "An eco-friendly pest prevention and garden care store for UAE homes — safe for families, effective for pests. A focused retail site with clear product information and UAE-wide delivery.",
+            "I built this for my own business — an eco-friendly pest prevention and garden care store for UAE homes, safe for families and effective against pests. A focused retail site with clear product information and UAE-wide delivery.",
         },
         uaeIntel: {
           description:
@@ -102,7 +111,7 @@ export const translations = {
         },
         uOffice: {
           description:
-            "An internal office operations management system covering tasks, departments, meetings, documents, visitors, and office supplies with role-based access. Full-stack build (React/TypeScript client, Express/SQLite server) deployed on Cloudflare Pages and Workers.",
+            "I built this CRM for the company to manage tasks, departments, meetings, documents, visitors, and office supplies with role-based access, and the team is thrilled to finally have a dedicated CRM of their own. A full-stack build with a React/TypeScript client and an Express/SQLite server, deployed on Cloudflare Pages and Workers.",
         },
       },
     },
@@ -197,14 +206,23 @@ export const translations = {
       },
       liveDemo: "Live Demo",
       viewCode: "Tingnan ang Code",
+      viewDetails: "Tingnan ang Detalye",
+      backToProjects: "Bumalik sa mga Proyekto",
+      overview: "Buod",
+      manualHeading: "Paano ito gumagana",
+      manualSubheading: "Isang mabilis na paglalakad sa karanasan, hakbang-hakbang.",
+      step: "Hakbang",
+      of: "sa",
+      previous: "Nakaraan",
+      next: "Susunod",
       items: {
         brandpeth: {
           description:
-            "Isang eco-friendly home store para sa UAE — mga plant-based, pet-safe, at organic na home products na may delivery sa buong Dubai, Abu Dhabi, at lahat ng emirate. Isang live na e-commerce na gawa para sa kalinawan, tiwala, at maayos na checkout.",
+            "Itinayo ko ito para sa sarili kong negosyo — isang eco-friendly home store para sa UAE na nag-aalok ng plant-based, pet-safe, at organic na home products, may delivery sa buong Dubai, Abu Dhabi, at lahat ng emirate. Isang live na e-commerce na dinisenyo para sa kalinawan, tiwala, at maayos na checkout.",
         },
         pestbrand: {
           description:
-            "Isang eco-friendly pest prevention at garden care store para sa mga tahanan sa UAE — ligtas sa pamilya, epektibo sa peste. Isang retail site na may malinaw na impormasyon at UAE-wide delivery.",
+            "Itinayo ko ito para sa sarili kong negosyo — isang eco-friendly pest prevention at garden care store para sa mga tahanan sa UAE, ligtas para sa pamilya at epektibo laban sa peste. Isang retail site na may malinaw na impormasyon ng produkto at UAE-wide delivery.",
         },
         uaeIntel: {
           description:
@@ -212,7 +230,7 @@ export const translations = {
         },
         uOffice: {
           description:
-            "Isang internal office operations management system para sa tasks, departments, meetings, documents, visitors, at office supplies na may role-based access. Full-stack build (React/TypeScript client, Express/SQLite server) na naka-deploy sa Cloudflare Pages at Workers.",
+            "Itinayo ko ang CRM na ito para sa kumpanya upang pamahalaan ang mga tasks, departments, meetings, documents, visitors, at office supplies gamit ang role-based access, at tuwang-tuwa ang koponan na sa wakas ay may sarili na silang CRM. Isang full-stack build gamit ang React/TypeScript client at Express/SQLite server, na naka-deploy sa Cloudflare Pages at Workers.",
         },
       },
     },

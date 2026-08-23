@@ -1,8 +1,9 @@
 "use client";
 
 import { useRef } from "react";
+import Link from "next/link";
 import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from "motion/react";
-import { ArrowUpRight, ExternalLink } from "lucide-react";
+import { ArrowRight, ArrowUpRight, ExternalLink } from "lucide-react";
 import { GithubIcon } from "./ui/BrandIcons";
 import { useLanguage } from "@/i18n/LanguageProvider";
 import { projects, type Project } from "@/data/projects";
@@ -97,11 +98,18 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       }
       className="group flex flex-col overflow-hidden rounded-3xl border-hair bg-[var(--color-surface)]/50 p-4 transition-colors duration-300 hover:border-[var(--color-border-strong)]"
     >
-      <ProjectThumbnail project={project} />
+      <Link href={`/projects/${project.id}`} aria-label={`${project.name} — ${t("projects.viewDetails")}`}>
+        <ProjectThumbnail project={project} />
+      </Link>
 
       <div className="flex flex-1 flex-col gap-4 p-4">
         <div className="flex items-center justify-between gap-3">
-          <h3 className="text-xl font-semibold tracking-tight">{project.name}</h3>
+          <Link
+            href={`/projects/${project.id}`}
+            className="text-xl font-semibold tracking-tight transition-colors duration-300 hover:text-[var(--color-accent)]"
+          >
+            {project.name}
+          </Link>
           <span className="rounded-full border-hair px-2.5 py-1 text-[10px] font-medium uppercase tracking-wider text-[var(--color-subtle)]">
             {t(project.categoryKey)}
           </span>
@@ -123,6 +131,17 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         </ul>
 
         <div className="mt-auto flex flex-wrap items-center gap-3 pt-2">
+          <Link
+            href={`/projects/${project.id}`}
+            className="group/btn inline-flex items-center gap-2 rounded-full border-hair px-4 py-2.5 text-sm font-medium text-[var(--color-fg)] transition-colors duration-300 hover:bg-white/[0.04]"
+          >
+            {t("projects.viewDetails")}
+            <ArrowRight
+              size={15}
+              strokeWidth={2}
+              className="transition-transform duration-300 group-hover/btn:translate-x-0.5"
+            />
+          </Link>
           {project.liveUrl && (
             <a
               href={project.liveUrl}
