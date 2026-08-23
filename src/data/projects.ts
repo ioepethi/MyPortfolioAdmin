@@ -76,7 +76,7 @@ export const projects: Project[] = [
   },
   {
     id: "edge-plus-fitness",
-    name: "Edge Plus Fitness",
+    name: "Edge Plus Fitness — POS",
     categoryKey: "projects.categories.web",
     descriptionKey: "projects.items.edgePlusFitness.description",
     blurb: "Gym POS & management system built as a portfolio project",
@@ -111,6 +111,39 @@ export const projects: Project[] = [
         title: "Review reports",
         description:
           "See sales, membership, and inventory reports at a glance, with role-based access for staff and admins.",
+      },
+    ],
+  },
+  {
+    id: "edge-plus-website",
+    name: "Edge Plus Fitness — Website",
+    categoryKey: "projects.categories.web",
+    descriptionKey: "projects.items.edgePlusWebsite.description",
+    blurb: "Customer-facing gym website built as a portfolio project",
+    tags: ["Next.js", "TypeScript", "Tailwind CSS", "Cloudflare"],
+    githubUrl: "https://github.com/ioepethi/Edge-Plus",
+    thumbnail: { from: "#450a0a", to: "#ef4444", glyph: "E" },
+    screenshot: "/images/edge-plus-website.png",
+    manual: [
+      {
+        title: "Land on the homepage",
+        description:
+          "A hero section highlights the gym's promise, membership stats, and Google rating, with a clear \"Join Now\" call to action.",
+      },
+      {
+        title: "Learn about the gym",
+        description:
+          "Home, About Us, Services, and Testimonials sections introduce the coaches, facilities, and real member results.",
+      },
+      {
+        title: "Check pricing & fitness tools",
+        description:
+          "A Pricing section lays out membership plans, and a built-in BMI Calculator lets visitors check their stats on the spot.",
+      },
+      {
+        title: "Get in touch & join",
+        description:
+          "FAQ and Contact sections answer common questions, and \"Join Now\" guides visitors toward becoming a member.",
       },
     ],
   },

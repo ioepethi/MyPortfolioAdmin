@@ -117,6 +117,10 @@ export const translations = {
           description:
             "I built this as a portfolio project — a gym point-of-sale and management system for Edge Plus Fitness Center. It brings memberships, walk-in and member sales, product inventory, attendance tracking, leads, transactions, and reporting into a single POS dashboard with VAT-ready checkout and multiple payment methods. A Next.js and TypeScript build deployed on Cloudflare Pages.",
         },
+        edgePlusWebsite: {
+          description:
+            "I built this as a portfolio project — the customer-facing marketing website for Edge Plus Fitness Center, a companion to the gym's POS system. It covers the homepage, About Us, Services, Pricing, testimonials, a BMI calculator, and a FAQ and Contact section, all designed to turn visitors into members. A Next.js and TypeScript build deployed on Cloudflare Pages.",
+        },
       },
     },
     contact: {
@@ -239,6 +243,10 @@ export const translations = {
         edgePlusFitness: {
           description:
             "Itinayo ko ito bilang isang portfolio project — isang gym point-of-sale at management system para sa Edge Plus Fitness Center. Pinagsasama nito ang memberships, walk-in at member sales, product inventory, attendance tracking, leads, transactions, at reporting sa iisang POS dashboard na may VAT-ready checkout at iba't ibang payment method. Isang Next.js at TypeScript build na naka-deploy sa Cloudflare Pages.",
+        },
+        edgePlusWebsite: {
+          description:
+            "Itinayo ko ito bilang isang portfolio project — ang customer-facing na website ng Edge Plus Fitness Center, kasabay ng POS system ng gym. Sakop nito ang homepage, About Us, Services, Pricing, testimonials, isang BMI calculator, at isang FAQ at Contact section, lahat dinisenyo para gawing member ang mga bisita. Isang Next.js at TypeScript build na naka-deploy sa Cloudflare Pages.",
         },
       },
     },
