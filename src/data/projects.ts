@@ -21,6 +21,8 @@ export type Project = {
   };
   /** Optional real screenshot shown instead of the generated thumbnail (path under /public). */
   screenshot?: string;
+  /** How the screenshot image should fit its frame. Defaults to "cover". */
+  screenshotFit?: "cover" | "contain";
   /** Step-by-step walkthrough shown on the project detail page. */
   manual: ManualStep[];
 };
@@ -145,6 +147,8 @@ export const projects: Project[] = [
     tags: ["TypeScript", "Next.js", "Monorepo", "CLI"],
     githubUrl: "https://github.com/ioepethi/UAE-Intel",
     thumbnail: { from: "#0f172a", to: "#3b82f6", glyph: "U" },
+    screenshot: "/images/uae-intel.png",
+    screenshotFit: "contain",
     manual: [
       {
         title: "Run a search from the CLI",

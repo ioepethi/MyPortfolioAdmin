@@ -36,11 +36,23 @@ export function ProjectDetail({ project }: { project: Project }) {
       {/* Hero */}
       {project.screenshot ? (
         <div className="relative aspect-[16/9] overflow-hidden rounded-3xl border-hair">
+          {project.screenshotFit === "contain" && (
+            <div
+              className="absolute inset-0"
+              style={{
+                background: `linear-gradient(135deg, ${project.thumbnail.from}, ${project.thumbnail.to})`,
+              }}
+            />
+          )}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={project.screenshot}
             alt={`${project.name} screenshot`}
-            className="h-full w-full object-cover object-top"
+            className={
+              project.screenshotFit === "contain"
+                ? "relative h-full w-full object-contain p-12"
+                : "h-full w-full object-cover object-top"
+            }
           />
         </div>
       ) : (

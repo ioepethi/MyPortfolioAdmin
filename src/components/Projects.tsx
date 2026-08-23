@@ -43,12 +43,26 @@ function ProjectThumbnail({ project }: { project: Project }) {
         style={reduce ? undefined : { rotateX: rx, rotateY: ry, transformStyle: "preserve-3d" }}
       >
         {project.screenshot ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={project.screenshot}
-            alt={`${project.name} screenshot`}
-            className="absolute inset-0 h-full w-full object-cover object-top"
-          />
+          <>
+            {project.screenshotFit === "contain" && (
+              <div
+                className="absolute inset-0"
+                style={{
+                  background: `linear-gradient(135deg, ${project.thumbnail.from}, ${project.thumbnail.to})`,
+                }}
+              />
+            )}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={project.screenshot}
+              alt={`${project.name} screenshot`}
+              className={
+                project.screenshotFit === "contain"
+                  ? "absolute inset-0 h-full w-full object-contain p-8"
+                  : "absolute inset-0 h-full w-full object-cover object-top"
+              }
+            />
+          </>
         ) : (
           <>
             <div
