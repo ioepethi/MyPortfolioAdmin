@@ -42,30 +42,42 @@ function ProjectThumbnail({ project }: { project: Project }) {
         className="relative h-full w-full"
         style={reduce ? undefined : { rotateX: rx, rotateY: ry, transformStyle: "preserve-3d" }}
       >
-        <div
-          className="absolute inset-0"
-          style={{
-            background: `linear-gradient(135deg, ${project.thumbnail.from}, ${project.thumbnail.to})`,
-          }}
-        />
-        {!reduce && (
-          <motion.div
-            className="absolute inset-0 opacity-40 mix-blend-overlay"
-            style={{
-              backgroundImage:
-                "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.5), transparent 50%)",
-              backgroundSize: "150% 150%",
-              x: gx,
-              y: gy,
-            }}
+        {project.screenshot ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={project.screenshot}
+            alt={`${project.name} screenshot`}
+            className="absolute inset-0 h-full w-full object-cover object-top"
           />
+        ) : (
+          <>
+            <div
+              className="absolute inset-0"
+              style={{
+                background: `linear-gradient(135deg, ${project.thumbnail.from}, ${project.thumbnail.to})`,
+              }}
+            />
+            {!reduce && (
+              <motion.div
+                className="absolute inset-0 opacity-40 mix-blend-overlay"
+                style={{
+                  backgroundImage:
+                    "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.5), transparent 50%)",
+                  backgroundSize: "150% 150%",
+                  x: gx,
+                  y: gy,
+                }}
+              />
+            )}
+            <div className="bg-grid absolute inset-0 opacity-20" />
+            <div className="absolute inset-0 flex items-center justify-center">
+              <span className="text-7xl font-bold tracking-tighter text-white/90 drop-shadow-lg">
+                {project.thumbnail.glyph}
+              </span>
+            </div>
+          </>
         )}
-        <div className="bg-grid absolute inset-0 opacity-20" />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-7xl font-bold tracking-tighter text-white/90 drop-shadow-lg">
-            {project.thumbnail.glyph}
-          </span>
-        </div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
         <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between">
           <span className="rounded-full bg-black/30 px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">
             {project.blurb}

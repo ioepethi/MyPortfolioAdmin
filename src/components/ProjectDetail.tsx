@@ -34,15 +34,26 @@ export function ProjectDetail({ project }: { project: Project }) {
       </div>
 
       {/* Hero */}
-      <div
-        className="relative flex aspect-[16/7] items-center justify-center overflow-hidden rounded-3xl"
-        style={{ background: `linear-gradient(135deg, ${project.thumbnail.from}, ${project.thumbnail.to})` }}
-      >
-        <div className="bg-grid absolute inset-0 opacity-20" />
-        <span className="text-8xl font-bold tracking-tighter text-white/90 drop-shadow-lg">
-          {project.thumbnail.glyph}
-        </span>
-      </div>
+      {project.screenshot ? (
+        <div className="relative aspect-[16/9] overflow-hidden rounded-3xl border-hair">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={project.screenshot}
+            alt={`${project.name} screenshot`}
+            className="h-full w-full object-cover object-top"
+          />
+        </div>
+      ) : (
+        <div
+          className="relative flex aspect-[16/7] items-center justify-center overflow-hidden rounded-3xl"
+          style={{ background: `linear-gradient(135deg, ${project.thumbnail.from}, ${project.thumbnail.to})` }}
+        >
+          <div className="bg-grid absolute inset-0 opacity-20" />
+          <span className="text-8xl font-bold tracking-tighter text-white/90 drop-shadow-lg">
+            {project.thumbnail.glyph}
+          </span>
+        </div>
+      )}
 
       <div className="mt-8 flex flex-col gap-3">
         <div className="flex flex-wrap items-center justify-between gap-3">
@@ -118,9 +129,8 @@ export function ProjectDetail({ project }: { project: Project }) {
                   type="button"
                   aria-label={`${t("projects.step")} ${i + 1}`}
                   onClick={() => setStep(i)}
-                  className={`h-1.5 rounded-full transition-all duration-300 ${
-                    i === step ? "w-6 bg-[var(--color-fg)]" : "w-1.5 bg-white/15 hover:bg-white/30"
-                  }`}
+                  className={`h-1.5 rounded-full transition-all duration-300 ${i === step ? "w-6 bg-[var(--color-fg)]" : "w-1.5 bg-white/15 hover:bg-white/30"
+                    }`}
                 />
               ))}
             </div>

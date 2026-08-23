@@ -19,6 +19,8 @@ export type Project = {
     to: string;
     glyph: string;
   };
+  /** Optional real screenshot shown instead of the generated thumbnail (path under /public). */
+  screenshot?: string;
   /** Step-by-step walkthrough shown on the project detail page. */
   manual: ManualStep[];
 };
@@ -34,6 +36,7 @@ export const projects: Project[] = [
     liveUrl: "https://uoffice-app.pages.dev",
     githubUrl: "https://github.com/ioepethi/U-Office",
     thumbnail: { from: "#312e81", to: "#6366f1", glyph: "U" },
+    screenshot: "/images/u-office-login.png",
     manual: [
       {
         title: "Sign in with a role",
@@ -76,6 +79,7 @@ export const projects: Project[] = [
     tags: ["React", "Vite", "Tailwind CSS", "Stripe"],
     liveUrl: "https://brandpeth-ae.pages.dev",
     thumbnail: { from: "#064e3b", to: "#10b981", glyph: "B" },
+    screenshot: "/images/brandpeth.jpg",
     manual: [
       {
         title: "Browse the catalog",
@@ -108,6 +112,7 @@ export const projects: Project[] = [
     tags: ["React", "Vite", "Tailwind CSS"],
     liveUrl: "https://pestbrand-ae.pages.dev",
     thumbnail: { from: "#14532d", to: "#3f8f56", glyph: "P" },
+    screenshot: "/images/pestbrand.png",
     manual: [
       {
         title: "Find the right solution",
