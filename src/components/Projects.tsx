@@ -177,11 +177,6 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 export function Projects() {
   const { t } = useLanguage();
 
-  const webProjects = projects.filter((p) => p.categoryKey === "projects.categories.web");
-  const technicalProjects = projects.filter(
-    (p) => p.categoryKey === "projects.categories.technical"
-  );
-
   return (
     <section id="projects" className="relative py-24 sm:py-32">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
@@ -191,27 +186,14 @@ export function Projects() {
           subheading={t("projects.subheading")}
         />
 
-        <div className="mt-14 flex flex-col gap-12">
-          <div>
-            <h3 className="mb-5 text-sm font-semibold uppercase tracking-[0.15em] text-[var(--color-subtle)]">
-              {t("projects.categories.web")}
-            </h3>
-            <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-              {webProjects.map((p, i) => (
-                <ProjectCard key={p.id} project={p} index={i} />
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <h3 className="mb-5 text-sm font-semibold uppercase tracking-[0.15em] text-[var(--color-subtle)]">
-              {t("projects.categories.technical")}
-            </h3>
-            <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-              {technicalProjects.map((p, i) => (
-                <ProjectCard key={p.id} project={p} index={i} />
-              ))}
-            </div>
+        <div className="mt-14">
+          <h3 className="mb-5 text-sm font-semibold uppercase tracking-[0.15em] text-[var(--color-subtle)]">
+            {t("projects.categories.web")}
+          </h3>
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+            {projects.map((p, i) => (
+              <ProjectCard key={p.id} project={p} index={i} />
+            ))}
           </div>
         </div>
       </div>

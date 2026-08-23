@@ -134,7 +134,7 @@ export const projects: Project[] = [
   {
     id: "uae-intel",
     name: "UAE-Intel",
-    categoryKey: "projects.categories.technical",
+    categoryKey: "projects.categories.web",
     descriptionKey: "projects.items.uaeIntel.description",
     blurb: "UAE person & company intelligence system",
     tags: ["TypeScript", "Next.js", "Monorepo", "CLI"],
