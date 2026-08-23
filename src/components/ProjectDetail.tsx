@@ -16,6 +16,7 @@ export function ProjectDetail({ project }: { project: Project }) {
   const description = t(project.descriptionKey);
   const totalSteps = project.manual.length;
   const current = project.manual[step];
+  const heroImage = project.detailScreenshot ?? project.screenshot;
 
   const goPrev = () => setStep((s) => Math.max(0, s - 1));
   const goNext = () => setStep((s) => Math.min(totalSteps - 1, s + 1));
@@ -34,7 +35,7 @@ export function ProjectDetail({ project }: { project: Project }) {
       </div>
 
       {/* Hero */}
-      {project.screenshot ? (
+      {heroImage ? (
         <div className="relative aspect-[16/9] overflow-hidden rounded-3xl border-hair">
           {project.screenshotFit === "contain" && (
             <div
@@ -46,7 +47,7 @@ export function ProjectDetail({ project }: { project: Project }) {
           )}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={project.screenshot}
+            src={heroImage}
             alt={`${project.name} screenshot`}
             className={
               project.screenshotFit === "contain"

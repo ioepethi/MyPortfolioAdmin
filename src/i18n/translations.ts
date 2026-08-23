@@ -113,6 +113,10 @@ export const translations = {
           description:
             "I built this CRM for the company to manage tasks, departments, meetings, documents, visitors, and office supplies with role-based access, and the team is thrilled to finally have a dedicated CRM of their own. A full-stack build with a React/TypeScript client and an Express/SQLite server, deployed on Cloudflare Pages and Workers.",
         },
+        edgePlusFitness: {
+          description:
+            "I built this as a portfolio project — a gym point-of-sale and management system for Edge Plus Fitness Center. It brings memberships, walk-in and member sales, product inventory, attendance tracking, leads, transactions, and reporting into a single POS dashboard with VAT-ready checkout and multiple payment methods. A Next.js and TypeScript build deployed on Cloudflare Pages.",
+        },
       },
     },
     contact: {
@@ -231,6 +235,10 @@ export const translations = {
         uOffice: {
           description:
             "Itinayo ko ang CRM na ito para sa kumpanya upang pamahalaan ang mga tasks, departments, meetings, documents, visitors, at office supplies gamit ang role-based access, at tuwang-tuwa ang koponan na sa wakas ay may sarili na silang CRM. Isang full-stack build gamit ang React/TypeScript client at Express/SQLite server, na naka-deploy sa Cloudflare Pages at Workers.",
+        },
+        edgePlusFitness: {
+          description:
+            "Itinayo ko ito bilang isang portfolio project — isang gym point-of-sale at management system para sa Edge Plus Fitness Center. Pinagsasama nito ang memberships, walk-in at member sales, product inventory, attendance tracking, leads, transactions, at reporting sa iisang POS dashboard na may VAT-ready checkout at iba't ibang payment method. Isang Next.js at TypeScript build na naka-deploy sa Cloudflare Pages.",
         },
       },
     },

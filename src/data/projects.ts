@@ -23,6 +23,8 @@ export type Project = {
   screenshot?: string;
   /** How the screenshot image should fit its frame. Defaults to "cover". */
   screenshotFit?: "cover" | "contain";
+  /** Optional distinct screenshot for the detail page hero (path under /public). Falls back to `screenshot`. */
+  detailScreenshot?: string;
   /** Step-by-step walkthrough shown on the project detail page. */
   manual: ManualStep[];
 };
@@ -69,6 +71,46 @@ export const projects: Project[] = [
         title: "Review reports",
         description:
           "Check dashboards, reports, and audit logs to see how the company is operating in real time.",
+      },
+    ],
+  },
+  {
+    id: "edge-plus-fitness",
+    name: "Edge Plus Fitness",
+    categoryKey: "projects.categories.web",
+    descriptionKey: "projects.items.edgePlusFitness.description",
+    blurb: "Gym POS & management system built as a portfolio project",
+    tags: ["Next.js", "TypeScript", "Tailwind CSS", "Cloudflare"],
+    liveUrl: "https://edge-plus-fitness.pages.dev/login",
+    githubUrl: "https://github.com/ioepethi/Edge-Plus-Fitness-Gym-Center-POS",
+    thumbnail: { from: "#450a0a", to: "#ef4444", glyph: "E" },
+    screenshot: "/images/edge-plus-pos.png",
+    detailScreenshot: "/images/edge-plus-login.png",
+    manual: [
+      {
+        title: "Sign in to the gym system",
+        description:
+          "Staff log in to a branded portal built for Edge Plus Fitness Center's day-to-day operations.",
+      },
+      {
+        title: "Run the point of sale",
+        description:
+          "Look up a member or take a walk-in, then sell memberships, services, and products with an itemized cart, VAT, and a choice of payment methods.",
+      },
+      {
+        title: "Manage members & attendance",
+        description:
+          "Track member profiles, check-ins, and active memberships from dedicated dashboards.",
+      },
+      {
+        title: "Handle leads, inventory & transactions",
+        description:
+          "Follow up on leads, keep product stock accurate, and review every completed sale.",
+      },
+      {
+        title: "Review reports",
+        description:
+          "See sales, membership, and inventory reports at a glance, with role-based access for staff and admins.",
       },
     ],
   },
