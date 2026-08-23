@@ -47,4 +47,15 @@ export const projects: Project[] = [
     githubUrl: "https://github.com/ioepethi/UAE-Intel",
     thumbnail: { from: "#0f172a", to: "#3b82f6", glyph: "U" },
   },
+  {
+    id: "u-office",
+    name: "U-Office",
+    categoryKey: "projects.categories.web",
+    descriptionKey: "projects.items.uOffice.description",
+    blurb: "Internal office operations management system",
+    tags: ["React", "TypeScript", "Express", "Cloudflare"],
+    liveUrl: "https://uoffice-app.pages.dev",
+    githubUrl: "https://github.com/ioepethi/U-Office",
+    thumbnail: { from: "#312e81", to: "#6366f1", glyph: "U" },
+  },
 ];

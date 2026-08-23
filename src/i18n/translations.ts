@@ -100,6 +100,10 @@ export const translations = {
           description:
             "A business intelligence research system for identifying UAE companies, executives, founders, and decision-makers. A TypeScript monorepo with a CLI, a Next.js web dashboard, and core, database, research, and report packages. Evidence of real technical depth — building and working with digital systems end to end.",
         },
+        uOffice: {
+          description:
+            "An internal office operations management system covering tasks, departments, meetings, documents, visitors, and office supplies with role-based access. Full-stack build (React/TypeScript client, Express/SQLite server) deployed on Cloudflare Pages and Workers.",
+        },
       },
     },
     contact: {
@@ -205,6 +209,10 @@ export const translations = {
         uaeIntel: {
           description:
             "Isang business intelligence research system para sa pagtukoy ng mga UAE company, executive, founder, at decision-maker. TypeScript monorepo na may CLI, Next.js web dashboard, at core, database, research, at report packages. Patunay ng tunay na technical na kakayahan.",
+        },
+        uOffice: {
+          description:
+            "Isang internal office operations management system para sa tasks, departments, meetings, documents, visitors, at office supplies na may role-based access. Full-stack build (React/TypeScript client, Express/SQLite server) na naka-deploy sa Cloudflare Pages at Workers.",
         },
       },
     },
