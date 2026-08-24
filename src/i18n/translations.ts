@@ -39,7 +39,7 @@ export const translations = {
     about: {
       eyebrow: "About Me",
       heading: "Administration with an eye for efficiency.",
-      body: "Results-driven Administrative & Operations Professional with 5+ years of experience in administration, operations, and IT support across the UAE and the Philippines. I bring an ownership mentality, strong accountability, and a passion for improving processes, enabling team success, and delivering operational excellence.",
+      body: "Results-driven Administrative & Operations Professional with 6+ years of experience in administration, operations, and IT support across the UAE and the Philippines. I bring an ownership mentality, strong accountability, and a passion for improving processes, enabling team success, and delivering operational excellence.",
       itHeading: "Where my IT background strengthens my work",
       itPoints: [
         "Stronger understanding of digital workflows",
@@ -166,7 +166,7 @@ export const translations = {
     about: {
       eyebrow: "Tungkol Sa Akin",
       heading: "Administrasyon na may mataas na pansin sa katumpakan.",
-      body: "Isang Administrative & Operations Professional na may 5+ taong karanasan sa administrasyon, operasyon, at IT support sa UAE at Pilipinas. May pag-iingat sa responsibilidad, malakas na pananagutan, at pagmamalasakit sa pagpapabuti ng proseso, pagtulong sa tagumpay ng koponan, at pagbibigay ng mahusay na operasyon.",
+      body: "Isang Administrative & Operations Professional na may 6+ taong karanasan sa administrasyon, operasyon, at IT support sa UAE at Pilipinas. May pag-iingat sa responsibilidad, malakas na pananagutan, at pagmamalasakit sa pagpapabuti ng proseso, pagtulong sa tagumpay ng koponan, at pagbibigay ng mahusay na operasyon.",
       itHeading: "Kung saan nagpapalakas ang aking IT background",
       itPoints: [
         "Mas malalim na pag-unawa sa digital workflows",

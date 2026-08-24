@@ -27,14 +27,14 @@ export function Hero() {
   const item: Variants = reduce
     ? { hidden: { opacity: 0 }, visible: { opacity: 1 } }
     : {
-        hidden: { opacity: 0, y: 24, filter: "blur(10px)" },
-        visible: {
-          opacity: 1,
-          y: 0,
-          filter: "blur(0px)",
-          transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] },
-        },
-      };
+      hidden: { opacity: 0, y: 24, filter: "blur(10px)" },
+      visible: {
+        opacity: 1,
+        y: 0,
+        filter: "blur(0px)",
+        transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] },
+      },
+    };
 
   return (
     <section id="home" className="relative min-h-[100svh] overflow-hidden pt-28 sm:pt-32">
@@ -131,7 +131,7 @@ export function Hero() {
               transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
             >
               <p className="text-xs text-[var(--color-subtle)]">Experience</p>
-              <p className="text-lg font-semibold tracking-tight">5+ years</p>
+              <p className="text-lg font-semibold tracking-tight">6+ years</p>
             </motion.div>
           )}
         </motion.div>
