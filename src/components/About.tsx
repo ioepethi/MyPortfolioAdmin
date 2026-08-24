@@ -1,11 +1,12 @@
 "use client";
 
 import { motion, useReducedMotion } from "motion/react";
-import { Cpu, Database, FileText, Wrench, Workflow } from "lucide-react";
+import { Bot, Cpu, Database, FileText, Sparkles, Wrench, Workflow } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageProvider";
 import { Reveal } from "./ui/Reveal";
 
 const itPointIcons = [Workflow, Wrench, Database, FileText, Cpu, Workflow];
+const aiPointIcons = [Bot, Sparkles];
 
 export function About() {
   const { t, dict } = useLanguage();
@@ -93,6 +94,67 @@ export function About() {
                 {t("about.closing")}
               </p>
             </Reveal>
+
+            <div>
+              <Reveal delay={0.15}>
+                <h3 className="text-sm font-semibold uppercase tracking-[0.15em] text-[var(--color-fg)]">
+                  {t("about.aiHeading")}
+                </h3>
+              </Reveal>
+              <Reveal delay={0.18}>
+                <p className="mt-3 text-pretty text-base leading-relaxed text-[var(--color-muted)]">
+                  {t("about.aiIntro")}
+                </p>
+              </Reveal>
+
+              <motion.ul
+                className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2"
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-80px" }}
+                variants={{
+                  hidden: {},
+                  visible: reduce
+                    ? {}
+                    : { transition: { staggerChildren: 0.06, delayChildren: 0.1 } },
+                }}
+              >
+                {dict.about.aiPoints.map((point, i) => {
+                  const Icon = aiPointIcons[i % aiPointIcons.length];
+                  return (
+                    <motion.li
+                      key={point}
+                      variants={
+                        reduce
+                          ? { hidden: { opacity: 0 }, visible: { opacity: 1 } }
+                          : {
+                            hidden: { opacity: 0, y: 16 },
+                            visible: {
+                              opacity: 1,
+                              y: 0,
+                              transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
+                            },
+                          }
+                      }
+                      className="group flex items-start gap-3 rounded-2xl border-hair bg-white/[0.02] p-4 transition-colors duration-300 hover:bg-white/[0.04]"
+                    >
+                      <span className="mt-0.5 grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-[var(--color-accent-soft)] text-[var(--color-accent)]">
+                        <Icon size={15} strokeWidth={1.75} />
+                      </span>
+                      <span className="text-sm leading-relaxed text-[var(--color-fg)]/90">
+                        {point}
+                      </span>
+                    </motion.li>
+                  );
+                })}
+              </motion.ul>
+
+              <Reveal delay={0.1}>
+                <p className="mt-5 text-pretty text-sm leading-relaxed text-[var(--color-muted)]">
+                  {t("about.aiTools")}
+                </p>
+              </Reveal>
+            </div>
           </div>
         </div>
       </div>
