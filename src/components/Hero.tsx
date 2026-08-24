@@ -131,7 +131,7 @@ export function Hero() {
               transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
             >
               <p className="text-xs text-[var(--color-subtle)]">Experience</p>
-              <p className="text-lg font-semibold tracking-tight">6+ years</p>
+              <p className="text-lg font-semibold tracking-tight">4+ years</p>
             </motion.div>
           )}
         </motion.div>

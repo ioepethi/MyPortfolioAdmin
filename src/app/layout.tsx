@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 
 const title = `${profile.name} — ${profile.role}`;
 const description =
-  "Office Admin & Admin Assistant in Dubai with 6+ years in administration, operations, reporting, documentation, and IT support. Open to opportunities across the UAE.";
+  "Office Admin & Admin Assistant in Dubai with 4+ years in administration, operations, reporting, documentation, and IT support. Open to opportunities across the UAE.";
 const keywords = [
   "Office Admin Dubai",
   "Administrative Assistant Dubai",
