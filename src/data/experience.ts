@@ -25,6 +25,7 @@ export const experiences: Experience[] = [
       "Maintain documentation compliance with Dubai Municipality requirements",
       "Coordinate with clients, vendors, and internal teams for service delivery",
       "Monitor office supplies, inventory, and equipment availability",
+      "Assist in preparing quotations, proposals, and other administrative documents",
     ],
   },
   {
