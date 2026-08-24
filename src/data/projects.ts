@@ -75,6 +75,40 @@ export const projects: Project[] = [
     ],
   },
   {
+    id: "uae-intel",
+    name: "UAE-Intel",
+    categoryKey: "projects.categories.web",
+    descriptionKey: "projects.items.uaeIntel.description",
+    blurb: "UAE person & company intelligence system",
+    tags: ["TypeScript", "Next.js", "Monorepo", "CLI"],
+    githubUrl: "https://github.com/ioepethi/UAE-Intel",
+    thumbnail: { from: "#0f172a", to: "#3b82f6", glyph: "U" },
+    screenshot: "/images/uae-intel.png",
+    screenshotFit: "contain",
+    manual: [
+      {
+        title: "Run a search from the CLI",
+        description:
+          "Query the system for a UAE company, executive, founder, or decision-maker by name or keyword.",
+      },
+      {
+        title: "Aggregate the research",
+        description:
+          "The research package gathers and cross-references public information into a structured profile.",
+      },
+      {
+        title: "Explore the dashboard",
+        description:
+          "The Next.js web dashboard presents profiles, relationships, and findings in a readable, filterable view.",
+      },
+      {
+        title: "Generate a report",
+        description:
+          "Export a structured report summarizing the findings for a person or company.",
+      },
+    ],
+  },
+  {
     id: "edge-plus-fitness",
     name: "Edge Plus Fitness — POS",
     categoryKey: "projects.categories.web",
@@ -210,40 +244,6 @@ export const projects: Project[] = [
         title: "UAE-wide delivery",
         description:
           "Orders are fulfilled and delivered across the UAE, with delivery information provided up front.",
-      },
-    ],
-  },
-  {
-    id: "uae-intel",
-    name: "UAE-Intel",
-    categoryKey: "projects.categories.web",
-    descriptionKey: "projects.items.uaeIntel.description",
-    blurb: "UAE person & company intelligence system",
-    tags: ["TypeScript", "Next.js", "Monorepo", "CLI"],
-    githubUrl: "https://github.com/ioepethi/UAE-Intel",
-    thumbnail: { from: "#0f172a", to: "#3b82f6", glyph: "U" },
-    screenshot: "/images/uae-intel.png",
-    screenshotFit: "contain",
-    manual: [
-      {
-        title: "Run a search from the CLI",
-        description:
-          "Query the system for a UAE company, executive, founder, or decision-maker by name or keyword.",
-      },
-      {
-        title: "Aggregate the research",
-        description:
-          "The research package gathers and cross-references public information into a structured profile.",
-      },
-      {
-        title: "Explore the dashboard",
-        description:
-          "The Next.js web dashboard presents profiles, relationships, and findings in a readable, filterable view.",
-      },
-      {
-        title: "Generate a report",
-        description:
-          "Export a structured report summarizing the findings for a person or company.",
       },
     ],
   },
