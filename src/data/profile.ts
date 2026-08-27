@@ -1,8 +1,8 @@
 export const profile = {
   name: "Joepeth Del Puerto",
   firstName: "Joepeth",
-  role: "Office Admin | Admin Assistant",
-  eyebrow: "OFFICE ADMIN | ADMIN ASSISTANT",
+  role: "Office Admin | Admin Assistant | Office Coordinator",
+  eyebrow: "OFFICE ADMIN | ADMIN ASSISTANT | OFFICE COORDINATOR",
   location: "Dubai, United Arab Emirates",
   email: "joepethdelpuerto@outlook.com",
   phone: "+971 55 284 6874",
@@ -14,7 +14,7 @@ export const profile = {
   facebook: "https://facebook.com/joepeth.delpuerto",
   // Profile image — drop a file at public/images/joepeth-del-puerto.jpg
   image: "/images/joepeth-del-puerto.jpg",
-  imageAlt: "Portrait of Joepeth Del Puerto, Office Admin & Admin Assistant in Dubai",
+  imageAlt: "Portrait of Joepeth Del Puerto, Office Admin, Admin Assistant & Office Coordinator in Dubai",
   // Canonical / deployed URL (update when live domain is known)
   url: "https://joepeth-del-puerto.pages.dev",
 } as const;

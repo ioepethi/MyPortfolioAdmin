@@ -1,24 +1,15 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { profile } from "@/data/profile";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import { ThemeProvider } from "@/components/ui/ThemeProvider";
 
 const title = `${profile.name} — ${profile.role}`;
 const description =
-  "Office Admin & Admin Assistant in Dubai with 4+ years in administration, operations, reporting, documentation, and IT support. Open to opportunities across the UAE.";
+  "Office Admin, Admin Assistant & Office Coordinator in Dubai with 4+ years in administration, operations, reporting, documentation, and IT support. Open to opportunities across the UAE.";
 const keywords = [
   "Office Admin Dubai",
   "Administrative Assistant Dubai",
+  "Office Coordinator Dubai",
   "Administrative Coordinator",
   "Office Administration",
   "Operations Administration",
@@ -105,14 +96,22 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className="h-full antialiased"
+      suppressHydrationWarning
     >
       <body className="min-h-full bg-[var(--color-bg)] font-sans text-[var(--color-fg)]">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
         />
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem={false}
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

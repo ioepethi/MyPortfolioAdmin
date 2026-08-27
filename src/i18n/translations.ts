@@ -40,14 +40,14 @@ export const translations = {
       eyebrow: "About Me",
       heading: "Administration with an eye for efficiency.",
       body: "Results-driven Administrative & Operations Professional with 4+ years of experience in administration, operations, and IT support across the UAE and the Philippines. I bring an ownership mentality, strong accountability, and a passion for improving processes, enabling team success, and delivering operational excellence.",
-      itHeading: "Where my IT background strengthens my work",
+      itHeading: "Where My IT Background Strengthens My Work",
       itPoints: [
-        "Stronger understanding of digital workflows",
-        "Confident technical troubleshooting and IT support",
-        "Comfortable working with databases and records",
-        "Advanced Microsoft Office and Excel capability",
-        "IT asset management and reporting",
-        "Process improvement backed by systems thinking",
+        "Digital Workflow & Systems — Strong understanding of digital workflows, business systems, and technology-driven processes.",
+        "Technical Support — Confident in troubleshooting hardware, software, network, and user-related technical issues.",
+        "Data & Records Management — Comfortable managing databases, digital records, documentation, and information with accuracy.",
+        "Microsoft Office & Excel — Advanced proficiency in Microsoft Office, with strong Excel capabilities for reporting, tracking, and data analysis.",
+        "IT Asset & Resource Management — Experienced in tracking, maintaining, and reporting on IT assets, equipment, and office resources.",
+        "Process Improvement — Apply systems thinking to identify inefficiencies, streamline workflows, and improve operational processes.",
       ],
       closing: "My IT degree is a professional advantage for administration — not a separate career. It helps me keep work moving, records accurate, and teams supported.",
       aiHeading: "Currently building with AI automation",
@@ -72,12 +72,15 @@ export const translations = {
     skills: {
       eyebrow: "Core Competencies",
       heading: "A toolkit built for operations.",
-      subheading: "Grouped by the work I actually do day to day.",
+      subheading:
+        "The systems I use to keep offices organized, communication moving, documents controlled, and everyday operations running smoothly.",
       groups: {
-        administration: "Administration & Operations",
-        reporting: "Reporting & Productivity",
-        documentation: "Documentation & Records",
-        it: "Information Technology",
+        communication: "Communication",
+        documents: "Office & Documents",
+        control: "Document Control",
+        coordination: "Coordination",
+        automation: "Automation",
+        operations: "Operations",
       },
     },
     experience: {
@@ -144,7 +147,7 @@ export const translations = {
     contact: {
       eyebrow: "Contact",
       heading: "Let's make work flow better.",
-      body: "I'm open to Office Admin, Administrative Assistant, and Operations opportunities across the UAE. If you need someone organized, dependable, and technically comfortable, I'd love to hear from you.",
+      body: "I'm open to Office Admin, Administrative Assistant, Office Coordinator, and Operations opportunities across the UAE. If you need someone organized, dependable, and technically comfortable, I'd love to hear from you.",
       emailLabel: "Email",
       phoneLabel: "Phone",
       locationLabel: "Location",
@@ -152,7 +155,7 @@ export const translations = {
       connectHeading: "Let's Connect",
     },
     footer: {
-      tagline: "Office Admin | Admin Assistant",
+      tagline: "Office Admin | Admin Assistant | Office Coordinator",
       builtWith: "Built with care",
       rights: "© 2026 Joepeth Del Puerto. All rights reserved.",
       backToTop: "Back to top",
@@ -217,12 +220,15 @@ export const translations = {
     skills: {
       eyebrow: "Pangunahing Kakayahan",
       heading: "Isang toolkit para sa operasyon.",
-      subheading: "Naka-grupo ayon sa pang-araw-araw na trabaho.",
+      subheading:
+        "Ang mga system na ginagamit ko upang mapanatiling organisado ang opisina, umaandar ang komunikasyon, kontrolado ang dokumento, at maayos ang pang-araw-araw na operasyon.",
       groups: {
-        administration: "Administrasyon & Operasyon",
-        reporting: "Pag-uulat & Produktibidad",
-        documentation: "Dokumentasyon & Records",
-        it: "Information Technology",
+        communication: "Komunikasyon",
+        documents: "Opisina & Dokumento",
+        control: "Kontrol ng Dokumento",
+        coordination: "Koordinasyon",
+        automation: "Awtomasyon",
+        operations: "Operasyon",
       },
     },
     experience: {
@@ -289,7 +295,7 @@ export const translations = {
     contact: {
       eyebrow: "Kontak",
       heading: "Papanlahing mas maayos ang daloy ng trabaho.",
-      body: "Bukas ako sa Office Admin, Administrative Assistant, at Operations na pagkakataon sa buong UAE. Kung naghahanap kayo ng organisado, mapagkakatiwalaan, at komportable sa teknolohiya, nais kong makarinig mula sa inyo.",
+      body: "Bukas ako sa Office Admin, Administrative Assistant, Office Coordinator, at Operations na pagkakataon sa buong UAE. Kung naghahanap kayo ng organisado, mapagkakatiwalaan, at komportable sa teknolohiya, nais kong makarinig mula sa inyo.",
       emailLabel: "Email",
       phoneLabel: "Telepono",
       locationLabel: "Lokasyon",
@@ -297,7 +303,7 @@ export const translations = {
       connectHeading: "Makipag-ugnayan",
     },
     footer: {
-      tagline: "Office Admin | Admin Assistant",
+      tagline: "Office Admin | Admin Assistant | Office Coordinator",
       builtWith: "Gawa ng may pag-iingat",
       rights: "© 2026 Joepeth Del Puerto. Lahat ng karapatan ay nakareserba.",
       backToTop: "Bumalik sa taas",

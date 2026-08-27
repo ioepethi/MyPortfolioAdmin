@@ -1,27 +1,48 @@
 @import "tailwindcss";
 
 @theme {
-  /* Color system — sophisticated corporate dark */
+  /* Color system — Cloudflare-inspired dark canvas */
   --color-bg: #0a0b0e;
   --color-bg-elevated: #111319;
   --color-surface: #161922;
-  --color-border: rgba(255, 255, 255, 0.08);
-  --color-border-strong: rgba(255, 255, 255, 0.14);
+  --color-border: rgba(226, 232, 240, 0.08);
+  --color-border-strong: rgba(226, 232, 240, 0.14);
   --color-fg: #e8eaf0;
   --color-muted: #9aa3b2;
   --color-subtle: #6b7383;
-  --color-accent: #8b9dff;
-  --color-accent-soft: rgba(139, 157, 255, 0.16);
+  --color-accent: #f38020;
+  --color-accent-soft: rgba(243, 128, 32, 0.16);
   --color-navy: #1b2233;
 
-  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  /* System font stack — zero layout shift, native feel (Cloudflare-style) */
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Helvetica Neue", Arial, sans-serif;
+  /* Monospace — for technical data, IPs, config, code */
+  --font-mono: SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo,
+    "Courier New", monospace;
 
-  --radius: 1rem;
+  --radius: 0.5rem;
 }
 
 :root {
   color-scheme: dark;
+}
+
+/* Light theme — Cloudflare dashboard aesthetic */
+.light {
+  color-scheme: light;
+
+  --color-bg: #f7f8fa;
+  --color-bg-elevated: #ffffff;
+  --color-surface: #ffffff;
+  --color-border: rgba(15, 23, 42, 0.10);
+  --color-border-strong: rgba(15, 23, 42, 0.16);
+  --color-fg: #0f172a;
+  --color-muted: #475569;
+  --color-subtle: #94a3b8;
+  --color-accent: #f38020;
+  --color-accent-soft: rgba(243, 128, 32, 0.12);
+  --color-navy: #e2e8f0;
 }
 
 html {
@@ -44,21 +65,44 @@ body {
   overflow-x: hidden;
 }
 
-/* Ambient background gradient */
+/* Ambient background — Cloudflare-style canvas dot grid + soft orange glow */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   z-index: -1;
   background:
-    radial-gradient(60rem 60rem at 80% -10%, rgba(139, 157, 255, 0.08), transparent 60%),
-    radial-gradient(50rem 50rem at -10% 20%, rgba(27, 34, 51, 0.6), transparent 60%),
-    radial-gradient(40rem 40rem at 50% 120%, rgba(139, 157, 255, 0.05), transparent 60%);
+    /* dot grid canvas texture */
+    radial-gradient(rgba(226, 232, 240, 0.035) 1px, transparent 1px),
+    /* soft orange accent glow */
+    radial-gradient(60rem 60rem at 85% -10%, rgba(243, 128, 32, 0.07), transparent 60%),
+    /* deep navy depth */
+    radial-gradient(50rem 50rem at -10% 20%, rgba(27, 34, 51, 0.55), transparent 60%),
+    radial-gradient(40rem 40rem at 50% 120%, rgba(243, 128, 32, 0.04), transparent 60%);
+  background-size: 22px 22px, 100% 100%, 100% 100%, 100% 100%;
   pointer-events: none;
 }
 
 ::selection {
-  background: rgba(139, 157, 255, 0.28);
+  background: rgba(243, 128, 32, 0.28);
+  color: #fff;
+}
+
+/* Light theme — background texture */
+.light body::before {
+  background:
+    /* dot grid canvas texture — darker dots on light */
+    radial-gradient(rgba(15, 23, 42, 0.06) 1px, transparent 1px),
+    /* soft orange accent glow */
+    radial-gradient(60rem 60rem at 85% -10%, rgba(243, 128, 32, 0.06), transparent 60%),
+    /* cool slate depth */
+    radial-gradient(50rem 50rem at -10% 20%, rgba(226, 232, 240, 0.5), transparent 60%),
+    radial-gradient(40rem 40rem at 50% 120%, rgba(243, 128, 32, 0.03), transparent 60%);
+  background-size: 22px 22px, 100% 100%, 100% 100%, 100% 100%;
+}
+
+/* Light theme — selection text should be dark on orange */
+.light ::selection {
   color: #fff;
 }
 
@@ -67,17 +111,31 @@ body::before {
   width: 10px;
   height: 10px;
 }
+
 ::-webkit-scrollbar-track {
   background: transparent;
 }
+
 ::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.1);
   border-radius: 999px;
   border: 2px solid transparent;
   background-clip: padding-box;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.2);
+  background-clip: padding-box;
+}
+
+/* Light theme — scrollbar */
+.light ::-webkit-scrollbar-thumb {
+  background: rgba(15, 23, 42, 0.15);
+  background-clip: padding-box;
+}
+
+.light ::-webkit-scrollbar-thumb:hover {
+  background: rgba(15, 23, 42, 0.25);
   background-clip: padding-box;
 }
 
@@ -86,23 +144,38 @@ body::before {
   .text-balance {
     text-wrap: balance;
   }
+
   .text-pretty {
     text-wrap: pretty;
   }
+
   .glass {
     background: rgba(17, 19, 25, 0.6);
     backdrop-filter: blur(12px) saturate(140%);
     -webkit-backdrop-filter: blur(12px) saturate(140%);
   }
+
+  .light .glass {
+    background: rgba(255, 255, 255, 0.72);
+  }
+
   .border-hair {
     border: 1px solid var(--color-border);
   }
+
   .bg-grid {
     background-image:
-      linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+      linear-gradient(to right, rgba(226, 232, 240, 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(226, 232, 240, 0.04) 1px, transparent 1px);
     background-size: 56px 56px;
   }
+
+  .light .bg-grid {
+    background-image:
+      linear-gradient(to right, rgba(15, 23, 42, 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(15, 23, 42, 0.05) 1px, transparent 1px);
+  }
+
   .mask-fade-b {
     -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent);
     mask-image: linear-gradient(to bottom, black 60%, transparent);
@@ -120,6 +193,7 @@ body::before {
 .link-underline {
   position: relative;
 }
+
 .link-underline::after {
   content: "";
   position: absolute;
@@ -132,6 +206,7 @@ body::before {
   transform-origin: right;
   transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
+
 .link-underline:hover::after,
 .link-underline:focus-visible::after {
   transform: scaleX(1);

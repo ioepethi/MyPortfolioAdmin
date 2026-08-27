@@ -7,6 +7,7 @@ import { navItems } from "@/data/nav";
 import { useLanguage } from "@/i18n/LanguageProvider";
 import { useActiveSection } from "./ui/useActiveSection";
 import { LanguageSwitcher } from "./ui/LanguageSwitcher";
+import { ThemeToggle } from "./ui/ThemeToggle";
 import { cn } from "@/lib/utils";
 
 export function Navbar() {
@@ -104,6 +105,7 @@ export function Navbar() {
             {/* Right cluster */}
             <div className="flex items-center gap-2">
               <LanguageSwitcher />
+              <ThemeToggle />
               <a
                 href="#contact"
                 onClick={(e) => {
@@ -147,21 +149,24 @@ export function Navbar() {
                 reduce
                   ? { hidden: { opacity: 0 }, visible: { opacity: 1 }, exit: { opacity: 0 } }
                   : {
-                      hidden: { x: "100%" },
-                      visible: { x: 0, transition: { type: "spring", stiffness: 320, damping: 34 } },
-                      exit: { x: "100%", transition: { duration: 0.3 } },
-                    }
+                    hidden: { x: "100%" },
+                    visible: { x: 0, transition: { type: "spring", stiffness: 320, damping: 34 } },
+                    exit: { x: "100%", transition: { duration: 0.3 } },
+                  }
               }
             >
               <div className="flex items-center justify-between">
                 <span className="text-sm font-medium text-[var(--color-muted)]">Menu</span>
-                <button
-                  onClick={() => setOpen(false)}
-                  aria-label={t("nav.closeMenu")}
-                  className="grid h-10 w-10 place-items-center rounded-full border-hair text-[var(--color-fg)]"
-                >
-                  <X size={18} strokeWidth={1.75} />
-                </button>
+                <div className="flex items-center gap-2">
+                  <ThemeToggle />
+                  <button
+                    onClick={() => setOpen(false)}
+                    aria-label={t("nav.closeMenu")}
+                    className="grid h-10 w-10 place-items-center rounded-full border-hair text-[var(--color-fg)]"
+                  >
+                    <X size={18} strokeWidth={1.75} />
+                  </button>
+                </div>
               </div>
 
               <ul className="mt-8 flex flex-col gap-1">
@@ -174,9 +179,9 @@ export function Navbar() {
                         reduce
                           ? undefined
                           : {
-                              hidden: { opacity: 0, x: 20 },
-                              visible: { opacity: 1, x: 0, transition: { delay: 0.08 + i * 0.05 } },
-                            }
+                            hidden: { opacity: 0, x: 20 },
+                            visible: { opacity: 1, x: 0, transition: { delay: 0.08 + i * 0.05 } },
+                          }
                       }
                     >
                       <button
