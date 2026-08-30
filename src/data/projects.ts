@@ -40,7 +40,7 @@ export const projects: Project[] = [
     liveUrl: "https://uoffice-app.pages.dev",
     githubUrl: "https://github.com/ioepethi/U-Office",
     thumbnail: { from: "#312e81", to: "#6366f1", glyph: "U" },
-    screenshot: "/images/u-office-dashboard.png",
+    screenshot: "/images/u-office-login.png",
     detailScreenshot: "/images/u-office-dashboard.png",
     manual: [
       {
