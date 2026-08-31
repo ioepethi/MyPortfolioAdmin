@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion, type Variants } from "motion/react";
-import { ArrowRight, ArrowUpRight, MapPin, Sparkles } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Download, MapPin, Sparkles } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageProvider";
 import { profile } from "@/data/profile";
 import { ProfileImage } from "./ui/ProfileImage";
@@ -92,6 +92,14 @@ export function Hero() {
             >
               {t("hero.secondaryCta")}
             </button>
+            <a
+              href="/Joepeth-Del-Puerto-CV.pdf"
+              download
+              className="inline-flex items-center gap-2 rounded-full border-hair px-5 py-3 text-sm font-medium text-[var(--color-fg)] transition-colors duration-300 hover:bg-white/[0.04]"
+            >
+              {t("hero.downloadCta")}
+              <Download size={15} strokeWidth={2} />
+            </a>
             <button
               onClick={() => scrollTo("projects", reduce)}
               className="link-underline inline-flex items-center gap-1.5 px-2 py-3 text-sm font-medium text-[var(--color-muted)] transition-colors hover:text-[var(--color-fg)]"

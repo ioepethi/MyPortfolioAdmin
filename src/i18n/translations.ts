@@ -34,6 +34,7 @@ export const translations = {
       primaryCta: "View My Experience",
       secondaryCta: "Get In Touch",
       tertiaryCta: "View Projects",
+      downloadCta: "Download CV",
       availability: "Open to opportunities in the UAE",
     },
     about: {
@@ -182,6 +183,7 @@ export const translations = {
       primaryCta: "Tingnan ang Karanasan",
       secondaryCta: "Makipag-ugnayan",
       tertiaryCta: "Tingnan ang Proyekto",
+      downloadCta: "I-download ang CV",
       availability: "Bukas sa mga pagkakataon sa UAE",
     },
     about: {
