@@ -122,48 +122,48 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           ? { duration: 0.3 }
           : { duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: index * 0.1 }
       }
-      className="group flex flex-col overflow-hidden rounded-3xl border-hair bg-[var(--color-surface)]/50 p-4 transition-colors duration-300 hover:border-[var(--color-border-strong)]"
+      className="group flex flex-col overflow-hidden rounded-2xl border-hair bg-[var(--color-surface)]/50 p-3 transition-colors duration-300 hover:border-[var(--color-border-strong)]"
     >
       <Link href={`/projects/${project.id}`} aria-label={`${project.name} — ${t("projects.viewDetails")}`}>
         <ProjectThumbnail project={project} />
       </Link>
 
-      <div className="flex flex-1 flex-col gap-4 p-4">
+      <div className="flex flex-1 flex-col gap-3 p-3">
         <div className="flex items-center justify-between gap-3">
           <Link
             href={`/projects/${project.id}`}
-            className="text-xl font-semibold tracking-tight transition-colors duration-300 hover:text-[var(--color-accent)]"
+            className="text-base font-semibold tracking-tight transition-colors duration-300 hover:text-[var(--color-accent)]"
           >
             {project.name}
           </Link>
-          <span className="rounded-full border-hair px-2.5 py-1 text-[10px] font-medium uppercase tracking-wider text-[var(--color-subtle)]">
+          <span className="rounded-full border-hair px-2 py-0.5 text-[9px] font-medium uppercase tracking-wider text-[var(--color-subtle)]">
             {t(project.categoryKey)}
           </span>
         </div>
 
-        <p className="text-pretty text-sm leading-relaxed text-[var(--color-muted)]">
+        <p className="text-pretty text-xs leading-relaxed text-[var(--color-muted)]">
           {description}
         </p>
 
-        <ul className="flex flex-wrap gap-2">
+        <ul className="flex flex-wrap gap-1.5">
           {project.tags.map((tag) => (
             <li
               key={tag}
-              className="rounded-full bg-white/[0.04] px-2.5 py-1 text-xs font-medium text-[var(--color-fg)]/80"
+              className="rounded-full bg-white/[0.04] px-2 py-0.5 text-[11px] font-medium text-[var(--color-fg)]/80"
             >
               {tag}
             </li>
           ))}
         </ul>
 
-        <div className="mt-auto flex flex-wrap items-center gap-3 pt-2">
+        <div className="mt-auto flex flex-wrap items-center gap-2 pt-2">
           <Link
             href={`/projects/${project.id}`}
-            className="group/btn inline-flex items-center gap-2 rounded-full border-hair px-4 py-2.5 text-sm font-medium text-[var(--color-fg)] transition-colors duration-300 hover:bg-white/[0.04]"
+            className="group/btn inline-flex items-center gap-1.5 rounded-full border-hair px-3 py-2 text-xs font-medium text-[var(--color-fg)] transition-colors duration-300 hover:bg-white/[0.04]"
           >
             {t("projects.viewDetails")}
             <ArrowRight
-              size={15}
+              size={13}
               strokeWidth={2}
               className="transition-transform duration-300 group-hover/btn:translate-x-0.5"
             />
@@ -173,11 +173,11 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               href={project.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="group/btn inline-flex items-center gap-2 rounded-full bg-[var(--color-fg)] px-4 py-2.5 text-sm font-medium text-[var(--color-bg)] transition-transform duration-300 hover:-translate-y-0.5"
+              className="group/btn inline-flex items-center gap-1.5 rounded-full bg-[var(--color-fg)] px-3 py-2 text-xs font-medium text-[var(--color-bg)] transition-transform duration-300 hover:-translate-y-0.5"
             >
               {t("projects.liveDemo")}
               <ArrowUpRight
-                size={15}
+                size={13}
                 strokeWidth={2}
                 className="transition-transform duration-300 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5"
               />
@@ -188,9 +188,9 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full border-hair px-4 py-2.5 text-sm font-medium text-[var(--color-fg)] transition-colors duration-300 hover:bg-white/[0.04]"
+              className="inline-flex items-center gap-1.5 rounded-full border-hair px-3 py-2 text-xs font-medium text-[var(--color-fg)] transition-colors duration-300 hover:bg-white/[0.04]"
             >
-              <GithubIcon size={15} />
+              <GithubIcon size={13} />
               {t("projects.viewCode")}
             </a>
           )}
@@ -205,7 +205,7 @@ export function Projects() {
 
   return (
     <section id="projects" className="relative py-24 sm:py-32">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+      <div className="w-full px-4 sm:px-8 lg:px-12">
         <SectionHeading
           eyebrow={t("projects.eyebrow")}
           heading={t("projects.heading")}
@@ -216,7 +216,7 @@ export function Projects() {
           <h3 className="mb-5 text-sm font-semibold uppercase tracking-[0.15em] text-[var(--color-subtle)]">
             {t("projects.categories.web")}
           </h3>
-          <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {projects.map((p, i) => (
               <ProjectCard key={p.id} project={p} index={i} />
             ))}

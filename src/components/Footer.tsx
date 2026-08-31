@@ -10,7 +10,7 @@ export function Footer() {
 
   return (
     <footer className="relative border-t border-[var(--color-border)] py-12">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+      <div className="w-full px-4 sm:px-8 lg:px-12">
         <div className="flex flex-col items-center justify-between gap-8 sm:flex-row sm:items-start">
           <div className="flex flex-col items-center gap-2 sm:items-start">
             <button

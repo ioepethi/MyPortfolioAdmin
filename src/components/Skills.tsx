@@ -28,7 +28,7 @@ export function Skills() {
 
   return (
     <section id="skills" className="relative py-24 sm:py-32">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+      <div className="w-full px-4 sm:px-8 lg:px-12">
         <SectionHeading
           eyebrow={t("skills.eyebrow")}
           heading={t("skills.heading")}

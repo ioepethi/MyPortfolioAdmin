@@ -56,7 +56,7 @@ export function Hero() {
         </>
       )}
 
-      <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-12 px-4 pb-20 sm:px-6 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16 lg:pb-28">
+      <div className="grid w-full grid-cols-1 items-center gap-12 px-4 pb-20 sm:px-8 lg:px-12 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16 lg:pb-28">
         {/* Left: copy */}
         <motion.div variants={container} initial="hidden" animate="visible" className="relative z-10">
           <motion.div variants={item} className="mb-6 inline-flex items-center gap-2 rounded-full border-hair bg-white/[0.03] px-3.5 py-1.5 text-xs font-medium uppercase tracking-[0.18em] text-[var(--color-muted)]">

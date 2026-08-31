@@ -12,7 +12,7 @@ export function Education() {
 
   return (
     <section id="education" className="relative py-24 sm:py-32">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+      <div className="w-full px-4 sm:px-8 lg:px-12">
         <SectionHeading
           eyebrow={t("education.eyebrow")}
           heading={t("education.heading")}

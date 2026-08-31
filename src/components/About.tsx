@@ -14,7 +14,7 @@ export function About() {
 
   return (
     <section id="about" className="relative py-24 sm:py-32">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+      <div className="w-full px-4 sm:px-8 lg:px-12">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
           {/* Left: heading */}
           <div className="lg:sticky lg:top-28 lg:self-start">

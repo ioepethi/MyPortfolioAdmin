@@ -34,7 +34,7 @@ export function Contact() {
 
   return (
     <section id="contact" className="relative py-24 sm:py-32">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+      <div className="w-full px-4 sm:px-8 lg:px-12">
         <div className="relative overflow-hidden rounded-[2rem] border-hair bg-[var(--color-surface)]/60 p-8 sm:p-12 lg:p-16">
           {/* Ambient glow */}
           <div className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-[var(--color-accent)]/10 blur-3xl" />

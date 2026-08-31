@@ -46,7 +46,7 @@ export function Navbar() {
           scrolled ? "py-3" : "py-5"
         )}
       >
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="w-full px-4 sm:px-8 lg:px-12">
           <nav
             className={cn(
               "flex items-center justify-between rounded-full px-3 py-2 transition-all duration-500",
@@ -70,7 +70,7 @@ export function Navbar() {
             </button>
 
             {/* Desktop nav */}
-            <ul className="hidden items-center gap-1 md:flex">
+            <ul className="hidden items-center gap-1 border-x border-[var(--color-border)] px-4 md:flex">
               {navItems.map((item) => {
                 const isActive = active === item.id;
                 return (
@@ -103,7 +103,7 @@ export function Navbar() {
             </ul>
 
             {/* Right cluster */}
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3 pl-2">
               <LanguageSwitcher />
               <ThemeToggle />
               <a
