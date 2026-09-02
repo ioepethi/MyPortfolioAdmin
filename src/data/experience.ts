@@ -24,6 +24,7 @@ export const experiences: Experience[] = [
       "Served as central liaison for 30+ clients and vendors, resolving service delivery issues within 24 hours and strengthening client relationships",
       "Monitored office inventory and equipment availability, reducing stockouts by 20%, and lowering procurement costs through vendor negotiation",
       "Prepare quotations and service proposals, supporting a 15% increase in successful bid submissions",
+      "Proposed and enhanced U-Office, an internal CRM and office administration system, centralizing client records, service activities, technician schedules, documentation, meeting coordination, and follow-ups, reducing manual administrative tracking by 10% and improving operational efficiency",
     ],
   },
   {
