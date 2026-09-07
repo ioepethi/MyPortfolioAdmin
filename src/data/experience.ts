@@ -24,7 +24,6 @@ export const experiences: Experience[] = [
       "Served as central liaison for 30+ clients and vendors, resolving service delivery issues within 24 hours and strengthening client relationships",
       "Monitored office inventory and equipment availability, reducing stockouts by 20%, and lowering procurement costs through vendor negotiation",
       "Prepare quotations and service proposals, supporting a 15% increase in successful bid submissions",
-      "Proposed and enhanced U-Office, an internal CRM and office administration system, centralizing client records, service activities, technician schedules, documentation, meeting coordination, and follow-ups, reducing manual administrative tracking by 10% and improving operational efficiency",
     ],
   },
   {
@@ -34,8 +33,8 @@ export const experiences: Experience[] = [
     location: "Cagayan de Oro City, Philippines",
     period: "May 2018 – Mar 2024",
     current: false,
-    note: "Promoted from IT Help Desk Support to Administrative Coordinator",
     responsibilities: [
+      "Promoted from IT Help Desk Support to Administrative Coordinator in recognition of strong performance, technical expertise, and dependable service — expanding scope to office administration, records management, and data accuracy",
       "Prepared reports and maintained administrative records and databases, ensuring high accuracy through consistent data entry and rigorous record maintenance protocols",
       "Managed office resources, procurement, and vendor coordination, ensuring timely, cost-effective supply of materials through organized vendor management and accurate record-keeping",
       "Delivered professional IT support, troubleshooting hardware and software issues across the organization, while managing IT assets with meticulous tracking to ensure data security and minimal downtime",
