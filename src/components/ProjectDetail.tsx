@@ -99,6 +99,17 @@ export function ProjectDetail({ project }: { project: Project }) {
               <ExternalLink size={14} strokeWidth={2} />
             </a>
           )}
+          {project.adminUrl && (
+            <a
+              href={project.adminUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group/btn inline-flex items-center gap-2 rounded-full border-hair px-4 py-2.5 text-sm font-medium text-[var(--color-accent)] transition-colors duration-300 hover:bg-[var(--color-accent-soft)]"
+            >
+              {t("projects.admin")}
+              <ExternalLink size={14} strokeWidth={2} />
+            </a>
+          )}
           {project.githubUrl && (
             <a
               href={project.githubUrl}
@@ -189,22 +200,41 @@ export function ProjectDetail({ project }: { project: Project }) {
         </div>
       </section>
 
-      {project.liveUrl && (
+      {(project.liveUrl || project.adminUrl) && (
         <div className="mt-14 flex flex-col items-start gap-3 rounded-3xl border-hair bg-[var(--color-surface)]/50 p-6 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-sm text-[var(--color-muted)]">See it running with real data.</p>
-          <a
-            href={project.liveUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group/btn inline-flex items-center gap-2 rounded-full bg-[var(--color-fg)] px-4 py-2.5 text-sm font-medium text-[var(--color-bg)] transition-transform duration-300 hover:-translate-y-0.5"
-          >
-            {t("projects.liveDemo")}
-            <ArrowUpRight
-              size={15}
-              strokeWidth={2}
-              className="transition-transform duration-300 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5"
-            />
-          </a>
+          <div className="flex flex-wrap items-center gap-3">
+            {project.liveUrl && (
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group/btn inline-flex items-center gap-2 rounded-full bg-[var(--color-fg)] px-4 py-2.5 text-sm font-medium text-[var(--color-bg)] transition-transform duration-300 hover:-translate-y-0.5"
+              >
+                {t("projects.liveDemo")}
+                <ArrowUpRight
+                  size={15}
+                  strokeWidth={2}
+                  className="transition-transform duration-300 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5"
+                />
+              </a>
+            )}
+            {project.adminUrl && (
+              <a
+                href={project.adminUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group/btn inline-flex items-center gap-2 rounded-full border-hair px-4 py-2.5 text-sm font-medium text-[var(--color-accent)] transition-colors duration-300 hover:bg-[var(--color-accent-soft)]"
+              >
+                {t("projects.admin")}
+                <ArrowUpRight
+                  size={15}
+                  strokeWidth={2}
+                  className="transition-transform duration-300 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5"
+                />
+              </a>
+            )}
+          </div>
         </div>
       )}
     </main>

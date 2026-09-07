@@ -13,6 +13,7 @@ export type Project = {
   tags: string[];
   liveUrl?: string;
   githubUrl?: string;
+  adminUrl?: string;
   /** Visual identity for the generated thumbnail. */
   thumbnail: {
     from: string;
@@ -190,6 +191,7 @@ export const projects: Project[] = [
     blurb: "Eco-friendly home store built for my own business",
     tags: ["React", "Vite", "Tailwind CSS", "Stripe"],
     liveUrl: "https://brandpeth-ae.pages.dev",
+    adminUrl: "https://admin.brandpeth.cloud",
     thumbnail: { from: "#064e3b", to: "#10b981", glyph: "B" },
     screenshot: "/images/brandpeth.jpg",
     manual: [
@@ -223,6 +225,7 @@ export const projects: Project[] = [
     blurb: "Eco-friendly pest control & garden care, built for my own business",
     tags: ["React", "Vite", "Tailwind CSS"],
     liveUrl: "https://pestbrand-ae.pages.dev",
+    adminUrl: "https://admin.brandpeth.cloud",
     thumbnail: { from: "#14532d", to: "#3f8f56", glyph: "P" },
     screenshot: "/images/pestbrand.png",
     manual: [

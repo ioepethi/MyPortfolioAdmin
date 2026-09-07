@@ -7,6 +7,7 @@ export const profile = {
   email: "joepethdelpuerto@outlook.com",
   phone: "+971 55 284 6874",
   phoneHref: "tel:+971552846874",
+  whatsappHref: "https://wa.me/971552846874",
   linkedin: "https://linkedin.com/in/joepethdelpuerto",
   github: "https://github.com/ioepethi",
   // Leave facebook empty until a verified URL is provided.

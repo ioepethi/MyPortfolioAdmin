@@ -6,6 +6,7 @@ import { useLanguage } from "@/i18n/LanguageProvider";
 import { profile } from "@/data/profile";
 import { SocialLinks } from "./ui/SocialLinks";
 import { Reveal } from "./ui/Reveal";
+import { WhatsappIcon } from "./ui/BrandIcons";
 
 export function Contact() {
   const { t } = useLanguage();
@@ -23,6 +24,12 @@ export function Contact() {
       label: t("contact.phoneLabel"),
       value: profile.phone,
       href: profile.phoneHref,
+    },
+    {
+      icon: WhatsappIcon,
+      label: "WhatsApp",
+      value: profile.phone,
+      href: profile.whatsappHref,
     },
     {
       icon: MapPin,

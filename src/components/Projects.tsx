@@ -183,6 +183,21 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               />
             </a>
           )}
+          {project.adminUrl && (
+            <a
+              href={project.adminUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group/btn inline-flex items-center gap-2 rounded-full border-hair px-4 py-2.5 text-sm font-medium text-[var(--color-accent)] transition-colors duration-300 hover:bg-[var(--color-accent-soft)]"
+            >
+              {t("projects.admin")}
+              <ArrowUpRight
+                size={15}
+                strokeWidth={2}
+                className="transition-transform duration-300 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5"
+              />
+            </a>
+          )}
           {project.githubUrl && (
             <a
               href={project.githubUrl}

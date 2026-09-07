@@ -1,6 +1,6 @@
 "use client";
 
-import { GithubIcon, LinkedinIcon, FacebookIcon } from "./BrandIcons";
+import { GithubIcon, LinkedinIcon, FacebookIcon, WhatsappIcon } from "./BrandIcons";
 import { visibleSocialLinks, type SocialLink } from "@/data/social";
 import { cn } from "@/lib/utils";
 
@@ -8,6 +8,7 @@ const iconMap = {
   linkedin: LinkedinIcon,
   github: GithubIcon,
   facebook: FacebookIcon,
+  whatsapp: WhatsappIcon,
 } as const;
 
 export function SocialLinks({

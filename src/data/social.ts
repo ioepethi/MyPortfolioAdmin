@@ -1,7 +1,7 @@
 import { profile } from "./profile";
 
 export type SocialLink = {
-  key: "linkedin" | "github" | "facebook";
+  key: "linkedin" | "github" | "facebook" | "whatsapp";
   label: string;
   href: string;
   /** Shown only when href is non-empty. */
@@ -30,6 +30,12 @@ export const socialLinks: SocialLink[] = [
     label: "Facebook",
     href: profile.facebook,
     enabled: Boolean(profile.facebook),
+  },
+  {
+    key: "whatsapp",
+    label: "WhatsApp",
+    href: profile.whatsappHref,
+    enabled: Boolean(profile.whatsappHref),
   },
 ];
 
