@@ -157,6 +157,7 @@ export const projects: Project[] = [
     descriptionKey: "projects.items.edgePlusWebsite.description",
     blurb: "Customer-facing gym website built as a portfolio project",
     tags: ["Next.js", "TypeScript", "Tailwind CSS", "Cloudflare"],
+    liveUrl: "https://edge-plus-website.pages.dev/",
     githubUrl: "https://github.com/ioepethi/Edge-Plus",
     thumbnail: { from: "#450a0a", to: "#ef4444", glyph: "E" },
     screenshot: "/images/edge-plus-website.png",
