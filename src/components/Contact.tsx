@@ -62,7 +62,7 @@ export function Contact() {
                 </h2>
               </Reveal>
               <Reveal delay={0.1}>
-                <p className="max-w-xl text-pretty text-base leading-relaxed text-[var(--color-muted)] sm:text-lg">
+                <p className="max-w-xl text-pretty text-base leading-relaxed text-[var(--color-muted)] whitespace-pre-line sm:text-lg">
                   {t("contact.body")}
                 </p>
               </Reveal>

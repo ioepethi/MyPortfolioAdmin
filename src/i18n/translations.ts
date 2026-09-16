@@ -149,7 +149,7 @@ export const translations = {
     contact: {
       eyebrow: "Contact",
       heading: "Let's make work flow better.",
-      body: "I'm open to Office Admin, Administrative Assistant, Office Coordinator, and Operations opportunities across the UAE. If you need someone organized, dependable, and technically comfortable, I'd love to hear from you.",
+      body: "OPEN TO WORK — UAE 🇦🇪\nOffice Administrator | Administrative Assistant | Office Coordinator | Operations\n\nI'm currently exploring opportunities across the UAE where I can contribute my experience in administration, operations, team coordination, customer service, reporting, and IT support.\n\nI'm organized, dependable, adaptable, and technically comfortable, with a strong focus on keeping daily operations running smoothly and supporting teams effectively.\n\nIf you're hiring or know of an opportunity that matches my background, I'd be happy to connect.\n\n📩 Feel free to reach out or share this post with your network.",
       emailLabel: "Email",
       phoneLabel: "Phone",
       locationLabel: "Location",
@@ -157,7 +157,7 @@ export const translations = {
       connectHeading: "Let's Connect",
     },
     footer: {
-      tagline: "Office Admin | Admin Assistant | Office Coordinator",
+      tagline: "Let's Grow Together",
       builtWith: "Built with care",
       rights: "© 2026 Joepeth Del Puerto. All rights reserved.",
       backToTop: "Back to top",
@@ -307,7 +307,7 @@ export const translations = {
       connectHeading: "Makipag-ugnayan",
     },
     footer: {
-      tagline: "Office Admin | Admin Assistant | Office Coordinator",
+      tagline: "Let's Grow Together",
       builtWith: "Gawa ng may pag-iingat",
       rights: "© 2026 Joepeth Del Puerto. Lahat ng karapatan ay nakareserba.",
       backToTop: "Bumalik sa taas",
