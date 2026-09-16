@@ -61,11 +61,6 @@ export function Contact() {
                   {t("contact.heading")}
                 </h2>
               </Reveal>
-              <Reveal delay={0.1}>
-                <p className="max-w-xl text-pretty text-base leading-relaxed text-[var(--color-muted)] whitespace-pre-line sm:text-lg">
-                  {t("contact.body")}
-                </p>
-              </Reveal>
               <Reveal delay={0.15}>
                 <a
                   href={`mailto:${profile.email}`}
