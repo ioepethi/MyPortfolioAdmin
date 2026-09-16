@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion, type Variants } from "motion/react";
-import { ArrowRight, ArrowUpRight, Download, MapPin, Sparkles } from "lucide-react";
+import { ArrowRight, ArrowUpRight, MapPin } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageProvider";
 import { profile } from "@/data/profile";
 import { ProfileImage } from "./ui/ProfileImage";
@@ -59,11 +59,6 @@ export function Hero() {
       <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-12 px-4 pb-20 sm:px-6 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16 lg:pb-28">
         {/* Left: copy */}
         <motion.div variants={container} initial="hidden" animate="visible" className="relative z-10">
-          <motion.div variants={item} className="mb-6 inline-flex items-center gap-2 rounded-full border-hair bg-white/[0.03] px-3.5 py-1.5 text-xs font-medium uppercase tracking-[0.18em] text-[var(--color-muted)]">
-            <Sparkles size={13} className="text-[var(--color-accent)]" strokeWidth={2} />
-            {profile.eyebrow}
-          </motion.div>
-
           <h1 className="text-balance text-5xl font-semibold leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl">
             <motion.span variants={item} className="block text-[var(--color-muted)]">
               {t("hero.greeting")}
@@ -92,14 +87,6 @@ export function Hero() {
             >
               {t("hero.secondaryCta")}
             </button>
-            <a
-              href="/Joepeth-Del-Puerto-CV.pdf"
-              download
-              className="inline-flex items-center gap-2 rounded-full border-hair px-5 py-3 text-sm font-medium text-[var(--color-fg)] transition-colors duration-300 hover:bg-white/[0.04]"
-            >
-              {t("hero.downloadCta")}
-              <Download size={15} strokeWidth={2} />
-            </a>
             <button
               onClick={() => scrollTo("projects", reduce)}
               className="link-underline inline-flex items-center gap-1.5 px-2 py-3 text-sm font-medium text-[var(--color-muted)] transition-colors hover:text-[var(--color-fg)]"
@@ -131,17 +118,6 @@ export function Hero() {
           className="relative z-10 mx-auto w-full max-w-sm lg:max-w-none"
         >
           <ProfileImage />
-          {/* Decorative floating chip */}
-          {!reduce && (
-            <motion.div
-              className="absolute -left-4 bottom-10 hidden rounded-2xl border-hair glass px-4 py-3 shadow-xl sm:block"
-              animate={{ y: [0, -10, 0] }}
-              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-            >
-              <p className="text-xs text-[var(--color-subtle)]">Experience</p>
-              <p className="text-lg font-semibold tracking-tight">4+ years</p>
-            </motion.div>
-          )}
         </motion.div>
       </div>
 

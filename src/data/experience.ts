@@ -12,18 +12,19 @@ export type Experience = {
 export const experiences: Experience[] = [
   {
     id: "unimar",
-    role: "Team Leader & Admin Coordinator",
-    company: "Unimar BLDG Services LLC",
+    role: "Team Leader",
+    company: "Unimar BLDG Service LLC",
     location: "Dubai, United Arab Emirates",
-    period: "Aug 2024 – Aug 2026",
+    period: "Aug 09, 2024 – Aug 30, 2026",
     current: false,
     responsibilities: [
-      "Prepared 20+ operational, management, and inspection reports monthly, maintaining full audit readiness for Dubai Municipality reviews",
-      "Leveraged strong organizational skills and multitasking to coordinate daily schedules and attendance for 25+ technicians across multiple client sites, ensuring on-time service delivery with meticulous attention to detail",
-      "Maintained 100% documentation compliance and efficient document management systems, passing all Dubai Municipality inspections with zero non-conformities over two years",
-      "Served as central liaison for 30+ clients and vendors, resolving service delivery issues within 24 hours and strengthening client relationships",
-      "Monitored office inventory and equipment availability, reducing stockouts by 20%, and lowering procurement costs through vendor negotiation",
-      "Prepare quotations and service proposals, supporting a 15% increase in successful bid submissions",
+      "Led and coordinated a team of pest control technicians, assigning daily tasks, managing schedules, and ensuring timely completion of client services.",
+      "Built strong relationships with customers by understanding their concerns, providing professional service, and following up to maintain customer satisfaction.",
+      "Supported business development by communicating service offerings to clients, identifying customer needs, and helping promote additional pest control services when appropriate.",
+      "Coordinated with clients, management, suppliers, and field teams to ensure smooth service delivery and resolve operational issues efficiently.",
+      "Prepared daily and monthly reports covering service activities, customer requests, team performance, inventory, and operational updates for management review.",
+      "Assisted in creating and organizing service-related photos, videos, and visual content for documentation, customer communication, and promotional purposes.",
+      "Monitored market and customer feedback from field activities and communicated useful insights to management to support service improvements and business growth.",
     ],
   },
   {
