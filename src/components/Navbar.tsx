@@ -96,16 +96,15 @@ export function Navbar() {
     <header
       ref={navRef}
       className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-colors duration-300",
+        "fixed inset-x-0 top-0 z-50 transition-all duration-300",
         onLight
-          ? "bg-[#f4f4f0]/85 text-[#0b0d0c]"
-          : "bg-[#0b0d0c]/85 text-[#f4f4f0]",
-        "backdrop-blur-md",
-        scrolled && "border-b border-[var(--line-strong)]"
+          ? "bg-[#f2f3ef]/80 text-[#10130f]"
+          : "bg-[#0d100e]/75 text-[#eef0ea]",
+        "backdrop-blur-xl",
+        scrolled && "shadow-[0_1px_0_0_rgba(128,128,128,0.12)]"
       )}
-      style={{ borderColor: onLight ? "rgba(11,13,12,0.16)" : "rgba(244,244,240,0.14)" }}
     >
-      <nav className="mx-auto flex h-14 max-w-[90rem] items-center gap-6 px-5 sm:px-8" aria-label="Primary">
+      <nav className="mx-auto flex h-16 max-w-[72rem] items-center gap-6 px-5 sm:px-8" aria-label="Primary">
         {/* Brand */}
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
@@ -114,17 +113,17 @@ export function Navbar() {
         >
           <LogoMark className="h-7 w-7 transition-colors duration-300 group-hover:bg-[var(--color-green)]" />
           <span className="hidden sm:block">
-            <span className="block text-[13px] font-extrabold uppercase leading-none tracking-tight">
+            <span className="block text-[13.5px] font-bold leading-none tracking-[-0.01em]">
               Joepeth Del Puerto
             </span>
-            <span className="label mt-1 block !text-[9px] !tracking-[0.24em] opacity-70">
+            <span className="mt-1 block text-[9px] font-medium uppercase tracking-[0.22em] opacity-60">
               Dubai — UAE
             </span>
           </span>
         </button>
 
         {/* Desktop links */}
-        <div className="ml-auto hidden items-center gap-1 lg:flex">
+        <div className="ml-auto hidden items-center gap-0.5 lg:flex">
           {navItems.map((item) =>
             item.items ? (
               <div key={item.section} className="relative">
@@ -136,9 +135,16 @@ export function Navbar() {
                     setOpenMenu((m) => (m === item.section ? null : item.section))
                   }
                   className={cn(
-                    "flex items-center gap-1.5 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.14em] transition-colors duration-200 hover:text-[var(--color-green)]",
-                    openMenu === item.section && "text-[var(--color-green)]"
+                    "flex items-center gap-1.5 rounded-full px-3.5 py-2 text-[12px] font-medium tracking-[-0.005em] transition-colors duration-200",
+                    openMenu === item.section
+                      ? "text-[var(--color-green)]"
+                      : "hover:bg-[var(--chip)] hover:text-[var(--color-green)]"
                   )}
+                  style={{
+                    ["--chip" as string]: onLight
+                      ? "rgba(16,19,15,0.05)"
+                      : "rgba(238,240,234,0.07)",
+                  }}
                 >
                   {item.label}
                   <ChevronDown
@@ -146,8 +152,8 @@ export function Navbar() {
                     strokeWidth={2.5}
                     aria-hidden
                     className={cn(
-                      "transition-transform duration-200",
-                      openMenu === item.section && "rotate-180"
+                      "opacity-60 transition-transform duration-200",
+                      openMenu === item.section && "rotate-180 opacity-100"
                     )}
                   />
                 </button>
@@ -155,32 +161,40 @@ export function Navbar() {
                   {openMenu === item.section && (
                     <motion.div
                       role="menu"
-                      initial={reduce ? { opacity: 0 } : { opacity: 0, y: -6 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={reduce ? { opacity: 0 } : { opacity: 0, y: -6 }}
-                      transition={{ duration: reduce ? 0 : 0.18 }}
+                      initial={reduce ? { opacity: 0 } : { opacity: 0, y: -6, scale: 0.98 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={reduce ? { opacity: 0 } : { opacity: 0, y: -6, scale: 0.98 }}
+                      transition={{ duration: reduce ? 0 : 0.18, ease: [0.22, 1, 0.36, 1] }}
                       className={cn(
-                        "absolute left-1/2 top-full mt-1 w-60 -translate-x-1/2 border py-1 shadow-xl",
+                        "absolute left-1/2 top-full mt-2 w-60 -translate-x-1/2 rounded-2xl border p-1.5 shadow-2xl",
                         onLight
-                          ? "border-[#0b0d0c]/15 bg-white text-[#0b0d0c]"
-                          : "border-white/15 bg-[#171a18] text-[#f4f4f0]"
+                          ? "border-[#10130f]/10 bg-white text-[#10130f] shadow-[#10130f]/10"
+                          : "border-white/10 bg-[#141816] text-[#eef0ea] shadow-black/40"
                       )}
                     >
                       <button
                         role="menuitem"
                         onClick={() => go(item.section)}
-                        className="flex w-full items-center justify-between px-4 py-2.5 text-left text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--color-green)] transition-colors hover:bg-[var(--color-green)]/10"
+                        className={cn(
+                          "flex w-full items-center justify-between rounded-xl px-3.5 py-2.5 text-left text-[12px] font-semibold text-[var(--color-green)] transition-colors",
+                          onLight ? "hover:bg-[#4f7a2e]/8" : "hover:bg-white/5"
+                        )}
                       >
                         Overview
                         <span aria-hidden>↗</span>
                       </button>
-                      <div className={cn("mx-4 my-1 border-t", onLight ? "border-[#0b0d0c]/10" : "border-white/10")} />
+                      <div className={cn("mx-3 my-1 border-t", onLight ? "border-[#10130f]/8" : "border-white/8")} />
                       {item.items.map((sub) => (
                         <button
                           key={sub.id}
                           role="menuitem"
                           onClick={() => go(item.section, sub.id)}
-                          className="block w-full px-4 py-2.5 text-left text-[11px] font-semibold uppercase tracking-[0.14em] transition-colors hover:bg-[var(--color-green)]/10 hover:text-[var(--color-green)]"
+                          className={cn(
+                            "block w-full rounded-xl px-3.5 py-2.5 text-left text-[12px] font-medium transition-colors",
+                            onLight
+                              ? "hover:bg-[#10130f]/5 hover:text-[#4f7a2e]"
+                              : "hover:bg-white/5 hover:text-[var(--color-green)]"
+                          )}
                         >
                           {sub.label}
                         </button>
@@ -193,7 +207,10 @@ export function Navbar() {
               <button
                 key={item.section}
                 onClick={() => go(item.section)}
-                className="px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.14em] transition-colors duration-200 hover:text-[var(--color-green)]"
+                className={cn(
+                  "rounded-full px-3.5 py-2 text-[12px] font-medium tracking-[-0.005em] transition-colors duration-200 hover:text-[var(--color-green)]",
+                  onLight ? "hover:bg-[#10130f]/5" : "hover:bg-white/7"
+                )}
               >
                 {item.label}
               </button>
@@ -201,7 +218,7 @@ export function Navbar() {
           )}
           <a
             href={`mailto:${profile.email}`}
-            className="ml-3 border border-[var(--color-green)] px-4 py-2 text-[11px] font-bold uppercase tracking-[0.16em] text-[var(--color-green)] transition-colors duration-300 hover:bg-[var(--color-green)] hover:text-[#0b0d0c]"
+            className="ml-3 rounded-full bg-[var(--color-green)] px-5 py-2.5 text-[12px] font-semibold tracking-wide text-[#0d100e] transition-all duration-300 hover:-translate-y-px hover:shadow-[0_8px_24px_rgba(117,169,76,0.35)]"
           >
             Let&apos;s Talk
           </a>
@@ -209,7 +226,7 @@ export function Navbar() {
 
         {/* Mobile toggle */}
         <button
-          className="ml-auto p-2 lg:hidden"
+          className="ml-auto rounded-full p-2 transition-colors hover:bg-white/7 lg:hidden"
           onClick={() => setMobileOpen((o) => !o)}
           aria-expanded={mobileOpen}
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
@@ -226,16 +243,16 @@ export function Navbar() {
             animate={reduce ? { opacity: 1 } : { height: "auto", opacity: 1 }}
             exit={reduce ? { opacity: 0 } : { height: 0, opacity: 0 }}
             transition={{ duration: reduce ? 0 : 0.25 }}
-            className="overflow-hidden border-t border-white/10 bg-[#0b0d0c] text-[#f4f4f0] lg:hidden"
+            className="overflow-hidden bg-[#0d100e]/95 text-[#eef0ea] backdrop-blur-xl lg:hidden"
           >
-            <div className="px-5 py-3">
+            <div className="px-5 py-4">
               {navItems.map((item) =>
                 item.items ? (
-                  <div key={item.section} className="border-b border-white/5">
+                  <div key={item.section}>
                     <div className="flex items-center">
                       <button
                         onClick={() => go(item.section)}
-                        className="flex-1 py-3.5 text-left text-sm font-bold uppercase tracking-[0.12em]"
+                        className="flex-1 rounded-xl py-3.5 text-left text-[15px] font-semibold tracking-[-0.01em]"
                       >
                         {item.label}
                       </button>
@@ -247,10 +264,10 @@ export function Navbar() {
                         }
                         aria-expanded={mobileExpanded === item.section}
                         aria-label={`Expand ${item.label}`}
-                        className="p-3"
+                        className="grid h-9 w-9 place-items-center rounded-full border border-white/10"
                       >
                         <ChevronDown
-                          size={16}
+                          size={15}
                           className={cn(
                             "text-[var(--color-green)] transition-transform duration-200",
                             mobileExpanded === item.section && "rotate-180"
@@ -264,7 +281,7 @@ export function Navbar() {
                           <button
                             key={sub.id}
                             onClick={() => go(item.section, sub.id)}
-                            className="block w-full py-2 text-left text-xs font-semibold uppercase tracking-[0.14em] text-[#a3a8a2] transition-colors hover:text-[var(--color-green)]"
+                            className="block w-full py-2 text-left text-[13px] font-medium text-[#9aa098] transition-colors hover:text-[var(--color-green)]"
                           >
                             {sub.label}
                           </button>
@@ -276,7 +293,7 @@ export function Navbar() {
                   <button
                     key={item.section}
                     onClick={() => go(item.section)}
-                    className="block w-full border-b border-white/5 py-3.5 text-left text-sm font-bold uppercase tracking-[0.12em]"
+                    className="block w-full py-3.5 text-left text-[15px] font-semibold tracking-[-0.01em]"
                   >
                     {item.label}
                   </button>
@@ -284,7 +301,7 @@ export function Navbar() {
               )}
               <a
                 href={`mailto:${profile.email}`}
-                className="my-4 flex items-center justify-center border border-[var(--color-green)] py-3 text-[12px] font-bold uppercase tracking-[0.16em] text-[var(--color-green)]"
+                className="mt-4 flex items-center justify-center rounded-full bg-[var(--color-green)] py-3.5 text-[13px] font-semibold tracking-wide text-[#0d100e]"
               >
                 Let&apos;s Talk
               </a>

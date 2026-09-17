@@ -17,31 +17,34 @@ const drivers = [
 export function WhoIAm() {
   return (
     <DropdownSection id="who" index="01" title="Who I Am" theme="light">
-      <div className="grid grid-cols-1 gap-10 lg:grid-cols-12">
+      <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
         {/* About */}
-        <div id="who-about" className="scroll-mt-24 lg:col-span-6">
+        <div id="who-about" className="card scroll-mt-24 p-7 sm:p-8">
           <span className="label label-green">About Me</span>
-          <p className="mt-5 max-w-xl text-pretty text-sm leading-relaxed text-[var(--mut)] sm:text-base">
+          <p className="mt-5 text-pretty text-[15px] leading-relaxed text-[var(--mut)]">
             I am an Administrative &amp; Operations Professional with an IT
             background, experienced in supporting daily operations, coordinating
             teams, managing records, preparing reports, supporting customers, and
             improving business workflows.
           </p>
-          <p className="mt-4 max-w-xl text-pretty text-sm leading-relaxed text-[var(--mut)] sm:text-base">
+          <p className="mt-4 text-pretty text-[15px] leading-relaxed text-[var(--mut)]">
             My IT background strengthens my administrative work by allowing me to
             understand digital systems, troubleshoot technical issues, manage
             data, and identify opportunities to improve processes.
           </p>
-          <p className="mt-6 inline-block border border-[var(--line-strong)] px-4 py-2.5 text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--fg)]">
+          <p className="mt-6 inline-block rounded-full border border-[var(--color-green-deep)]/30 bg-[var(--tint)] px-4 py-2 text-[11px] font-semibold tracking-[0.06em] text-[var(--color-green-deep)]">
             {profile.tagline}
           </p>
         </div>
 
         {/* Mission + Vision */}
-        <div className="space-y-8 lg:col-span-6">
-          <div id="who-mission" className="scroll-mt-24 border-l-2 border-[var(--color-green)] pl-5">
-            <span className="label">My Mission</span>
-            <p className="mt-3 text-base font-bold leading-snug tracking-tight sm:text-lg">
+        <div className="space-y-5">
+          <div id="who-mission" className="card scroll-mt-24 p-7 sm:p-8">
+            <div className="flex items-center gap-2.5">
+              <span className="h-2 w-2 rounded-full bg-[var(--color-green)]" aria-hidden />
+              <span className="label">My Mission</span>
+            </div>
+            <p className="mt-4 text-[17px] font-semibold leading-snug tracking-[-0.015em]">
               To help organizations work better by bringing structure,
               technology, and practical problem-solving into everyday operations.
             </p>
@@ -50,9 +53,12 @@ export function WhoIAm() {
               processes more efficient, and teams better supported.
             </p>
           </div>
-          <div id="who-vision" className="scroll-mt-24 border-l-2 border-[var(--line-strong)] pl-5">
-            <span className="label">My Vision</span>
-            <p className="mt-3 text-base font-bold leading-snug tracking-tight sm:text-lg">
+          <div id="who-vision" className="card scroll-mt-24 p-7 sm:p-8">
+            <div className="flex items-center gap-2.5">
+              <span className="h-2 w-2 rounded-full bg-[var(--sub)]" aria-hidden />
+              <span className="label">My Vision</span>
+            </div>
+            <p className="mt-4 text-[17px] font-semibold leading-snug tracking-[-0.015em]">
               To become a trusted operations and administrative professional who
               connects people, processes, and technology to create simpler and
               more efficient ways of working.
@@ -67,14 +73,11 @@ export function WhoIAm() {
       </div>
 
       {/* Drivers */}
-      <div id="who-drivers" className="mt-12 scroll-mt-24 border-t border-[var(--line)] pt-8">
+      <div id="who-drivers" className="mt-6 scroll-mt-24 rounded-2xl border border-[var(--line)] p-7 sm:p-8">
         <span className="label">What Drives Me</span>
         <ul className="mt-4 flex flex-wrap gap-2">
           {drivers.map((d) => (
-            <li
-              key={d}
-              className="border border-[var(--line)] px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.1em] text-[var(--mut)] transition-colors duration-200 hover:border-[var(--color-green-deep)] hover:text-[var(--color-green-deep)]"
-            >
+            <li key={d} className="chip">
               {d}
             </li>
           ))}

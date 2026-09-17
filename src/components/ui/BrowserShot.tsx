@@ -21,7 +21,7 @@ export function BrowserShot({
   imgClassName?: string;
 }) {
   return (
-    <figure className={cn("hairline overflow-hidden bg-[var(--card)]", className)}>
+    <figure className={cn("overflow-hidden rounded-2xl border border-[var(--line)] bg-[var(--card)]", className)}>
       <div className="browser-bar">
         <span className="browser-dot" aria-hidden />
         <span className="browser-dot" aria-hidden />

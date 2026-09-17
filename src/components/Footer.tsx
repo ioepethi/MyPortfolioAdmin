@@ -29,7 +29,7 @@ export function Footer() {
 
   return (
     <footer data-nav="dark" className="t-dark border-t border-[var(--line)]">
-      <div className="mx-auto max-w-[90rem] px-5 py-12 sm:px-8">
+      <div className="mx-auto max-w-[72rem] px-5 py-12 sm:px-8">
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
           <div>
