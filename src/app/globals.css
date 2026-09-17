@@ -1,53 +1,65 @@
 @import "tailwindcss";
 
 @theme {
-  /* Color system — Cloudflare-inspired dark canvas */
-  --color-bg: #0a0b0e;
-  --color-bg-elevated: #111319;
-  --color-surface: #161922;
-  --color-border: rgba(226, 232, 240, 0.08);
-  --color-border-strong: rgba(226, 232, 240, 0.14);
-  --color-fg: #e8eaf0;
-  --color-muted: #9aa3b2;
-  --color-subtle: #6b7383;
-  --color-accent: #f38020;
-  --color-accent-soft: rgba(243, 128, 32, 0.16);
-  --color-navy: #1b2233;
+  /* Brand tokens — editorial / industrial palette */
+  --color-ink: #0b0d0c;
+  --color-coal: #171a18;
+  --color-paper: #ffffff;
+  --color-off: #f4f4f0;
+  --color-smoke: #858985;
+  --color-green: #75a94c;
+  --color-green-deep: #4f7a2e;
 
-  /* System font stack — zero layout shift, native feel (Cloudflare-style) */
-  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Helvetica Neue", Arial, sans-serif;
-  /* Monospace — for technical data, IPs, config, code */
+  --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-mono: SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo,
     "Courier New", monospace;
 
-  --radius: 0.5rem;
+  --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 :root {
   color-scheme: dark;
 }
 
-/* Light theme — Cloudflare dashboard aesthetic */
-.light {
-  color-scheme: light;
+/* ---------------------------------------------------------------------------
+ * Section themes.
+ * Every section carries .t-dark or .t-light; children read the local vars so
+ * typography, hairlines and chips automatically match the surface.
+ * ------------------------------------------------------------------------- */
+.t-dark {
+  --fg: #f4f4f0;
+  --bg: #0b0d0c;
+  --mut: #a3a8a2;
+  --sub: #6e736d;
+  --line: rgba(244, 244, 240, 0.14);
+  --line-strong: rgba(244, 244, 240, 0.28);
+  --card: #171a18;
+  --chip: rgba(244, 244, 240, 0.06);
+  --ghost: rgba(11, 13, 12, 0.05);
+  background: var(--bg);
+  color: var(--fg);
+  color-scheme: dark;
+}
 
-  --color-bg: #f7f8fa;
-  --color-bg-elevated: #ffffff;
-  --color-surface: #ffffff;
-  --color-border: rgba(15, 23, 42, 0.10);
-  --color-border-strong: rgba(15, 23, 42, 0.16);
-  --color-fg: #0f172a;
-  --color-muted: #475569;
-  --color-subtle: #94a3b8;
-  --color-accent: #f38020;
-  --color-accent-soft: rgba(243, 128, 32, 0.12);
-  --color-navy: #e2e8f0;
+.t-light {
+  --fg: #0b0d0c;
+  --bg: #f4f4f0;
+  --mut: #4c514c;
+  --sub: #858985;
+  --line: rgba(11, 13, 12, 0.16);
+  --line-strong: rgba(11, 13, 12, 0.32);
+  --card: #ffffff;
+  --chip: rgba(11, 13, 12, 0.05);
+  --ghost: rgba(244, 244, 240, 0.5);
+  background: var(--bg);
+  color: var(--fg);
+  color-scheme: light;
 }
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 6rem;
+  scroll-padding-top: 5rem;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -57,53 +69,17 @@ html {
 }
 
 body {
-  background: var(--color-bg);
-  color: var(--color-fg);
+  background: var(--color-ink);
+  color: var(--color-off);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
 }
 
-/* Ambient background — Cloudflare-style canvas dot grid + soft orange glow */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  background:
-    /* dot grid canvas texture */
-    radial-gradient(rgba(226, 232, 240, 0.035) 1px, transparent 1px),
-    /* soft orange accent glow */
-    radial-gradient(60rem 60rem at 85% -10%, rgba(243, 128, 32, 0.07), transparent 60%),
-    /* deep navy depth */
-    radial-gradient(50rem 50rem at -10% 20%, rgba(27, 34, 51, 0.55), transparent 60%),
-    radial-gradient(40rem 40rem at 50% 120%, rgba(243, 128, 32, 0.04), transparent 60%);
-  background-size: 22px 22px, 100% 100%, 100% 100%, 100% 100%;
-  pointer-events: none;
-}
-
 ::selection {
-  background: rgba(243, 128, 32, 0.28);
-  color: #fff;
-}
-
-/* Light theme — background texture */
-.light body::before {
-  background:
-    /* dot grid canvas texture — darker dots on light */
-    radial-gradient(rgba(15, 23, 42, 0.06) 1px, transparent 1px),
-    /* soft orange accent glow */
-    radial-gradient(60rem 60rem at 85% -10%, rgba(243, 128, 32, 0.06), transparent 60%),
-    /* cool slate depth */
-    radial-gradient(50rem 50rem at -10% 20%, rgba(226, 232, 240, 0.5), transparent 60%),
-    radial-gradient(40rem 40rem at 50% 120%, rgba(243, 128, 32, 0.03), transparent 60%);
-  background-size: 22px 22px, 100% 100%, 100% 100%, 100% 100%;
-}
-
-/* Light theme — selection text should be dark on orange */
-.light ::selection {
-  color: #fff;
+  background: var(--color-green);
+  color: #0b0d0c;
 }
 
 /* Custom scrollbar */
@@ -113,34 +89,170 @@ body::before {
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: var(--color-ink);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(244, 244, 240, 0.16);
   border-radius: 999px;
-  border: 2px solid transparent;
-  background-clip: padding-box;
+  border: 2px solid var(--color-ink);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.2);
-  background-clip: padding-box;
+  background: rgba(244, 244, 240, 0.3);
 }
 
-/* Light theme — scrollbar */
-.light ::-webkit-scrollbar-thumb {
-  background: rgba(15, 23, 42, 0.15);
-  background-clip: padding-box;
+/* Focus visibility */
+:focus-visible {
+  outline: 2px solid var(--color-green);
+  outline-offset: 3px;
 }
 
-.light ::-webkit-scrollbar-thumb:hover {
-  background: rgba(15, 23, 42, 0.25);
-  background-clip: padding-box;
-}
-
-/* Utilities */
+/* ---------------------------------------------------------------------------
+ * Utilities
+ * ------------------------------------------------------------------------- */
 @layer utilities {
+
+  /* Small uppercase technical label */
+  .label {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--sub);
+  }
+
+  .label-green {
+    color: var(--color-green);
+  }
+
+  /* Hairline helpers scoped to the section theme */
+  .hairline-b {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .hairline-t {
+    border-top: 1px solid var(--line);
+  }
+
+  .hairline {
+    border: 1px solid var(--line);
+  }
+
+  /* Oversized stroked numeral */
+  .num-outline {
+    font-weight: 800;
+    line-height: 0.8;
+    letter-spacing: -0.04em;
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--line-strong);
+  }
+
+  /* Giant display type */
+  .display-xl {
+    font-weight: 800;
+    letter-spacing: -0.045em;
+    line-height: 0.92;
+    font-size: clamp(3.4rem, 11vw, 10.5rem);
+  }
+
+  .display-lg {
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 0.95;
+    font-size: clamp(2.6rem, 7.2vw, 7rem);
+  }
+
+  .display-md {
+    font-weight: 750;
+    letter-spacing: -0.035em;
+    line-height: 1;
+    font-size: clamp(2rem, 5vw, 4.5rem);
+  }
+
+  .display-sm {
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    font-size: clamp(1.6rem, 3.4vw, 2.9rem);
+  }
+
+  /* Wordmark fallback for tools without an official glyph */
+  .wordmark {
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  /* Marquee */
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-marquee {
+    animation: marquee 42s linear infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-marquee {
+      animation: none;
+    }
+  }
+
+  /* Browser chrome frame for real screenshots */
+  .browser-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 0.875rem;
+    border-bottom: 1px solid var(--line);
+    background: var(--card);
+  }
+
+  .browser-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 999px;
+    background: var(--line-strong);
+  }
+
+  /* Thin link with animated arrow */
+  .link-underline {
+    position: relative;
+  }
+
+  .link-underline::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    height: 1px;
+    width: 100%;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.35s var(--ease-out-expo);
+  }
+
+  .link-underline:hover::after,
+  .link-underline:focus-visible::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  /* Subtle blueprint grid for dark surfaces */
+  .bg-blueprint {
+    background-image:
+      linear-gradient(to right, var(--line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+    background-size: 72px 72px;
+  }
+
   .text-balance {
     text-wrap: balance;
   }
@@ -148,80 +260,4 @@ body::before {
   .text-pretty {
     text-wrap: pretty;
   }
-
-  .glass {
-    background: rgba(17, 19, 25, 0.6);
-    backdrop-filter: blur(12px) saturate(140%);
-    -webkit-backdrop-filter: blur(12px) saturate(140%);
-  }
-
-  .light .glass {
-    background: rgba(255, 255, 255, 0.72);
-  }
-
-  .border-hair {
-    border: 1px solid var(--color-border);
-  }
-
-  .bg-grid {
-    background-image:
-      linear-gradient(to right, rgba(226, 232, 240, 0.04) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(226, 232, 240, 0.04) 1px, transparent 1px);
-    background-size: 56px 56px;
-  }
-
-  .light .bg-grid {
-    background-image:
-      linear-gradient(to right, rgba(15, 23, 42, 0.05) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(15, 23, 42, 0.05) 1px, transparent 1px);
-  }
-
-  .mask-fade-b {
-    -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent);
-    mask-image: linear-gradient(to bottom, black 60%, transparent);
-  }
-
-  @keyframes marquee {
-    from {
-      transform: translateX(0);
-    }
-    to {
-      transform: translateX(-50%);
-    }
-  }
-
-  .animate-marquee {
-    animation: marquee 40s linear infinite;
-  }
-}
-
-/* Focus visibility */
-:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 3px;
-  border-radius: 4px;
-}
-
-/* Link underline animation */
-.link-underline {
-  position: relative;
-}
-
-.link-underline::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -2px;
-  height: 1px;
-  width: 100%;
-  background: currentColor;
-  transform: scaleX(0);
-  transform-origin: right;
-  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.link-underline:hover::after,
-.link-underline:focus-visible::after {
-  transform: scaleX(1);
-  transform-origin: left;
 }

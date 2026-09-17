@@ -1,32 +1,35 @@
-import { LanguageProvider } from "@/i18n/LanguageProvider";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
-import { Marquee } from "@/components/Marquee";
-import { About } from "@/components/About";
-import { Skills } from "@/components/Skills";
+import { Manifesto } from "@/components/Manifesto";
+import { WhoIAm } from "@/components/WhoIAm";
+import { WhatIDo } from "@/components/WhatIDo";
+import { SelectedWork } from "@/components/SelectedWork";
+import { Tools } from "@/components/Tools";
+import { Commerce } from "@/components/Commerce";
+import { Process } from "@/components/Process";
 import { Experience } from "@/components/Experience";
-import { Education } from "@/components/Education";
-import { Projects } from "@/components/Projects";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
 
 export default function Home() {
   return (
-    <LanguageProvider>
+    <>
       <ScrollProgress />
       <Navbar />
       <main>
         <Hero />
-        <Marquee />
-        <About />
-        <Skills />
+        <Manifesto />
+        <WhoIAm />
+        <WhatIDo />
+        <SelectedWork />
+        <Tools />
+        <Commerce />
+        <Process />
         <Experience />
-        <Education />
-        <Projects />
         <Contact />
       </main>
       <Footer />
-    </LanguageProvider>
+    </>
   );
 }

@@ -1,242 +1,257 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence, useReducedMotion } from "motion/react";
-import { ArrowLeft, ArrowUpRight, ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
-import { GithubIcon } from "./ui/BrandIcons";
-import { LanguageSwitcher } from "./ui/LanguageSwitcher";
-import { useLanguage } from "@/i18n/LanguageProvider";
-import type { Project } from "@/data/projects";
+import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
+import { Reveal } from "./ui/Reveal";
+import { BrowserShot } from "./ui/BrowserShot";
+import { projects, type Project } from "@/data/projects";
+import { cn } from "@/lib/utils";
+
+function MetaCell({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="bg-[var(--bg)] p-5">
+      <span className="label">{label}</span>
+      <p className="mt-2 text-sm font-bold uppercase tracking-tight text-[var(--fg)]">
+        {value}
+      </p>
+    </div>
+  );
+}
 
 export function ProjectDetail({ project }: { project: Project }) {
-  const { t } = useLanguage();
-  const reduce = useReducedMotion();
-  const [step, setStep] = useState(0);
-  const description = t(project.descriptionKey);
-  const totalSteps = project.manual.length;
-  const current = project.manual[step];
-  const heroImage = project.detailScreenshot ?? project.screenshot;
-
-  const goPrev = () => setStep((s) => Math.max(0, s - 1));
-  const goNext = () => setStep((s) => Math.min(totalSteps - 1, s + 1));
+  const index = projects.findIndex((p) => p.id === project.id);
+  const next = projects[(index + 1) % projects.length];
+  const heroShot = project.shots[0];
+  const gallery = project.shots.slice(1);
+  const liveUrl = project.links.find((l) => l.href.startsWith("http") && !l.href.includes("github.com"));
 
   return (
-    <main className="mx-auto max-w-4xl px-4 py-12 sm:px-6 sm:py-16">
-      <div className="mb-10 flex items-center justify-between gap-3">
-        <Link
-          href="/#projects"
-          className="inline-flex items-center gap-2 rounded-full border-hair px-4 py-2 text-sm font-medium text-[var(--color-fg)] transition-colors duration-300 hover:bg-white/[0.04]"
-        >
-          <ArrowLeft size={15} strokeWidth={2} />
-          {t("projects.backToProjects")}
-        </Link>
-        <LanguageSwitcher />
-      </div>
+    <main className="t-dark min-h-screen">
+      <div className="mx-auto max-w-[90rem] px-5 pb-24 pt-8 sm:px-8">
+        {/* Top bar */}
+        <div className="hairline-b flex items-center justify-between pb-5">
+          <Link
+            href="/#work"
+            className="group inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.16em] text-[var(--mut)] transition-colors hover:text-[var(--color-green)]"
+          >
+            <ArrowLeft size={14} strokeWidth={2.5} className="transition-transform duration-300 group-hover:-translate-x-0.5" />
+            All work
+          </Link>
+          <span className="font-mono text-xs text-[var(--sub)]">
+            {String(index + 1).padStart(2, "0")} / {String(projects.length).padStart(2, "0")}
+          </span>
+        </div>
 
-      {/* Hero */}
-      {heroImage ? (
-        <div className="relative aspect-[16/9] overflow-hidden rounded-3xl border-hair">
-          {project.screenshotFit === "contain" && (
-            <div
-              className="absolute inset-0"
-              style={{
-                background: `linear-gradient(135deg, ${project.thumbnail.from}, ${project.thumbnail.to})`,
-              }}
+        {/* Header */}
+        <header className="grid grid-cols-1 gap-10 py-14 sm:py-20 lg:grid-cols-12">
+          <div className="lg:col-span-8">
+            <Reveal>
+              <span className="label label-green">{project.status}</span>
+            </Reveal>
+            <Reveal delay={0.06}>
+              <h1 className="display-lg mt-6 uppercase">{project.name}</h1>
+              <p className="mt-3 text-lg font-semibold uppercase tracking-[0.1em] text-[var(--mut)]">
+                {project.subtitle}
+              </p>
+            </Reveal>
+            <Reveal delay={0.12}>
+              <p className="mt-8 max-w-2xl text-pretty text-base leading-relaxed text-[var(--mut)] sm:text-lg">
+                {project.summary}
+              </p>
+            </Reveal>
+          </div>
+          <Reveal delay={0.1} className="lg:col-span-4">
+            <div className="grid grid-cols-1 gap-px bg-[var(--line)]">
+              <MetaCell label="Category" value={project.category} />
+              <MetaCell label="Year" value={project.year} />
+              {project.stack.length > 0 && (
+                <MetaCell label="Stack" value={project.stack.join(" · ")} />
+              )}
+            </div>
+            <div className="mt-6 flex flex-wrap gap-3">
+              {project.links
+                .filter((l) => l.href.startsWith("http"))
+                .map((l) => (
+                  <a
+                    key={l.label}
+                    href={l.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={cn(
+                      "group/btn inline-flex items-center gap-2 px-5 py-3 text-[11px] font-bold uppercase tracking-[0.16em] transition-colors duration-300",
+                      l.label.toLowerCase().includes("code")
+                        ? "border border-[var(--line-strong)] text-[var(--fg)] hover:border-[var(--color-green)] hover:text-[var(--color-green)]"
+                        : "bg-[var(--color-green)] text-[#0b0d0c] hover:bg-[#f4f4f0]"
+                    )}
+                  >
+                    {l.label}
+                    <ArrowUpRight
+                      size={13}
+                      strokeWidth={2.5}
+                      className="transition-transform duration-300 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5"
+                    />
+                  </a>
+                ))}
+            </div>
+          </Reveal>
+        </header>
+
+        {/* Hero visual */}
+        {heroShot && !project.architecture && (
+          <Reveal>
+            <BrowserShot
+              src={heroShot.src}
+              alt={heroShot.alt}
+              label={heroShot.label}
+              url={liveUrl?.href.replace(/^https?:\/\//, "")}
+              fit={heroShot.fit}
+              imgClassName="max-h-[80vh]"
             />
-          )}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={heroImage}
-            alt={`${project.name} screenshot`}
-            className={
-              project.screenshotFit === "contain"
-                ? "relative h-full w-full object-contain p-12"
-                : "h-full w-full object-cover object-top"
-            }
-          />
-        </div>
-      ) : (
-        <div
-          className="relative flex aspect-[16/7] items-center justify-center overflow-hidden rounded-3xl"
-          style={{ background: `linear-gradient(135deg, ${project.thumbnail.from}, ${project.thumbnail.to})` }}
-        >
-          <div className="bg-grid absolute inset-0 opacity-20" />
-          <span className="text-8xl font-bold tracking-tighter text-white/90 drop-shadow-lg">
-            {project.thumbnail.glyph}
-          </span>
-        </div>
-      )}
+          </Reveal>
+        )}
 
-      <div className="mt-8 flex flex-col gap-3">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">{project.name}</h1>
-          <span className="rounded-full border-hair px-2.5 py-1 text-[10px] font-medium uppercase tracking-wider text-[var(--color-subtle)]">
-            {t(project.categoryKey)}
-          </span>
-        </div>
+        {/* Architecture diagram for systems without UI screenshots */}
+        {project.architecture && project.flow && (
+          <Reveal>
+            <div className="hairline overflow-hidden bg-[var(--card)]">
+              <div className="browser-bar">
+                <span className="browser-dot" aria-hidden />
+                <span className="browser-dot" aria-hidden />
+                <span className="browser-dot" aria-hidden />
+                <span className="label ml-3">architecture.preview</span>
+                <span className="label label-green ml-auto">Not a screenshot</span>
+              </div>
+              <div className="bg-blueprint grid grid-cols-1 gap-0 px-6 py-10 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6 lg:px-10">
+                {project.flow.map((node, i) => (
+                  <div key={node} className="flex items-center gap-3 py-3 lg:py-6">
+                    <span className="font-mono text-xs text-[var(--color-green)]">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <div
+                      className={cn(
+                        "flex-1 border px-4 py-3 text-center text-[11px] font-bold uppercase tracking-[0.16em]",
+                        i === 0 || i === project.flow!.length - 1
+                          ? "border-[var(--color-green)] text-[var(--color-green)]"
+                          : "border-[var(--line-strong)] text-[var(--fg)]"
+                      )}
+                    >
+                      {node}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Reveal>
+        )}
 
-        <ul className="flex flex-wrap gap-2">
-          {project.tags.map((tag) => (
-            <li
-              key={tag}
-              className="rounded-full bg-white/[0.04] px-2.5 py-1 text-xs font-medium text-[var(--color-fg)]/80"
-            >
-              {tag}
-            </li>
+        {/* Modules */}
+        {project.modules.length > 0 && (
+          <section className="mt-16">
+            <Reveal>
+              <span className="label">System modules</span>
+            </Reveal>
+            <Reveal delay={0.06}>
+              <ul className="mt-5 flex flex-wrap gap-2">
+                {project.modules.map((m) => (
+                  <li
+                    key={m}
+                    className="border border-[var(--line)] px-3.5 py-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-[var(--fg)]"
+                  >
+                    {m}
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
+          </section>
+        )}
+
+        {/* Numbered case study */}
+        <section className="mt-20">
+          {project.caseStudy.map((s, i) => (
+            <Reveal key={s.title}>
+              <div className="grid grid-cols-1 gap-4 border-t border-[var(--line)] py-10 sm:grid-cols-12">
+                <span className="num-outline text-5xl sm:col-span-2">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <h2 className="text-xl font-bold uppercase tracking-tight sm:col-span-4">
+                  {s.title}
+                </h2>
+                <p className="max-w-xl text-pretty text-sm leading-relaxed text-[var(--mut)] sm:col-span-6 sm:text-base">
+                  {s.body}
+                </p>
+              </div>
+            </Reveal>
           ))}
-        </ul>
+        </section>
 
-        <div className="mt-2 flex flex-wrap items-center gap-3">
-          {project.liveUrl && (
-            <a
-              href={project.liveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group/btn inline-flex items-center gap-2 rounded-full bg-[var(--color-fg)] px-4 py-2.5 text-sm font-medium text-[var(--color-bg)] transition-transform duration-300 hover:-translate-y-0.5"
-            >
-              {t("projects.liveDemo")}
-              <ExternalLink size={14} strokeWidth={2} />
-            </a>
-          )}
-          {project.adminUrl && (
-            <a
-              href={project.adminUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group/btn inline-flex items-center gap-2 rounded-full border-hair px-4 py-2.5 text-sm font-medium text-[var(--color-accent)] transition-colors duration-300 hover:bg-[var(--color-accent-soft)]"
-            >
-              {t("projects.admin")}
-              <ExternalLink size={14} strokeWidth={2} />
-            </a>
-          )}
-          {project.githubUrl && (
-            <a
-              href={project.githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full border-hair px-4 py-2.5 text-sm font-medium text-[var(--color-fg)] transition-colors duration-300 hover:bg-white/[0.04]"
-            >
-              <GithubIcon size={15} />
-              {t("projects.viewCode")}
-            </a>
-          )}
-        </div>
-      </div>
-
-      {/* Overview */}
-      <section className="mt-12">
-        <h2 className="text-sm font-semibold uppercase tracking-[0.15em] text-[var(--color-subtle)]">
-          {t("projects.overview")}
-        </h2>
-        <p className="mt-4 text-pretty text-base leading-relaxed text-[var(--color-muted)] sm:text-lg">
-          {description}
-        </p>
-      </section>
-
-      {/* User manual */}
-      <section className="mt-14">
-        <h2 className="text-sm font-semibold uppercase tracking-[0.15em] text-[var(--color-subtle)]">
-          {t("projects.manualHeading")}
-        </h2>
-        <p className="mt-2 text-sm text-[var(--color-muted)]">{t("projects.manualSubheading")}</p>
-
-        <div className="mt-6 overflow-hidden rounded-3xl border-hair bg-[var(--color-surface)]/50 p-6 sm:p-8">
-          <div className="flex items-center justify-between gap-4">
-            <span className="text-xs font-medium uppercase tracking-wider text-[var(--color-subtle)]">
-              {t("projects.step")} {step + 1} {t("projects.of")} {totalSteps}
-            </span>
-            <div className="flex items-center gap-1.5">
-              {project.manual.map((_, i) => (
-                <button
-                  key={i}
-                  type="button"
-                  aria-label={`${t("projects.step")} ${i + 1}`}
-                  onClick={() => setStep(i)}
-                  className={`h-1.5 rounded-full transition-all duration-300 ${i === step ? "w-6 bg-[var(--color-fg)]" : "w-1.5 bg-white/15 hover:bg-white/30"
-                    }`}
+        {/* Gallery */}
+        {gallery.length > 0 && (
+          <section className="mt-16">
+            <Reveal>
+              <span className="label">Screens</span>
+            </Reveal>
+            <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-2">
+              {gallery.map((s) => (
+                <BrowserShot
+                  key={s.src}
+                  src={s.src}
+                  alt={s.alt}
+                  label={s.label}
+                  fit={s.fit}
+                  imgClassName="aspect-[16/10]"
                 />
               ))}
             </div>
-          </div>
+          </section>
+        )}
 
-          <div className="mt-6 min-h-[104px]">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={step}
-                initial={reduce ? { opacity: 0 } : { opacity: 0, x: 16 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={reduce ? { opacity: 0 } : { opacity: 0, x: -16 }}
-                transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-              >
-                <h3 className="text-xl font-semibold tracking-tight">{current.title}</h3>
-                <p className="mt-3 text-pretty text-sm leading-relaxed text-[var(--color-muted)] sm:text-base">
-                  {current.description}
-                </p>
-              </motion.div>
-            </AnimatePresence>
-          </div>
+        {/* Walkthrough */}
+        {project.walkthrough.length > 0 && (
+          <section className="mt-20">
+            <Reveal>
+              <span className="label">How it works</span>
+            </Reveal>
+            <div className="mt-6">
+              {project.walkthrough.map((w, i) => (
+                <Reveal key={w.title} delay={i * 0.04}>
+                  <div className="grid grid-cols-1 gap-2 border-t border-[var(--line)] py-6 sm:grid-cols-12">
+                    <span className="font-mono text-sm text-[var(--color-green)] sm:col-span-2">
+                      Step {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <h3 className="text-base font-bold uppercase tracking-tight sm:col-span-4">
+                      {w.title}
+                    </h3>
+                    <p className="max-w-xl text-sm leading-relaxed text-[var(--mut)] sm:col-span-6">
+                      {w.description}
+                    </p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </section>
+        )}
 
-          <div className="mt-8 flex items-center justify-between gap-3">
-            <button
-              type="button"
-              onClick={goPrev}
-              disabled={step === 0}
-              className="inline-flex items-center gap-1.5 rounded-full border-hair px-4 py-2.5 text-sm font-medium text-[var(--color-fg)] transition-colors duration-300 hover:bg-white/[0.04] disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-transparent"
-            >
-              <ChevronLeft size={16} strokeWidth={2} />
-              {t("projects.previous")}
-            </button>
-            <button
-              type="button"
-              onClick={goNext}
-              disabled={step === totalSteps - 1}
-              className="inline-flex items-center gap-1.5 rounded-full bg-[var(--color-fg)] px-4 py-2.5 text-sm font-medium text-[var(--color-bg)] transition-transform duration-300 hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:translate-y-0"
-            >
-              {t("projects.next")}
-              <ChevronRight size={16} strokeWidth={2} />
-            </button>
-          </div>
-        </div>
-      </section>
-
-      {(project.liveUrl || project.adminUrl) && (
-        <div className="mt-14 flex flex-col items-start gap-3 rounded-3xl border-hair bg-[var(--color-surface)]/50 p-6 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-sm text-[var(--color-muted)]">See it running with real data.</p>
-          <div className="flex flex-wrap items-center gap-3">
-            {project.liveUrl && (
-              <a
-                href={project.liveUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group/btn inline-flex items-center gap-2 rounded-full bg-[var(--color-fg)] px-4 py-2.5 text-sm font-medium text-[var(--color-bg)] transition-transform duration-300 hover:-translate-y-0.5"
-              >
-                {t("projects.liveDemo")}
-                <ArrowUpRight
-                  size={15}
-                  strokeWidth={2}
-                  className="transition-transform duration-300 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5"
-                />
-              </a>
-            )}
-            {project.adminUrl && (
-              <a
-                href={project.adminUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group/btn inline-flex items-center gap-2 rounded-full border-hair px-4 py-2.5 text-sm font-medium text-[var(--color-accent)] transition-colors duration-300 hover:bg-[var(--color-accent-soft)]"
-              >
-                {t("projects.admin")}
-                <ArrowUpRight
-                  size={15}
-                  strokeWidth={2}
-                  className="transition-transform duration-300 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5"
-                />
-              </a>
-            )}
-          </div>
-        </div>
-      )}
+        {/* Next project */}
+        <Reveal className="mt-24">
+          <Link
+            href={`/projects/${next.id}`}
+            className="group flex items-center justify-between border-t border-[var(--line)] py-10"
+          >
+            <span>
+              <span className="label">Next project</span>
+              <span className="display-md mt-3 block uppercase transition-colors duration-300 group-hover:text-[var(--color-green)]">
+                {next.name}
+              </span>
+            </span>
+            <ArrowRight
+              size={32}
+              strokeWidth={1.5}
+              className="text-[var(--sub)] transition-all duration-300 group-hover:translate-x-2 group-hover:text-[var(--color-green)]"
+              aria-hidden
+            />
+          </Link>
+        </Reveal>
+      </div>
     </main>
   );
 }

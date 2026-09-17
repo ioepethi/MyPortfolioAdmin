@@ -2,27 +2,49 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { Menu, X, ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Menu, X } from "lucide-react";
 import { navItems } from "@/data/nav";
-import { useLanguage } from "@/i18n/LanguageProvider";
+import { profile } from "@/data/profile";
 import { useActiveSection } from "./ui/useActiveSection";
-import { LanguageSwitcher } from "./ui/LanguageSwitcher";
-import { ThemeToggle } from "./ui/ThemeToggle";
 import { cn } from "@/lib/utils";
 
+/**
+ * Fixed editorial navigation. Reads `data-nav="light|dark"` on sections and
+ * flips its own scheme so the bar always matches the surface beneath it.
+ */
 export function Navbar() {
-  const { t } = useLanguage();
   const ids = navItems.map((n) => n.id);
   const active = useActiveSection(ids);
   const [scrolled, setScrolled] = useState(false);
+  const [onLight, setOnLight] = useState(false);
   const [open, setOpen] = useState(false);
   const reduce = useReducedMotion();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    const sections = Array.from(
+      document.querySelectorAll<HTMLElement>("[data-nav]")
+    );
+    const onScroll = () => {
+      setScrolled(window.scrollY > 8);
+      const probe = 52;
+      let light = false;
+      // Innermost element wins — nested bands (e.g. dark band inside a light
+      // section) come later in DOM order and override their parent.
+      for (const s of sections) {
+        const r = s.getBoundingClientRect();
+        if (r.top <= probe && r.bottom > probe) {
+          light = s.dataset.nav === "light";
+        }
+      }
+      setOnLight(light);
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, []);
 
   useEffect(() => {
@@ -35,7 +57,11 @@ export function Navbar() {
   const handleNav = (id: string) => {
     setOpen(false);
     const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+    if (el)
+      el.scrollIntoView({
+        behavior: reduce ? "auto" : "smooth",
+        block: "start",
+      });
   };
 
   return (
@@ -43,176 +69,159 @@ export function Navbar() {
       <header
         className={cn(
           "fixed inset-x-0 top-0 z-50 transition-all duration-500",
-          scrolled ? "py-3" : "py-5"
+          scrolled &&
+          (onLight
+            ? "bg-[#f4f4f0]/85 text-[#0b0d0c] backdrop-blur-md border-b border-black/10"
+            : "bg-[#0b0d0c]/80 text-[#f4f4f0] backdrop-blur-md border-b border-white/10"),
+          !scrolled && (onLight ? "text-[#0b0d0c]" : "text-[#f4f4f0]")
         )}
       >
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <nav
-            className={cn(
-              "flex items-center justify-between rounded-full px-3 py-2 transition-all duration-500",
-              scrolled
-                ? "glass border-hair shadow-[0_10px_40px_-20px_rgba(0,0,0,0.8)]"
-                : "border border-transparent"
-            )}
+        <nav className="mx-auto flex h-16 max-w-[90rem] items-center justify-between gap-6 px-5 sm:px-8">
+          {/* Brand */}
+          <a
+            href="#top"
+            onClick={(e) => {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
+            }}
+            className="group flex items-center gap-3"
+            aria-label="Joepeth Del Puerto — back to top"
           >
-            {/* Brand */}
-            <button
-              onClick={() => handleNav("home")}
-              className="group flex items-center gap-2 rounded-full px-3 py-1.5 text-left"
-              aria-label="Joepeth Del Puerto — home"
-            >
-              <span className="grid h-8 w-8 place-items-center rounded-full bg-[var(--color-fg)] text-sm font-bold text-[var(--color-bg)]">
-                JD
+            <span className="grid h-8 w-8 place-items-center border border-current text-[11px] font-extrabold tracking-tight transition-colors duration-300 group-hover:bg-[var(--color-green)] group-hover:border-[var(--color-green)] group-hover:text-[#0b0d0c]">
+              {profile.monogram}
+            </span>
+            <span className="hidden flex-col leading-none sm:flex">
+              <span className="text-[13px] font-bold tracking-tight">
+                JOEPETH DEL PUERTO
               </span>
-              <span className="hidden text-sm font-medium tracking-tight sm:block">
-                Joepeth<span className="text-[var(--color-muted)]"> Del Puerto</span>
+              <span className="mt-1 text-[9px] font-medium uppercase tracking-[0.28em] opacity-60">
+                Dubai — UAE
               </span>
-            </button>
+            </span>
+          </a>
 
-            {/* Desktop nav */}
-            <ul className="hidden items-center gap-1 md:flex">
-              {navItems.map((item) => {
-                const isActive = active === item.id;
-                return (
-                  <li key={item.id}>
-                    <button
-                      onClick={() => handleNav(item.id)}
+          {/* Center links */}
+          <ul className="hidden items-center gap-7 lg:flex">
+            {navItems.map((item) => {
+              const isActive = active === item.id;
+              return (
+                <li key={item.id}>
+                  <a
+                    href={`#${item.id}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleNav(item.id);
+                    }}
+                    className={cn(
+                      "group relative text-[11px] font-semibold uppercase tracking-[0.18em] transition-colors duration-300",
+                      isActive ? "text-[var(--color-green)]" : "opacity-70 hover:opacity-100"
+                    )}
+                  >
+                    {item.label}
+                    <span
                       className={cn(
-                        "relative rounded-full px-3.5 py-2 text-sm transition-colors duration-300",
-                        isActive
-                          ? "text-[var(--color-fg)]"
-                          : "text-[var(--color-muted)] hover:text-[var(--color-fg)]"
+                        "absolute -bottom-1.5 left-0 h-px bg-[var(--color-green)] transition-all duration-300",
+                        isActive ? "w-full" : "w-0 group-hover:w-full"
                       )}
-                    >
-                      {isActive && (
-                        <motion.span
-                          layoutId="nav-pill"
-                          className="absolute inset-0 rounded-full bg-white/[0.06] border-hair"
-                          transition={
-                            reduce
-                              ? { duration: 0 }
-                              : { type: "spring", stiffness: 380, damping: 30 }
-                          }
-                        />
-                      )}
-                      <span className="relative">{t(item.labelKey)}</span>
-                    </button>
-                  </li>
-                );
-              })}
-            </ul>
+                      aria-hidden
+                    />
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
 
-            {/* Right cluster */}
-            <div className="flex items-center gap-2">
-              <LanguageSwitcher />
-              <ThemeToggle />
-              <a
-                href="#contact"
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleNav("contact");
-                }}
-                className="hidden items-center gap-1.5 rounded-full bg-[var(--color-fg)] px-4 py-2 text-sm font-medium text-[var(--color-bg)] transition-transform duration-300 hover:-translate-y-0.5 sm:inline-flex"
-              >
-                {t("nav.cta")}
-                <ArrowUpRight size={15} strokeWidth={2} />
-              </a>
-              <button
-                onClick={() => setOpen(true)}
-                aria-label={t("nav.openMenu")}
-                className="grid h-10 w-10 place-items-center rounded-full border-hair text-[var(--color-fg)] md:hidden"
-              >
-                <Menu size={18} strokeWidth={1.75} />
-              </button>
-            </div>
-          </nav>
-        </div>
+          {/* Right */}
+          <div className="flex items-center gap-3">
+            <a
+              href="#contact"
+              onClick={(e) => {
+                e.preventDefault();
+                handleNav("contact");
+              }}
+              className="group hidden items-center gap-2 border border-[var(--color-green)] px-4 py-2 text-[11px] font-bold uppercase tracking-[0.16em] text-[var(--color-green)] transition-colors duration-300 hover:bg-[var(--color-green)] hover:text-[#0b0d0c] sm:inline-flex"
+            >
+              Let&apos;s Talk
+              <ArrowUpRight
+                size={13}
+                strokeWidth={2.5}
+                className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+              />
+            </a>
+            <button
+              onClick={() => setOpen(true)}
+              aria-label="Open menu"
+              className="grid h-9 w-9 place-items-center border border-current/30 lg:hidden"
+            >
+              <Menu size={17} strokeWidth={1.75} />
+            </button>
+          </div>
+        </nav>
       </header>
 
-      {/* Mobile menu */}
+      {/* Full-screen mobile menu */}
       <AnimatePresence>
         {open && (
           <motion.div
-            className="fixed inset-0 z-[60] md:hidden"
-            initial="hidden"
-            animate="visible"
-            exit="exit"
+            className="fixed inset-0 z-[70] flex flex-col bg-[#0b0d0c] text-[#f4f4f0]"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: reduce ? 0.1 : 0.3 }}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Menu"
           >
-            <motion.div
-              className="absolute inset-0 bg-black/70 backdrop-blur-sm"
-              variants={reduce ? { hidden: { opacity: 0 }, visible: { opacity: 1 }, exit: { opacity: 0 } } : undefined}
-              onClick={() => setOpen(false)}
-            />
-            <motion.div
-              className="absolute right-0 top-0 h-full w-[82%] max-w-sm border-l border-[var(--color-border)] bg-[var(--color-bg-elevated)] p-6"
-              variants={
-                reduce
-                  ? { hidden: { opacity: 0 }, visible: { opacity: 1 }, exit: { opacity: 0 } }
-                  : {
-                    hidden: { x: "100%" },
-                    visible: { x: 0, transition: { type: "spring", stiffness: 320, damping: 34 } },
-                    exit: { x: "100%", transition: { duration: 0.3 } },
-                  }
-              }
-            >
-              <div className="flex items-center justify-between">
-                <span className="text-sm font-medium text-[var(--color-muted)]">Menu</span>
-                <div className="flex items-center gap-2">
-                  <ThemeToggle />
-                  <button
-                    onClick={() => setOpen(false)}
-                    aria-label={t("nav.closeMenu")}
-                    className="grid h-10 w-10 place-items-center rounded-full border-hair text-[var(--color-fg)]"
-                  >
-                    <X size={18} strokeWidth={1.75} />
-                  </button>
-                </div>
-              </div>
-
-              <ul className="mt-8 flex flex-col gap-1">
-                {navItems.map((item, i) => {
-                  const isActive = active === item.id;
-                  return (
-                    <motion.li
-                      key={item.id}
-                      variants={
-                        reduce
-                          ? undefined
-                          : {
-                            hidden: { opacity: 0, x: 20 },
-                            visible: { opacity: 1, x: 0, transition: { delay: 0.08 + i * 0.05 } },
-                          }
-                      }
-                    >
-                      <button
-                        onClick={() => handleNav(item.id)}
-                        className={cn(
-                          "flex w-full items-center justify-between rounded-2xl px-4 py-3.5 text-left text-lg font-medium transition-colors",
-                          isActive
-                            ? "bg-white/[0.05] text-[var(--color-fg)]"
-                            : "text-[var(--color-muted)] hover:text-[var(--color-fg)]"
-                        )}
-                      >
-                        {t(item.labelKey)}
-                        <ArrowUpRight size={16} strokeWidth={1.75} className="opacity-40" />
-                      </button>
-                    </motion.li>
-                  );
-                })}
-              </ul>
-
-              <a
-                href="#contact"
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleNav("contact");
-                }}
-                className="mt-6 flex items-center justify-center gap-2 rounded-full bg-[var(--color-fg)] px-5 py-3 text-sm font-medium text-[var(--color-bg)]"
+            <div className="flex h-16 items-center justify-between border-b border-white/10 px-5 sm:px-8">
+              <span className="label !text-[#f4f4f0]/60">Menu</span>
+              <button
+                onClick={() => setOpen(false)}
+                aria-label="Close menu"
+                className="grid h-9 w-9 place-items-center border border-white/20"
               >
-                {t("nav.cta")}
-                <ArrowUpRight size={15} strokeWidth={2} />
-              </a>
-            </motion.div>
+                <X size={17} strokeWidth={1.75} />
+              </button>
+            </div>
+
+            <ul className="flex flex-1 flex-col justify-center px-6 sm:px-10">
+              {navItems.map((item, i) => (
+                <motion.li
+                  key={item.id}
+                  initial={reduce ? { opacity: 0 } : { opacity: 0, x: 32 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{
+                    delay: reduce ? 0 : 0.06 + i * 0.05,
+                    duration: 0.45,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                  className="border-b border-white/10"
+                >
+                  <button
+                    onClick={() => handleNav(item.id)}
+                    className="group flex w-full items-baseline justify-between py-4 text-left"
+                  >
+                    <span className="display-sm transition-colors duration-300 group-hover:text-[var(--color-green)]">
+                      {item.label}
+                    </span>
+                    <span className="font-mono text-xs text-[var(--color-green)]">
+                      0{i + 1}
+                    </span>
+                  </button>
+                </motion.li>
+              ))}
+            </ul>
+
+            <div className="border-t border-white/10 px-6 py-6 sm:px-10">
+              <div className="flex flex-col gap-1 text-sm text-[#f4f4f0]/70">
+                <a href={`mailto:${profile.email}`} className="hover:text-[var(--color-green)]">
+                  {profile.email}
+                </a>
+                <a href={profile.phoneHref} className="hover:text-[var(--color-green)]">
+                  {profile.phone}
+                </a>
+                <span>{profile.location}</span>
+              </div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

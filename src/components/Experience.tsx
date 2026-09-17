@@ -1,104 +1,103 @@
 "use client";
 
-import { motion, useReducedMotion } from "motion/react";
-import { Briefcase, MapPin, TrendingUp, Check } from "lucide-react";
-import { useLanguage } from "@/i18n/LanguageProvider";
+import { Reveal } from "./ui/Reveal";
+import { SectionHead } from "./ui/SectionHead";
 import { experiences } from "@/data/experience";
-import { SectionHeading } from "./ui/SectionHeading";
 
 export function Experience() {
-  const { t } = useLanguage();
-  const reduce = useReducedMotion();
-
   return (
-    <section id="experience" className="relative py-24 sm:py-32">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <SectionHeading
-          eyebrow={t("experience.eyebrow")}
-          heading={t("experience.heading")}
-        />
+    <section id="experience" data-nav="dark" className="t-dark border-t border-[var(--line)]">
+      <div className="mx-auto max-w-[90rem] px-5 py-24 sm:px-8 sm:py-32">
+        <SectionHead label="Experience" />
 
-        <div className="relative mt-14 pl-6 sm:pl-8">
-          {/* Timeline rail */}
-          <div className="absolute left-0 top-2 bottom-2 w-px bg-gradient-to-b from-[var(--color-accent)]/40 via-[var(--color-border-strong)] to-transparent" />
+        <Reveal className="mt-12">
+          <h2 className="display-md max-w-3xl uppercase">
+            The record behind
+            <br />
+            <span className="text-[var(--sub)]">the positioning.</span>
+          </h2>
+        </Reveal>
 
-          <div className="flex flex-col gap-10">
-            {experiences.map((exp, i) => (
-              <motion.article
-                key={exp.id}
-                initial={reduce ? { opacity: 0 } : { opacity: 0, x: -24 }}
-                whileInView={reduce ? { opacity: 1 } : { opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-80px" }}
-                transition={
-                  reduce
-                    ? { duration: 0.3 }
-                    : { duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: i * 0.05 }
-                }
-                className="relative"
-              >
-                {/* Node */}
-                <span className="absolute -left-[1.65rem] top-2 grid h-3.5 w-3.5 place-items-center sm:-left-[2.15rem]">
-                  <span className="absolute h-3.5 w-3.5 rounded-full bg-[var(--color-accent)]/30" />
-                  <span className="relative h-2 w-2 rounded-full bg-[var(--color-accent)]" />
-                </span>
-
-                <div className="group rounded-3xl border-hair bg-[var(--color-surface)]/50 p-6 transition-colors duration-300 hover:border-[var(--color-border-strong)] sm:p-8">
-                  <div className="flex flex-wrap items-start justify-between gap-4">
-                    <div className="flex flex-col gap-1.5">
-                      <div className="flex items-center gap-2">
-                        <Briefcase size={15} className="text-[var(--color-accent)]" strokeWidth={1.75} />
-                        <span className="text-xs font-medium uppercase tracking-[0.15em] text-[var(--color-muted)]">
-                          {exp.period}
-                        </span>
-                        {exp.current && (
-                          <span className="rounded-full bg-emerald-400/10 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-emerald-300">
-                            {t("experience.current")}
-                          </span>
-                        )}
-                      </div>
-                      <h3 className="text-xl font-semibold tracking-tight sm:text-2xl">
-                        {exp.role}
-                      </h3>
-                      <p className="text-base text-[var(--color-fg)]/90">
-                        {exp.company}
-                      </p>
-                      <p className="flex items-center gap-1.5 text-sm text-[var(--color-subtle)]">
-                        <MapPin size={13} strokeWidth={1.75} />
-                        {exp.location}
-                      </p>
-                    </div>
-                  </div>
-
-                  {exp.note && (
-                    <p className="mt-5 inline-flex items-center gap-2 rounded-full border-hair bg-[var(--color-accent-soft)] px-3.5 py-1.5 text-xs font-medium text-[var(--color-accent)]">
-                      <TrendingUp size={13} strokeWidth={2} />
-                      {exp.note}
-                    </p>
+        <div className="mt-14">
+          {experiences.map((e, i) => (
+            <Reveal key={e.id} delay={i * 0.08}>
+              <article className="grid grid-cols-1 gap-8 border-t border-[var(--line)] py-10 lg:grid-cols-12">
+                {/* Period */}
+                <div className="lg:col-span-3">
+                  <span className="font-mono text-sm text-[var(--color-green)]">
+                    {e.period}
+                  </span>
+                  <span className="label mt-2 block">{e.location}</span>
+                  {e.current && (
+                    <span className="mt-4 inline-flex items-center gap-2 border border-[var(--color-green)] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-[var(--color-green)]">
+                      <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-green)]" />
+                      Current
+                    </span>
                   )}
+                </div>
 
-                  <h4 className="mt-6 text-xs font-semibold uppercase tracking-[0.15em] text-[var(--color-subtle)]">
-                    {t("experience.responsibilities")}
-                  </h4>
-                  <ul className="mt-3 grid grid-cols-1 gap-2.5 sm:grid-cols-2">
-                    {exp.responsibilities.map((r) => (
+                {/* Role */}
+                <div className="lg:col-span-4">
+                  <h3 className="display-sm uppercase">{e.role}</h3>
+                  <p className="mt-2 text-sm font-semibold uppercase tracking-[0.12em] text-[var(--mut)]">
+                    {e.company}
+                  </p>
+                  <ul className="mt-6 space-y-2.5">
+                    {e.highlights.map((h) => (
                       <li
-                        key={r}
-                        className="flex items-start gap-2.5 text-sm leading-relaxed text-[var(--color-muted)]"
+                        key={h}
+                        className="flex gap-3 text-sm leading-relaxed text-[var(--mut)]"
                       >
-                        <Check
-                          size={15}
-                          strokeWidth={2}
-                          className="mt-0.5 shrink-0 text-[var(--color-accent)]"
-                        />
-                        <span>{r}</span>
+                        <span className="mt-2 h-px w-4 shrink-0 bg-[var(--color-green)]" aria-hidden />
+                        {h}
                       </li>
                     ))}
                   </ul>
                 </div>
-              </motion.article>
-            ))}
-          </div>
+
+                {/* Areas */}
+                <div className="lg:col-span-5">
+                  <span className="label">Scope</span>
+                  <ul className="mt-4 flex flex-wrap gap-2">
+                    {e.areas.map((a) => (
+                      <li
+                        key={a}
+                        className="border border-[var(--line)] px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.1em] text-[var(--mut)] transition-colors duration-300 hover:border-[var(--color-green)] hover:text-[var(--color-green)]"
+                      >
+                        {a}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </article>
+            </Reveal>
+          ))}
         </div>
+
+        {/* Education — typographic, not a card */}
+        <Reveal className="mt-20 border-t border-[var(--line)] pt-14">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
+            <div className="lg:col-span-3">
+              <span className="label">Education</span>
+            </div>
+            <div className="lg:col-span-9">
+              <p className="display-md uppercase">
+                B.S. Information
+                <br />
+                Technology
+              </p>
+              <div className="mt-6 flex flex-wrap items-baseline gap-x-8 gap-y-2">
+                <span className="text-sm font-semibold uppercase tracking-[0.12em] text-[var(--color-green)]">
+                  Major — Database Management
+                </span>
+                <span className="text-sm text-[var(--mut)]">
+                  University of Science and Technology of Southern Philippines
+                </span>
+                <span className="font-mono text-sm text-[var(--sub)]">May 2024</span>
+              </div>
+            </div>
+          </div>
+        </Reveal>
       </div>
     </section>
   );

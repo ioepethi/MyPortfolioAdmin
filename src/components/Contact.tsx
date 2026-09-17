@@ -1,129 +1,144 @@
 "use client";
 
-import { motion, useReducedMotion } from "motion/react";
-import { Mail, Phone, MapPin, ArrowUpRight } from "lucide-react";
-import { useLanguage } from "@/i18n/LanguageProvider";
-import { profile } from "@/data/profile";
-import { SocialLinks } from "./ui/SocialLinks";
+import { ArrowUpRight, FileText, Mail } from "lucide-react";
 import { Reveal } from "./ui/Reveal";
+import { profile } from "@/data/profile";
 import { WhatsappIcon } from "./ui/BrandIcons";
 
+const areas = [
+  "Graphic Design",
+  "E-Commerce",
+  "Digital",
+  "IT / Technical Support",
+  "Administration",
+  "Operations",
+  "Project Coordination",
+];
+
 export function Contact() {
-  const { t } = useLanguage();
-  const reduce = useReducedMotion();
-
-  const details = [
-    {
-      icon: Mail,
-      label: t("contact.emailLabel"),
-      value: profile.email,
-      href: `mailto:${profile.email}`,
-    },
-    {
-      icon: Phone,
-      label: t("contact.phoneLabel"),
-      value: profile.phone,
-      href: profile.phoneHref,
-    },
-    {
-      icon: WhatsappIcon,
-      label: "WhatsApp",
-      value: profile.phone,
-      href: profile.whatsappHref,
-    },
-    {
-      icon: MapPin,
-      label: t("contact.locationLabel"),
-      value: profile.location,
-      href: undefined,
-    },
-  ];
-
   return (
-    <section id="contact" className="relative py-24 sm:py-32">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="relative overflow-hidden rounded-[2rem] border-hair bg-[var(--color-surface)]/60 p-8 sm:p-12 lg:p-16">
-          {/* Ambient glow */}
-          <div className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-[var(--color-accent)]/10 blur-3xl" />
-          <div className="pointer-events-none absolute -bottom-24 -left-10 h-72 w-72 rounded-full bg-[var(--color-navy)]/40 blur-3xl" />
-
-          <div className="relative grid grid-cols-1 gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
-            {/* Left: headline + CTA */}
-            <div className="flex flex-col gap-6">
-              <Reveal>
-                <span className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.2em] text-[var(--color-accent)]">
-                  <span className="h-px w-8 bg-[var(--color-accent)]/60" />
-                  {t("contact.eyebrow")}
+    <section id="contact" data-nav="dark" className="t-dark border-t border-[var(--line)]">
+      {/* Availability strip */}
+      <div className="hairline-b">
+        <div className="mx-auto grid max-w-[90rem] grid-cols-1 gap-8 px-5 py-16 sm:px-8 lg:grid-cols-12 lg:items-center">
+          <Reveal className="lg:col-span-5">
+            <h2 className="display-md uppercase">
+              Currently open
+              <br />
+              <span className="text-[var(--color-green)]">to opportunities.</span>
+            </h2>
+          </Reveal>
+          <div className="lg:col-span-7">
+            <Reveal delay={0.08}>
+              <div className="flex flex-wrap items-center gap-4">
+                <span className="label">{profile.location}</span>
+                <span className="inline-flex items-center gap-2 border border-[var(--color-green)] px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.16em] text-[var(--color-green)]">
+                  Immediate joiner
                 </span>
-              </Reveal>
-              <Reveal delay={0.05}>
-                <h2 className="text-balance text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl">
-                  {t("contact.heading")}
-                </h2>
-              </Reveal>
-              <Reveal delay={0.15}>
-                <a
-                  href={`mailto:${profile.email}`}
-                  className="group inline-flex w-fit items-center gap-2 rounded-full bg-[var(--color-fg)] px-6 py-3.5 text-sm font-medium text-[var(--color-bg)] transition-transform duration-300 hover:-translate-y-0.5"
-                >
-                  {t("contact.cta")}
-                  <ArrowUpRight
-                    size={16}
-                    strokeWidth={2}
-                    className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                  />
-                </a>
-              </Reveal>
-            </div>
-
-            {/* Right: contact details + socials */}
-            <div className="flex flex-col gap-3">
-              {details.map((d, i) => {
-                const Icon = d.icon;
-                const content = (
-                  <motion.div
-                    key={d.label}
-                    initial={reduce ? { opacity: 0 } : { opacity: 0, y: 16 }}
-                    whileInView={reduce ? { opacity: 1 } : { opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-60px" }}
-                    transition={
-                      reduce
-                        ? { duration: 0.3 }
-                        : { duration: 0.5, delay: 0.1 + i * 0.08, ease: [0.22, 1, 0.36, 1] }
-                    }
-                    className="flex items-center gap-4 rounded-2xl border-hair bg-white/[0.02] p-4 transition-colors duration-300 hover:bg-white/[0.04]"
-                  >
-                    <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-[var(--color-accent-soft)] text-[var(--color-accent)]">
-                      <Icon size={17} strokeWidth={1.75} />
-                    </span>
-                    <div className="flex min-w-0 flex-col">
-                      <span className="text-xs uppercase tracking-[0.15em] text-[var(--color-subtle)]">
-                        {d.label}
-                      </span>
-                      <span className="truncate text-sm font-medium text-[var(--color-fg)]">
-                        {d.value}
-                      </span>
-                    </div>
-                  </motion.div>
-                );
-                return d.href ? (
-                  <a key={d.label} href={d.href} className="block">
-                    {content}
-                  </a>
-                ) : (
-                  content
-                );
-              })}
-
-              <div className="mt-4 flex flex-col gap-3">
-                <span className="text-xs uppercase tracking-[0.15em] text-[var(--color-subtle)]">
-                  {t("contact.connectHeading")}
-                </span>
-                <SocialLinks />
               </div>
-            </div>
+            </Reveal>
+            <Reveal delay={0.12}>
+              <p className="label mt-8">Open to opportunities across</p>
+              <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-2">
+                {areas.map((a) => (
+                  <li key={a} className="text-sm font-bold uppercase tracking-tight text-[var(--fg)]">
+                    {a}
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
           </div>
         </div>
+      </div>
+
+      {/* Main contact */}
+      <div className="mx-auto max-w-[90rem] px-5 py-24 sm:px-8 sm:py-36">
+        <Reveal>
+          <span className="label label-green">Contact</span>
+        </Reveal>
+        <Reveal delay={0.06}>
+          <h2 className="display-xl mt-8 uppercase">
+            Have a problem
+            <br />
+            to solve?
+          </h2>
+        </Reveal>
+        <Reveal delay={0.1}>
+          <p className="display-md mt-4 text-[var(--color-green)]">Let&apos;s talk.</p>
+        </Reveal>
+        <Reveal delay={0.14}>
+          <p className="mt-8 max-w-xl text-pretty text-base leading-relaxed text-[var(--mut)]">
+            Whether you need a better digital experience, stronger product
+            presentation, cleaner processes, or a practical system — I&apos;d be
+            happy to discuss the problem and explore the solution.
+          </p>
+        </Reveal>
+
+        <Reveal delay={0.18}>
+          <div className="mt-10 flex flex-wrap items-center gap-4">
+            <a
+              href={`mailto:${profile.email}`}
+              className="group inline-flex items-center gap-2.5 bg-[var(--color-green)] px-7 py-4 text-[12px] font-bold uppercase tracking-[0.16em] text-[#0b0d0c] transition-transform duration-300 hover:-translate-y-0.5"
+            >
+              <Mail size={15} strokeWidth={2.5} />
+              Email me
+            </a>
+            <a
+              href={profile.whatsappHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-2.5 border border-[var(--line-strong)] px-7 py-4 text-[12px] font-bold uppercase tracking-[0.16em] text-[var(--fg)] transition-colors duration-300 hover:border-[var(--color-green)] hover:text-[var(--color-green)]"
+            >
+              <WhatsappIcon size={15} />
+              WhatsApp me
+            </a>
+            <a
+              href={profile.cvUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-2.5 border border-[var(--line-strong)] px-7 py-4 text-[12px] font-bold uppercase tracking-[0.16em] text-[var(--fg)] transition-colors duration-300 hover:border-[var(--color-green)] hover:text-[var(--color-green)]"
+            >
+              <FileText size={15} strokeWidth={2} />
+              View CV
+            </a>
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.22}>
+          <div className="mt-16 grid grid-cols-1 gap-px bg-[var(--line)] sm:grid-cols-3">
+            {[
+              { label: "Email", value: profile.email, href: `mailto:${profile.email}` },
+              { label: "Phone", value: profile.phone, href: profile.phoneHref },
+              { label: "Location", value: profile.location, href: undefined },
+            ].map((c) => {
+              const inner = (
+                <div className="group flex items-center justify-between bg-[var(--bg)] p-6 transition-colors duration-300 hover:bg-[var(--card)]">
+                  <div>
+                    <span className="label">{c.label}</span>
+                    <p className="mt-2 text-sm font-semibold text-[var(--fg)]">
+                      {c.value}
+                    </p>
+                  </div>
+                  {c.href && (
+                    <ArrowUpRight
+                      size={16}
+                      strokeWidth={2}
+                      className="text-[var(--sub)] transition-colors duration-300 group-hover:text-[var(--color-green)]"
+                      aria-hidden
+                    />
+                  )}
+                </div>
+              );
+              return c.href ? (
+                <a key={c.label} href={c.href} className="block">
+                  {inner}
+                </a>
+              ) : (
+                <div key={c.label}>{inner}</div>
+              );
+            })}
+          </div>
+        </Reveal>
       </div>
     </section>
   );

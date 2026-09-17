@@ -1,24 +1,43 @@
 import type { Metadata } from "next";
+import localFont from "next/font/local";
 import "./globals.css";
 import { profile } from "@/data/profile";
-import { ThemeProvider } from "@/components/ui/ThemeProvider";
 
-const title = `${profile.name} — ${profile.role}`;
+const inter = localFont({
+  src: [
+    {
+      path: "./fonts/inter-var.woff2",
+      weight: "100 900",
+      style: "normal",
+    },
+    {
+      path: "./fonts/inter-var-italic.woff2",
+      weight: "100 900",
+      style: "italic",
+    },
+  ],
+  variable: "--font-inter",
+  display: "swap",
+});
+
+const title =
+  "Joepeth Del Puerto — Graphic Design, E-Commerce & Digital Professional";
 const description =
-  "Office Admin, Admin Assistant & Office Coordinator in Dubai with 4+ years in administration, operations, reporting, documentation, and IT support. Open to opportunities across the UAE.";
+  "Joepeth Del Puerto is a multidisciplinary digital professional in Dubai combining graphic design, e-commerce, IT, digital systems, and operations to create practical business solutions.";
 const keywords = [
-  "Office Admin Dubai",
-  "Administrative Assistant Dubai",
-  "Office Coordinator Dubai",
-  "Administrative Coordinator",
-  "Office Administration",
-  "Operations Administration",
-  "Admin Assistant UAE",
-  "Administrative Operations",
-  "IT Support",
-  "Reporting",
-  "Microsoft Excel",
   "Joepeth Del Puerto",
+  "Multidisciplinary Digital Professional",
+  "Graphic Designer Dubai",
+  "E-Commerce Specialist Dubai",
+  "Digital Professional UAE",
+  "IT Support Dubai",
+  "Operations Coordinator",
+  "Shopify",
+  "Noon",
+  "Amazon FBA",
+  "Product Catalog Management",
+  "Process Improvement",
+  "Project Coordination",
 ];
 
 export const metadata: Metadata = {
@@ -41,7 +60,7 @@ export const metadata: Metadata = {
       {
         url: profile.image,
         width: 1200,
-        height: 1500,
+        height: 1200,
         alt: profile.imageAlt,
       },
     ],
@@ -60,7 +79,7 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-        url: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230a0b0e'/%3E%3Ctext x='50' y='68' font-family='Arial,sans-serif' font-size='52' font-weight='700' fill='%23e8eaf0' text-anchor='middle'%3EJD%3C/text%3E%3C/svg%3E",
+        url: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%230b0d0c'/%3E%3Ctext x='50' y='68' font-family='Arial,sans-serif' font-size='52' font-weight='800' fill='%2375a94c' text-anchor='middle'%3EJD%3C/text%3E%3C/svg%3E",
       },
     ],
   },
@@ -81,37 +100,36 @@ const personJsonLd = {
   url: profile.url,
   sameAs: [profile.linkedin, profile.github].filter(Boolean),
   knowsAbout: [
-    "Office Administration",
-    "Operations Administration",
-    "Reporting",
-    "Documentation Management",
-    "Records Management",
-    "Microsoft Excel",
-    "IT Support",
+    "Graphic Design",
+    "E-Commerce",
+    "Product Catalog Management",
+    "Information Technology",
     "Database Management",
+    "Office Administration",
+    "Operations",
+    "Project Coordination",
+    "Process Improvement",
+    "Microsoft Excel",
   ],
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html
       lang="en"
-      className="h-full antialiased"
+      className={`${inter.variable} h-full antialiased`}
       suppressHydrationWarning
     >
-      <body className="min-h-full bg-[var(--color-bg)] font-sans text-[var(--color-fg)]">
+      <body className="min-h-full bg-[var(--color-ink)] font-sans text-[var(--color-off)]">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
         />
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem={false}
-          disableTransitionOnChange
-        >
-          {children}
-        </ThemeProvider>
+        {children}
       </body>
     </html>
   );

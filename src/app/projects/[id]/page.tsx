@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { LanguageProvider } from "@/i18n/LanguageProvider";
 import { ProjectDetail } from "@/components/ProjectDetail";
 import { projects } from "@/data/projects";
 
@@ -16,19 +15,17 @@ export async function generateMetadata({
   if (!project) return {};
 
   return {
-    title: `${project.name} — Joepeth Del Puerto`,
-    description: project.blurb,
+    title: `${project.name} — ${project.subtitle} — Joepeth Del Puerto`,
+    description: project.summary,
   };
 }
 
-export default async function ProjectPage({ params }: PageProps<"/projects/[id]">) {
+export default async function ProjectPage({
+  params,
+}: PageProps<"/projects/[id]">) {
   const { id } = await params;
   const project = projects.find((p) => p.id === id);
   if (!project) notFound();
 
-  return (
-    <LanguageProvider>
-      <ProjectDetail project={project} />
-    </LanguageProvider>
-  );
+  return <ProjectDetail project={project} />;
 }
