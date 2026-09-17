@@ -64,36 +64,33 @@ export function DropdownSection({
     <section
       id={id}
       data-nav={theme}
-      className={cn(theme === "light" ? "t-light" : "t-dark")}
+      className={cn(theme === "light" ? "t-light" : "t-dark", "hairline-t")}
     >
-      <div className="mx-auto max-w-[72rem] px-5 sm:px-8">
+      <div className="mx-auto max-w-[90rem] px-5 sm:px-8">
         <button
           type="button"
           onClick={() => setOpen((o) => !o)}
           aria-expanded={open}
           aria-controls={panelId}
-          className={cn(
-            "group -mx-4 flex w-[calc(100%+2rem)] items-center gap-4 rounded-2xl px-4 py-7 text-left transition-colors duration-300 sm:-mx-5 sm:w-[calc(100%+2.5rem)] sm:gap-5 sm:px-5 sm:py-8",
-            "hover:bg-[var(--tint)]"
-          )}
+          className="group flex w-full items-center gap-4 py-7 text-left sm:gap-6 sm:py-9"
         >
-          <span className="font-mono text-[13px] font-medium text-[var(--color-green)]">
+          <span className="font-mono text-sm text-[var(--color-green)] sm:text-base">
             {index}
           </span>
-          <span className="text-[clamp(1.5rem,3.6vw,2.5rem)] font-bold leading-none tracking-[-0.025em]">
+          <span className="text-[clamp(1.75rem,4.5vw,3.5rem)] font-extrabold uppercase leading-none tracking-[-0.03em] transition-colors duration-300 group-hover:text-[var(--color-green)]">
             {title}
           </span>
           <span
             aria-hidden
             className={cn(
-              "ml-auto grid h-10 w-10 shrink-0 place-items-center rounded-full border transition-all duration-300",
+              "ml-auto grid h-11 w-11 shrink-0 place-items-center border transition-all duration-300",
               open
-                ? "border-[var(--color-green)] bg-[var(--color-green)] text-[#0d100e]"
+                ? "border-[var(--color-green)] bg-[var(--color-green)] text-[#0b0d0c]"
                 : "border-[var(--line-strong)] text-[var(--sub)] group-hover:border-[var(--color-green)] group-hover:text-[var(--color-green)]"
             )}
           >
             <ChevronDown
-              size={17}
+              size={18}
               strokeWidth={2.25}
               className={cn("transition-transform duration-300", open && "rotate-180")}
             />
@@ -113,7 +110,7 @@ export function DropdownSection({
             }
             className="overflow-hidden"
           >
-            <div className="mx-auto max-w-[72rem] px-5 pb-16 sm:px-8">
+            <div className="mx-auto max-w-[90rem] px-5 pb-16 sm:px-8">
               {children}
             </div>
           </motion.div>
@@ -148,31 +145,28 @@ export function NestedDisclosure({
   }, [id]);
 
   return (
-    <div id={id} className="scroll-mt-24 rounded-xl border border-[var(--line)] bg-[var(--card)]">
+    <div id={id} className="scroll-mt-24 border-t border-[var(--line)]">
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
         aria-controls={panelId}
-        className={cn(
-          "group flex w-full items-center gap-4 rounded-xl px-5 py-4.5 text-left transition-colors duration-200",
-          "hover:bg-[var(--card-hover)]"
-        )}
+        className="group flex w-full items-center gap-4 py-5 text-left"
       >
-        <span className="text-[15px] font-semibold tracking-[-0.01em]">
+        <span className="text-lg font-bold uppercase tracking-tight transition-colors duration-300 group-hover:text-[var(--color-green)] sm:text-xl">
           {title}
         </span>
         <span
           aria-hidden
           className={cn(
-            "ml-auto grid h-7 w-7 shrink-0 place-items-center rounded-full border transition-all duration-300",
+            "ml-auto grid h-8 w-8 shrink-0 place-items-center border transition-all duration-300",
             open
               ? "border-[var(--color-green)] text-[var(--color-green)]"
               : "border-[var(--line-strong)] text-[var(--sub)] group-hover:border-[var(--color-green)] group-hover:text-[var(--color-green)]"
           )}
         >
           <Plus
-            size={13}
+            size={15}
             strokeWidth={2.5}
             className={cn("transition-transform duration-300", open && "rotate-45")}
           />
@@ -190,7 +184,7 @@ export function NestedDisclosure({
             }
             className="overflow-hidden"
           >
-            <div className="px-5 pb-6">{children}</div>
+            <div className="pb-8">{children}</div>
           </motion.div>
         )}
       </AnimatePresence>

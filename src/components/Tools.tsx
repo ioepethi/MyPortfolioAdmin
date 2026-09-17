@@ -2,11 +2,10 @@
 
 import { DropdownSection } from "./ui/Dropdown";
 import { toolGroups, type Tool } from "@/data/tools";
-import { cn } from "@/lib/utils";
 
 function ToolChip({ tool }: { tool: Tool }) {
   return (
-    <li className="chip">
+    <li className="flex items-center gap-2 bg-[var(--chip)] px-2.5 py-1.5 text-[10.5px] font-medium uppercase tracking-[0.08em] text-[var(--mut)]">
       {tool.icon ? (
         // eslint-disable-next-line @next/next/no-img-element
         <img
@@ -30,18 +29,18 @@ function ToolChip({ tool }: { tool: Tool }) {
 export function Tools() {
   return (
     <DropdownSection id="tools" index="03" title="Tools & Technologies" theme="light">
-      <div className="space-y-1">
+      <div>
         {toolGroups.map((g) => (
           <div
             key={g.id}
             id={`tools-${g.id}`}
             className="grid scroll-mt-24 grid-cols-1 gap-3 border-t border-[var(--line)] py-5 first:border-0 first:pt-0 last:pb-0 sm:grid-cols-12 sm:items-start"
           >
-            <div className="flex items-baseline gap-2.5 sm:col-span-3">
+            <div className="flex items-baseline gap-3 sm:col-span-3">
               <span className="font-mono text-xs text-[var(--color-green-deep)]">
                 {g.num}
               </span>
-              <h3 className="text-sm font-semibold tracking-[-0.01em]">
+              <h3 className="text-sm font-bold uppercase tracking-tight">
                 {g.label}
               </h3>
             </div>
@@ -52,13 +51,13 @@ export function Tools() {
             </ul>
           </div>
         ))}
-        <p className="pt-5 text-xs leading-relaxed text-[var(--sub)]">
+        <p className="border-t border-[var(--line)] pt-5 text-xs leading-relaxed text-[var(--sub)]">
           Commerce systems in practice: see{" "}
-          <a href="#work" className="font-semibold text-[var(--color-green-deep)] underline decoration-[var(--color-green-deep)]/40 underline-offset-2 hover:decoration-[var(--color-green-deep)]">
+          <a href="#work" className="font-semibold text-[var(--color-green-deep)] underline underline-offset-2">
             BrandPeth.ae
           </a>{" "}
           and{" "}
-          <a href="#work" className="font-semibold text-[var(--color-green-deep)] underline decoration-[var(--color-green-deep)]/40 underline-offset-2 hover:decoration-[var(--color-green-deep)]">
+          <a href="#work" className="font-semibold text-[var(--color-green-deep)] underline underline-offset-2">
             Edge Plus Fitness
           </a>{" "}
           in the work section.

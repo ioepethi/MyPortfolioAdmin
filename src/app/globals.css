@@ -1,12 +1,12 @@
 @import "tailwindcss";
 
 @theme {
-  /* Brand tokens — refined dark/light with warm neutrals */
-  --color-ink: #0d100e;
-  --color-coal: #141816;
+  /* Brand tokens — editorial / industrial palette */
+  --color-ink: #0b0d0c;
+  --color-coal: #171a18;
   --color-paper: #ffffff;
-  --color-off: #f2f3ef;
-  --color-smoke: #7d837c;
+  --color-off: #f4f4f0;
+  --color-smoke: #858985;
   --color-green: #75a94c;
   --color-green-deep: #4f7a2e;
 
@@ -16,7 +16,6 @@
     "Courier New", monospace;
 
   --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
-  --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 :root {
@@ -26,37 +25,33 @@
 /* ---------------------------------------------------------------------------
  * Section themes.
  * Every section carries .t-dark or .t-light; children read the local vars so
- * typography, borders and chips automatically match the surface.
+ * typography, hairlines and chips automatically match the surface.
  * ------------------------------------------------------------------------- */
 .t-dark {
-  --fg: #eef0ea;
-  --bg: #0d100e;
-  --mut: #9aa098;
-  --sub: #6b716a;
-  --line: rgba(238, 240, 234, 0.1);
-  --line-strong: rgba(238, 240, 234, 0.22);
-  --card: #141816;
-  --card-hover: #1a1f1c;
-  --chip: rgba(238, 240, 234, 0.06);
-  --chip-hover: rgba(238, 240, 234, 0.1);
-  --tint: rgba(117, 169, 76, 0.12);
+  --fg: #f4f4f0;
+  --bg: #0b0d0c;
+  --mut: #a3a8a2;
+  --sub: #6e736d;
+  --line: rgba(244, 244, 240, 0.14);
+  --line-strong: rgba(244, 244, 240, 0.28);
+  --card: #171a18;
+  --chip: rgba(244, 244, 240, 0.06);
+  --ghost: rgba(11, 13, 12, 0.05);
   background: var(--bg);
   color: var(--fg);
   color-scheme: dark;
 }
 
 .t-light {
-  --fg: #10130f;
-  --bg: #f2f3ef;
-  --mut: #4e544d;
-  --sub: #7d837c;
-  --line: rgba(16, 19, 15, 0.1);
-  --line-strong: rgba(16, 19, 15, 0.22);
+  --fg: #0b0d0c;
+  --bg: #f4f4f0;
+  --mut: #4c514c;
+  --sub: #858985;
+  --line: rgba(11, 13, 12, 0.16);
+  --line-strong: rgba(11, 13, 12, 0.32);
   --card: #ffffff;
-  --card-hover: #fafbf8;
-  --chip: rgba(16, 19, 15, 0.045);
-  --chip-hover: rgba(16, 19, 15, 0.08);
-  --tint: rgba(79, 122, 46, 0.1);
+  --chip: rgba(11, 13, 12, 0.05);
+  --ghost: rgba(244, 244, 240, 0.5);
   background: var(--bg);
   color: var(--fg);
   color-scheme: light;
@@ -84,7 +79,7 @@ body {
 
 ::selection {
   background: var(--color-green);
-  color: #0d100e;
+  color: #0b0d0c;
 }
 
 /* Custom scrollbar */
@@ -98,20 +93,19 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(238, 240, 234, 0.14);
+  background: rgba(244, 244, 240, 0.16);
   border-radius: 999px;
   border: 2px solid var(--color-ink);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(238, 240, 234, 0.26);
+  background: rgba(244, 244, 240, 0.3);
 }
 
 /* Focus visibility */
 :focus-visible {
   outline: 2px solid var(--color-green);
   outline-offset: 3px;
-  border-radius: 4px;
 }
 
 /* ---------------------------------------------------------------------------
@@ -123,7 +117,7 @@ body {
   .label {
     font-size: 0.6875rem;
     font-weight: 600;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
     color: var(--sub);
   }
@@ -145,51 +139,28 @@ body {
     border: 1px solid var(--line);
   }
 
-  /* Rounded surface card */
-  .card {
-    background: var(--card);
-    border: 1px solid var(--line);
-    border-radius: 14px;
-  }
-
-  /* Pill chip */
-  .chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.375rem;
-    background: var(--chip);
-    border: 1px solid var(--line);
-    border-radius: 999px;
-    padding: 0.3rem 0.75rem;
-    font-size: 0.6875rem;
-    font-weight: 500;
-    letter-spacing: 0.04em;
-    color: var(--mut);
-    transition:
-      background 0.25s var(--ease-soft),
-      border-color 0.25s var(--ease-soft),
-      color 0.25s var(--ease-soft);
-  }
-
-  .chip:hover {
-    background: var(--chip-hover);
-    border-color: var(--line-strong);
-    color: var(--fg);
+  /* Oversized stroked numeral */
+  .num-outline {
+    font-weight: 800;
+    line-height: 0.8;
+    letter-spacing: -0.04em;
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--line-strong);
   }
 
   /* Giant display type */
   .display-xl {
     font-weight: 800;
     letter-spacing: -0.045em;
-    line-height: 0.95;
-    font-size: clamp(2.9rem, 8.5vw, 7rem);
+    line-height: 0.92;
+    font-size: clamp(3.4rem, 11vw, 10.5rem);
   }
 
   .display-lg {
     font-weight: 800;
     letter-spacing: -0.04em;
-    line-height: 0.98;
-    font-size: clamp(2.4rem, 6.4vw, 5.75rem);
+    line-height: 0.95;
+    font-size: clamp(2.6rem, 7.2vw, 7rem);
   }
 
   .display-md {
@@ -212,6 +183,27 @@ body {
     letter-spacing: -0.02em;
   }
 
+  /* Marquee */
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-marquee {
+    animation: marquee 42s linear infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-marquee {
+      animation: none;
+    }
+  }
+
   /* Browser chrome frame for real screenshots */
   .browser-bar {
     display: flex;
@@ -220,7 +212,6 @@ body {
     padding: 0.625rem 0.875rem;
     border-bottom: 1px solid var(--line);
     background: var(--card);
-    border-radius: 14px 14px 0 0;
   }
 
   .browser-dot {
@@ -230,16 +221,7 @@ body {
     background: var(--line-strong);
   }
 
-  /* Oversized stroked numeral (project detail pages) */
-  .num-outline {
-    font-weight: 800;
-    line-height: 0.8;
-    letter-spacing: -0.04em;
-    color: transparent;
-    -webkit-text-stroke: 1.5px var(--line-strong);
-  }
-
-  /* Thin link with animated underline */
+  /* Thin link with animated arrow */
   .link-underline {
     position: relative;
   }
@@ -269,17 +251,6 @@ body {
       linear-gradient(to right, var(--line) 1px, transparent 1px),
       linear-gradient(to bottom, var(--line) 1px, transparent 1px);
     background-size: 72px 72px;
-  }
-
-  /* Soft radial glow used behind hero content */
-  .hero-glow {
-    background:
-      radial-gradient(640px 420px at 78% 20%,
-        rgba(117, 169, 76, 0.14),
-        transparent 70%),
-      radial-gradient(900px 600px at 10% 110%,
-        rgba(117, 169, 76, 0.06),
-        transparent 65%);
   }
 
   .text-balance {

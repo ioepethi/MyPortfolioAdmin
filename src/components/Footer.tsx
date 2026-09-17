@@ -29,34 +29,23 @@ export function Footer() {
 
   return (
     <footer data-nav="dark" className="t-dark border-t border-[var(--line)]">
-      <div className="mx-auto max-w-[72rem] px-5 py-12 sm:px-8">
-        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
-          {/* Brand */}
+      <div className="mx-auto max-w-[90rem] px-5 py-14 sm:px-8">
+        {/* Name + positioning */}
+        <div className="flex flex-col gap-4 border-b border-[var(--line)] pb-10 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <div
-              aria-hidden
-              className="h-9 w-9 bg-[var(--fg)]"
-              style={{
-                WebkitMaskImage: "url(/logo.png)",
-                maskImage: "url(/logo.png)",
-                WebkitMaskSize: "contain",
-                maskSize: "contain",
-                WebkitMaskRepeat: "no-repeat",
-                maskRepeat: "no-repeat",
-              }}
-            />
-            <p className="mt-4 text-sm font-extrabold uppercase tracking-tight">
+            <p className="text-3xl font-extrabold uppercase leading-none tracking-[-0.03em] sm:text-4xl">
               Joepeth Del Puerto
             </p>
-            <p className="mt-1.5 text-xs leading-relaxed text-[var(--mut)]">
+            <p className="mt-3 text-xs font-bold uppercase tracking-[0.12em] text-[var(--mut)]">
               Administrative &amp; Operations Professional
               <br />
               with an IT &amp; Digital Systems Background
             </p>
-            <p className="label mt-3">{profile.location}</p>
           </div>
+          <span className="label">{profile.location}</span>
+        </div>
 
-          {/* Index */}
+        <div className="grid grid-cols-1 gap-10 pt-10 sm:grid-cols-3">
           <nav aria-label="Footer index">
             <span className="label">Index</span>
             <ul className="mt-4 space-y-2">
@@ -64,7 +53,7 @@ export function Footer() {
                 <li key={l.section}>
                   <button
                     onClick={() => go(l.section)}
-                    className="text-xs font-semibold uppercase tracking-[0.1em] text-[var(--mut)] transition-colors hover:text-[var(--color-green)]"
+                    className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--mut)] transition-colors hover:text-[var(--color-green)]"
                   >
                     {l.label}
                   </button>
@@ -73,7 +62,6 @@ export function Footer() {
             </ul>
           </nav>
 
-          {/* Contact */}
           <div>
             <span className="label">Contact</span>
             <ul className="mt-4 space-y-3 text-xs text-[var(--mut)]">
@@ -104,7 +92,6 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Links */}
           <div>
             <span className="label">Links</span>
             <ul className="mt-4 space-y-2">
@@ -114,7 +101,7 @@ export function Footer() {
                     href={l.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-xs font-semibold uppercase tracking-[0.1em] text-[var(--mut)] transition-colors hover:text-[var(--color-green)]"
+                    className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--mut)] transition-colors hover:text-[var(--color-green)]"
                   >
                     {l.label}
                   </a>
@@ -124,7 +111,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 flex flex-col items-start justify-between gap-3 border-t border-[var(--line)] pt-5 sm:flex-row sm:items-center">
+        <div className="mt-12 flex flex-col items-start justify-between gap-3 border-t border-[var(--line)] pt-5 sm:flex-row sm:items-center">
           <p className="text-[11px] text-[var(--sub)]">
             © 2026 Joepeth Del Puerto · Built with care · Dubai, UAE
           </p>
