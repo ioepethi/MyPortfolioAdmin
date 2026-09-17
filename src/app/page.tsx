@@ -1,8 +1,9 @@
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
+import { Manifesto } from "@/components/Manifesto";
+import { WhoIAm } from "@/components/WhoIAm";
 import { WhatIDo } from "@/components/WhatIDo";
-import { CtaBand } from "@/components/CtaBand";
 import { SelectedWork } from "@/components/SelectedWork";
 import { Tools } from "@/components/Tools";
 import { Commerce } from "@/components/Commerce";
@@ -18,15 +19,14 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
+        <Manifesto />
+        <WhoIAm />
         <WhatIDo />
-        <CtaBand />
         <SelectedWork />
         <Tools />
-        <CtaBand />
         <Commerce />
         <Process />
         <Experience />
-        <CtaBand />
         <Contact />
       </main>
       <Footer />

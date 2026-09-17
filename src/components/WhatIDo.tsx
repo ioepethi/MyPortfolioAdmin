@@ -312,28 +312,35 @@ export function WhatIDo() {
           </Reveal>
         </div>
 
-        {/* My Solution Mindset — semantic dropdown in the section header area */}
-        <Reveal className="mt-12">
-          <details className="hairline group/details">
-            <summary className="flex cursor-pointer list-none items-center justify-between gap-6 px-5 py-5 sm:px-8 [&::-webkit-details-marker]:hidden">
-              <span className="flex items-baseline gap-4">
+        <Stagger className="hairline-t mt-14" gap={0.06}>
+          {disciplines.map((d, i) => (
+            <DisciplineRow key={d.title} d={d} index={i} />
+          ))}
+        </Stagger>
+      </div>
+
+      {/* Solution mindset — dark band inside the light section */}
+      <div data-nav="dark" className="t-dark">
+        <div className="mx-auto max-w-[90rem] px-5 py-24 sm:px-8 sm:py-32">
+          <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
+            <div className="lg:col-span-7">
+              <Reveal>
                 <span className="label label-green">My Solution Mindset</span>
-                <span className="display-sm uppercase">
-                  The problem is not always{" "}
-                  <span className="text-[var(--color-green-deep)]">the tool.</span>
-                </span>
-              </span>
-              <Plus
-                size={20}
-                strokeWidth={2}
-                aria-hidden
-                className="shrink-0 transition-transform duration-300 group-open/details:rotate-45 group-open/details:text-[var(--color-green-deep)]"
-              />
-            </summary>
-            <div className="grid grid-cols-1 gap-px bg-[var(--line)] lg:grid-cols-2">
-              <div className="bg-[#0b0d0c] p-6 text-[#f4f4f0] sm:p-8">
-                <span className="label label-green">I first understand</span>
-                <ul className="mt-5">
+              </Reveal>
+              <Reveal delay={0.06}>
+                <h3 className="display-lg mt-8 uppercase">
+                  The problem
+                  <br />
+                  is not always
+                  <br />
+                  <span className="text-[var(--color-green)]">the tool.</span>
+                </h3>
+              </Reveal>
+            </div>
+            <div className="lg:col-span-5 lg:pt-16">
+              <Reveal delay={0.1}>
+                <p className="label">I first understand</p>
+                <ul className="mt-6 space-y-0">
                   {[
                     "What is not working?",
                     "Who is affected?",
@@ -346,7 +353,7 @@ export function WhatIDo() {
                   ].map((q) => (
                     <li
                       key={q}
-                      className="flex items-center justify-between border-b border-white/10 py-3 text-sm font-medium"
+                      className="hairline-b flex items-center justify-between py-3.5 text-sm font-medium text-[var(--fg)]"
                     >
                       {q}
                       <ArrowDown
@@ -358,31 +365,15 @@ export function WhatIDo() {
                     </li>
                   ))}
                 </ul>
-              </div>
-              <div className="flex flex-col justify-between bg-[#0b0d0c] p-6 text-[#f4f4f0] sm:p-8">
-                <div>
-                  <span className="label label-green">Then</span>
-                  <div className="mt-5">
-                    <Flow
-                      steps={["Think", "Structure", "Build", "Measure", "Improve"]}
-                      dark
-                    />
-                  </div>
+              </Reveal>
+              <Reveal delay={0.15}>
+                <div className="mt-10">
+                  <Flow steps={["Think", "Structure", "Build", "Measure", "Improve"]} dark />
                 </div>
-                <p className="mt-8 border-l-2 border-[var(--color-green)] pl-3 text-sm leading-relaxed text-[#f4f4f0]/70">
-                  I don&apos;t start with the tool. I start with the problem —
-                  then structure it, build the answer, measure it, and improve it.
-                </p>
-              </div>
+              </Reveal>
             </div>
-          </details>
-        </Reveal>
-
-        <Stagger className="hairline-t mt-14" gap={0.06}>
-          {disciplines.map((d, i) => (
-            <DisciplineRow key={d.title} d={d} index={i} />
-          ))}
-        </Stagger>
+          </div>
+        </div>
       </div>
     </section>
   );
