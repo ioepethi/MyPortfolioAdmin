@@ -16,8 +16,21 @@ export function Footer() {
   return (
     <footer data-nav="dark" className="t-dark border-t border-[var(--line)]">
       <div className="mx-auto max-w-[90rem] px-5 pb-10 pt-20 sm:px-8">
+        {/* Logo mark */}
+        <div
+          aria-hidden
+          className="h-14 w-14 bg-[var(--fg)] sm:h-16 sm:w-16"
+          style={{
+            WebkitMaskImage: "url(/logo.png)",
+            maskImage: "url(/logo.png)",
+            WebkitMaskSize: "contain",
+            maskSize: "contain",
+            WebkitMaskRepeat: "no-repeat",
+            maskRepeat: "no-repeat",
+          }}
+        />
         {/* Giant name */}
-        <p className="display-xl select-none uppercase leading-[0.85]" aria-hidden>
+        <p className="display-xl mt-8 select-none uppercase leading-[0.85]" aria-hidden>
           Joepeth
           <br />
           <span className="num-outline">Del Puerto</span>

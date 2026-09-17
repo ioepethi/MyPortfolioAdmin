@@ -87,9 +87,20 @@ export function Navbar() {
             className="group flex items-center gap-3"
             aria-label="Joepeth Del Puerto — back to top"
           >
-            <span className="grid h-8 w-8 place-items-center border border-current text-[11px] font-extrabold tracking-tight transition-colors duration-300 group-hover:bg-[var(--color-green)] group-hover:border-[var(--color-green)] group-hover:text-[#0b0d0c]">
-              {profile.monogram}
-            </span>
+            <span
+              aria-hidden
+              className="block h-8 w-8 bg-current transition-colors duration-300 group-hover:bg-[var(--color-green)]"
+              style={{
+                WebkitMaskImage: "url(/logo.png)",
+                maskImage: "url(/logo.png)",
+                WebkitMaskSize: "contain",
+                maskSize: "contain",
+                WebkitMaskRepeat: "no-repeat",
+                maskRepeat: "no-repeat",
+                WebkitMaskPosition: "center",
+                maskPosition: "center",
+              }}
+            />
             <span className="hidden flex-col leading-none sm:flex">
               <span className="text-[13px] font-bold tracking-tight">
                 JOEPETH DEL PUERTO
@@ -173,7 +184,21 @@ export function Navbar() {
             aria-label="Menu"
           >
             <div className="flex h-16 items-center justify-between border-b border-white/10 px-5 sm:px-8">
-              <span className="label !text-[#f4f4f0]/60">Menu</span>
+              <span className="label flex items-center gap-2.5 !text-[#f4f4f0]/60">
+                <span
+                  aria-hidden
+                  className="block h-5 w-5 bg-current"
+                  style={{
+                    WebkitMaskImage: "url(/logo.png)",
+                    maskImage: "url(/logo.png)",
+                    WebkitMaskSize: "contain",
+                    maskSize: "contain",
+                    WebkitMaskRepeat: "no-repeat",
+                    maskRepeat: "no-repeat",
+                  }}
+                />
+                Menu
+              </span>
               <button
                 onClick={() => setOpen(false)}
                 aria-label="Close menu"
