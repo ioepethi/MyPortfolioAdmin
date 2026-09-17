@@ -1,255 +1,297 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { ArrowUpRight, Menu, X } from "lucide-react";
-import { navItems } from "@/data/nav";
+import { ChevronDown, Menu, X } from "lucide-react";
+import { navItems, openSection } from "@/data/nav";
 import { profile } from "@/data/profile";
-import { useActiveSection } from "./ui/useActiveSection";
 import { cn } from "@/lib/utils";
 
-/**
- * Fixed editorial navigation. Reads `data-nav="light|dark"` on sections and
- * flips its own scheme so the bar always matches the surface beneath it.
- */
+function LogoMark({ className }: { className?: string }) {
+  return (
+    <span
+      aria-hidden
+      className={cn("block bg-current", className)}
+      style={{
+        WebkitMaskImage: "url(/logo.png)",
+        maskImage: "url(/logo.png)",
+        WebkitMaskSize: "contain",
+        maskSize: "contain",
+        WebkitMaskRepeat: "no-repeat",
+        maskRepeat: "no-repeat",
+        WebkitMaskPosition: "center",
+        maskPosition: "center",
+      }}
+    />
+  );
+}
+
 export function Navbar() {
-  const ids = navItems.map((n) => n.id);
-  const active = useActiveSection(ids);
   const [scrolled, setScrolled] = useState(false);
   const [onLight, setOnLight] = useState(false);
-  const [open, setOpen] = useState(false);
+  const [openMenu, setOpenMenu] = useState<string | null>(null);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
   const reduce = useReducedMotion();
+  const navRef = useRef<HTMLElement>(null);
 
+  // Theme probe — flip nav colors to match the section beneath it.
   useEffect(() => {
     const sections = Array.from(
       document.querySelectorAll<HTMLElement>("[data-nav]")
     );
-    const onScroll = () => {
-      setScrolled(window.scrollY > 8);
-      const probe = 52;
+    let raf = 0;
+    const update = () => {
+      const probe = 48;
       let light = false;
-      // Innermost element wins — nested bands (e.g. dark band inside a light
-      // section) come later in DOM order and override their parent.
       for (const s of sections) {
         const r = s.getBoundingClientRect();
-        if (r.top <= probe && r.bottom > probe) {
-          light = s.dataset.nav === "light";
-        }
+        if (r.top <= probe && r.bottom > probe) light = s.dataset.nav === "light";
       }
       setOnLight(light);
+      setScrolled(window.scrollY > 24);
     };
-    onScroll();
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(update);
+    };
+    update();
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
     return () => {
       window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
+      cancelAnimationFrame(raf);
     };
   }, []);
 
+  // Close menus on outside click / Escape.
   useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
+    const onDown = (e: MouseEvent) => {
+      if (navRef.current && !navRef.current.contains(e.target as Node)) {
+        setOpenMenu(null);
+      }
     };
-  }, [open]);
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setOpenMenu(null);
+        setMobileOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", onDown);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onDown);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, []);
 
-  const handleNav = (id: string) => {
-    setOpen(false);
-    const el = document.getElementById(id);
-    if (el)
-      el.scrollIntoView({
-        behavior: reduce ? "auto" : "smooth",
-        block: "start",
-      });
+  const go = (section: string, sub?: string) => {
+    setOpenMenu(null);
+    setMobileOpen(false);
+    const isPanel = navItems.find((n) => n.section === section)?.items;
+    if (isPanel) openSection(section, sub);
+    else document.getElementById(section)?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
-    <>
-      <header
-        className={cn(
-          "fixed inset-x-0 top-0 z-50 transition-all duration-500",
-          scrolled &&
-          (onLight
-            ? "bg-[#f4f4f0]/85 text-[#0b0d0c] backdrop-blur-md border-b border-black/10"
-            : "bg-[#0b0d0c]/80 text-[#f4f4f0] backdrop-blur-md border-b border-white/10"),
-          !scrolled && (onLight ? "text-[#0b0d0c]" : "text-[#f4f4f0]")
-        )}
-      >
-        <nav className="mx-auto flex h-16 max-w-[90rem] items-center justify-between gap-6 px-5 sm:px-8">
-          {/* Brand */}
-          <a
-            href="#top"
-            onClick={(e) => {
-              e.preventDefault();
-              window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
-            }}
-            className="group flex items-center gap-3"
-            aria-label="Joepeth Del Puerto — back to top"
-          >
-            <span
-              aria-hidden
-              className="block h-8 w-8 bg-current transition-colors duration-300 group-hover:bg-[var(--color-green)]"
-              style={{
-                WebkitMaskImage: "url(/logo.png)",
-                maskImage: "url(/logo.png)",
-                WebkitMaskSize: "contain",
-                maskSize: "contain",
-                WebkitMaskRepeat: "no-repeat",
-                maskRepeat: "no-repeat",
-                WebkitMaskPosition: "center",
-                maskPosition: "center",
-              }}
-            />
-            <span className="hidden flex-col leading-none sm:flex">
-              <span className="text-[13px] font-bold tracking-tight">
-                JOEPETH DEL PUERTO
-              </span>
-              <span className="mt-1 text-[9px] font-medium uppercase tracking-[0.28em] opacity-60">
-                Dubai — UAE
-              </span>
+    <header
+      ref={navRef}
+      className={cn(
+        "fixed inset-x-0 top-0 z-50 transition-colors duration-300",
+        onLight
+          ? "bg-[#f4f4f0]/85 text-[#0b0d0c]"
+          : "bg-[#0b0d0c]/85 text-[#f4f4f0]",
+        "backdrop-blur-md",
+        scrolled && "border-b border-[var(--line-strong)]"
+      )}
+      style={{ borderColor: onLight ? "rgba(11,13,12,0.16)" : "rgba(244,244,240,0.14)" }}
+    >
+      <nav className="mx-auto flex h-14 max-w-[90rem] items-center gap-6 px-5 sm:px-8" aria-label="Primary">
+        {/* Brand */}
+        <button
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          className="group flex items-center gap-3"
+          aria-label="Back to top"
+        >
+          <LogoMark className="h-7 w-7 transition-colors duration-300 group-hover:bg-[var(--color-green)]" />
+          <span className="hidden sm:block">
+            <span className="block text-[13px] font-extrabold uppercase leading-none tracking-tight">
+              Joepeth Del Puerto
             </span>
-          </a>
+            <span className="label mt-1 block !text-[9px] !tracking-[0.24em] opacity-70">
+              Dubai — UAE
+            </span>
+          </span>
+        </button>
 
-          {/* Center links */}
-          <ul className="hidden items-center gap-7 lg:flex">
-            {navItems.map((item) => {
-              const isActive = active === item.id;
-              return (
-                <li key={item.id}>
-                  <a
-                    href={`#${item.id}`}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleNav(item.id);
-                    }}
+        {/* Desktop links */}
+        <div className="ml-auto hidden items-center gap-1 lg:flex">
+          {navItems.map((item) =>
+            item.items ? (
+              <div key={item.section} className="relative">
+                <button
+                  type="button"
+                  aria-haspopup="menu"
+                  aria-expanded={openMenu === item.section}
+                  onClick={() =>
+                    setOpenMenu((m) => (m === item.section ? null : item.section))
+                  }
+                  className={cn(
+                    "flex items-center gap-1.5 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.14em] transition-colors duration-200 hover:text-[var(--color-green)]",
+                    openMenu === item.section && "text-[var(--color-green)]"
+                  )}
+                >
+                  {item.label}
+                  <ChevronDown
+                    size={12}
+                    strokeWidth={2.5}
+                    aria-hidden
                     className={cn(
-                      "group relative text-[11px] font-semibold uppercase tracking-[0.18em] transition-colors duration-300",
-                      isActive ? "text-[var(--color-green)]" : "opacity-70 hover:opacity-100"
+                      "transition-transform duration-200",
+                      openMenu === item.section && "rotate-180"
                     )}
+                  />
+                </button>
+                <AnimatePresence>
+                  {openMenu === item.section && (
+                    <motion.div
+                      role="menu"
+                      initial={reduce ? { opacity: 0 } : { opacity: 0, y: -6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={reduce ? { opacity: 0 } : { opacity: 0, y: -6 }}
+                      transition={{ duration: reduce ? 0 : 0.18 }}
+                      className={cn(
+                        "absolute left-1/2 top-full mt-1 w-60 -translate-x-1/2 border py-1 shadow-xl",
+                        onLight
+                          ? "border-[#0b0d0c]/15 bg-white text-[#0b0d0c]"
+                          : "border-white/15 bg-[#171a18] text-[#f4f4f0]"
+                      )}
+                    >
+                      <button
+                        role="menuitem"
+                        onClick={() => go(item.section)}
+                        className="flex w-full items-center justify-between px-4 py-2.5 text-left text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--color-green)] transition-colors hover:bg-[var(--color-green)]/10"
+                      >
+                        Overview
+                        <span aria-hidden>↗</span>
+                      </button>
+                      <div className={cn("mx-4 my-1 border-t", onLight ? "border-[#0b0d0c]/10" : "border-white/10")} />
+                      {item.items.map((sub) => (
+                        <button
+                          key={sub.id}
+                          role="menuitem"
+                          onClick={() => go(item.section, sub.id)}
+                          className="block w-full px-4 py-2.5 text-left text-[11px] font-semibold uppercase tracking-[0.14em] transition-colors hover:bg-[var(--color-green)]/10 hover:text-[var(--color-green)]"
+                        >
+                          {sub.label}
+                        </button>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            ) : (
+              <button
+                key={item.section}
+                onClick={() => go(item.section)}
+                className="px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.14em] transition-colors duration-200 hover:text-[var(--color-green)]"
+              >
+                {item.label}
+              </button>
+            )
+          )}
+          <a
+            href={`mailto:${profile.email}`}
+            className="ml-3 border border-[var(--color-green)] px-4 py-2 text-[11px] font-bold uppercase tracking-[0.16em] text-[var(--color-green)] transition-colors duration-300 hover:bg-[var(--color-green)] hover:text-[#0b0d0c]"
+          >
+            Let&apos;s Talk
+          </a>
+        </div>
+
+        {/* Mobile toggle */}
+        <button
+          className="ml-auto p-2 lg:hidden"
+          onClick={() => setMobileOpen((o) => !o)}
+          aria-expanded={mobileOpen}
+          aria-label={mobileOpen ? "Close menu" : "Open menu"}
+        >
+          {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+        </button>
+      </nav>
+
+      {/* Mobile menu — compact accordion list */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={reduce ? { opacity: 0 } : { height: 0, opacity: 0 }}
+            animate={reduce ? { opacity: 1 } : { height: "auto", opacity: 1 }}
+            exit={reduce ? { opacity: 0 } : { height: 0, opacity: 0 }}
+            transition={{ duration: reduce ? 0 : 0.25 }}
+            className="overflow-hidden border-t border-white/10 bg-[#0b0d0c] text-[#f4f4f0] lg:hidden"
+          >
+            <div className="px-5 py-3">
+              {navItems.map((item) =>
+                item.items ? (
+                  <div key={item.section} className="border-b border-white/5">
+                    <div className="flex items-center">
+                      <button
+                        onClick={() => go(item.section)}
+                        className="flex-1 py-3.5 text-left text-sm font-bold uppercase tracking-[0.12em]"
+                      >
+                        {item.label}
+                      </button>
+                      <button
+                        onClick={() =>
+                          setMobileExpanded((m) =>
+                            m === item.section ? null : item.section
+                          )
+                        }
+                        aria-expanded={mobileExpanded === item.section}
+                        aria-label={`Expand ${item.label}`}
+                        className="p-3"
+                      >
+                        <ChevronDown
+                          size={16}
+                          className={cn(
+                            "text-[var(--color-green)] transition-transform duration-200",
+                            mobileExpanded === item.section && "rotate-180"
+                          )}
+                        />
+                      </button>
+                    </div>
+                    {mobileExpanded === item.section && (
+                      <div className="pb-3 pl-4">
+                        {item.items.map((sub) => (
+                          <button
+                            key={sub.id}
+                            onClick={() => go(item.section, sub.id)}
+                            className="block w-full py-2 text-left text-xs font-semibold uppercase tracking-[0.14em] text-[#a3a8a2] transition-colors hover:text-[var(--color-green)]"
+                          >
+                            {sub.label}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <button
+                    key={item.section}
+                    onClick={() => go(item.section)}
+                    className="block w-full border-b border-white/5 py-3.5 text-left text-sm font-bold uppercase tracking-[0.12em]"
                   >
                     {item.label}
-                    <span
-                      className={cn(
-                        "absolute -bottom-1.5 left-0 h-px bg-[var(--color-green)] transition-all duration-300",
-                        isActive ? "w-full" : "w-0 group-hover:w-full"
-                      )}
-                      aria-hidden
-                    />
-                  </a>
-                </li>
-              );
-            })}
-          </ul>
-
-          {/* Right */}
-          <div className="flex items-center gap-3">
-            <a
-              href="#contact"
-              onClick={(e) => {
-                e.preventDefault();
-                handleNav("contact");
-              }}
-              className="group hidden items-center gap-2 border border-[var(--color-green)] px-4 py-2 text-[11px] font-bold uppercase tracking-[0.16em] text-[var(--color-green)] transition-colors duration-300 hover:bg-[var(--color-green)] hover:text-[#0b0d0c] sm:inline-flex"
-            >
-              Let&apos;s Talk
-              <ArrowUpRight
-                size={13}
-                strokeWidth={2.5}
-                className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-              />
-            </a>
-            <button
-              onClick={() => setOpen(true)}
-              aria-label="Open menu"
-              className="grid h-9 w-9 place-items-center border border-current/30 lg:hidden"
-            >
-              <Menu size={17} strokeWidth={1.75} />
-            </button>
-          </div>
-        </nav>
-      </header>
-
-      {/* Full-screen mobile menu */}
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            className="fixed inset-0 z-[70] flex flex-col bg-[#0b0d0c] text-[#f4f4f0]"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: reduce ? 0.1 : 0.3 }}
-            role="dialog"
-            aria-modal="true"
-            aria-label="Menu"
-          >
-            <div className="flex h-16 items-center justify-between border-b border-white/10 px-5 sm:px-8">
-              <span className="label flex items-center gap-2.5 !text-[#f4f4f0]/60">
-                <span
-                  aria-hidden
-                  className="block h-5 w-5 bg-current"
-                  style={{
-                    WebkitMaskImage: "url(/logo.png)",
-                    maskImage: "url(/logo.png)",
-                    WebkitMaskSize: "contain",
-                    maskSize: "contain",
-                    WebkitMaskRepeat: "no-repeat",
-                    maskRepeat: "no-repeat",
-                  }}
-                />
-                Menu
-              </span>
-              <button
-                onClick={() => setOpen(false)}
-                aria-label="Close menu"
-                className="grid h-9 w-9 place-items-center border border-white/20"
-              >
-                <X size={17} strokeWidth={1.75} />
-              </button>
-            </div>
-
-            <ul className="flex flex-1 flex-col justify-center px-6 sm:px-10">
-              {navItems.map((item, i) => (
-                <motion.li
-                  key={item.id}
-                  initial={reduce ? { opacity: 0 } : { opacity: 0, x: 32 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{
-                    delay: reduce ? 0 : 0.06 + i * 0.05,
-                    duration: 0.45,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
-                  className="border-b border-white/10"
-                >
-                  <button
-                    onClick={() => handleNav(item.id)}
-                    className="group flex w-full items-baseline justify-between py-4 text-left"
-                  >
-                    <span className="display-sm transition-colors duration-300 group-hover:text-[var(--color-green)]">
-                      {item.label}
-                    </span>
-                    <span className="font-mono text-xs text-[var(--color-green)]">
-                      0{i + 1}
-                    </span>
                   </button>
-                </motion.li>
-              ))}
-            </ul>
-
-            <div className="border-t border-white/10 px-6 py-6 sm:px-10">
-              <div className="flex flex-col gap-1 text-sm text-[#f4f4f0]/70">
-                <a href={`mailto:${profile.email}`} className="hover:text-[var(--color-green)]">
-                  {profile.email}
-                </a>
-                <a href={profile.phoneHref} className="hover:text-[var(--color-green)]">
-                  {profile.phone}
-                </a>
-                <span>{profile.location}</span>
-              </div>
+                )
+              )}
+              <a
+                href={`mailto:${profile.email}`}
+                className="my-4 flex items-center justify-center border border-[var(--color-green)] py-3 text-[12px] font-bold uppercase tracking-[0.16em] text-[var(--color-green)]"
+              >
+                Let&apos;s Talk
+              </a>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </>
+    </header>
   );
 }

@@ -1,126 +1,69 @@
 "use client";
 
-import { useReducedMotion } from "motion/react";
-import { Reveal } from "./ui/Reveal";
-import { SectionHead } from "./ui/SectionHead";
-import { marqueeTools, toolGroups, type Tool } from "@/data/tools";
+import { DropdownSection } from "./ui/Dropdown";
+import { toolGroups, type Tool } from "@/data/tools";
 import { cn } from "@/lib/utils";
 
-function ToolGlyph({ tool, className }: { tool: Tool; className?: string }) {
-  if (tool.icon) {
-    return (
-      // eslint-disable-next-line @next/next/no-img-element
-      <img
-        src={`/icons/${tool.icon}.svg`}
-        alt=""
-        aria-hidden
-        loading="lazy"
-        decoding="async"
-        className={cn("h-6 w-6 invert opacity-70 transition-opacity", className)}
-      />
-    );
-  }
+function ToolChip({ tool, light }: { tool: Tool; light?: boolean }) {
   return (
-    <span
-      className={cn(
-        "wordmark text-sm text-[var(--mut)] transition-colors",
-        className
+    <li className="flex items-center gap-2 bg-[var(--chip)] px-2.5 py-1.5 text-[10.5px] font-medium uppercase tracking-[0.08em] text-[var(--mut)]">
+      {tool.icon ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={`/icons/${tool.icon}.svg`}
+          alt=""
+          aria-hidden
+          loading="lazy"
+          decoding="async"
+          className={cn("h-3.5 w-3.5 opacity-60", !light && "invert")}
+        />
+      ) : (
+        <span className="wordmark text-[9px] text-[var(--sub)]">
+          {tool.name.slice(0, 2).toUpperCase()}
+        </span>
       )}
-    >
-      {tool.name.slice(0, 2).toUpperCase()}
-    </span>
+      {tool.name}
+    </li>
   );
 }
 
 export function Tools() {
-  const reduce = useReducedMotion();
-  const doubled = [...marqueeTools, ...marqueeTools];
-
   return (
-    <section id="tools" data-nav="dark" className="t-dark border-t border-[var(--line)]">
-      <div className="mx-auto max-w-[90rem] px-5 py-24 sm:px-8 sm:py-32">
-        <SectionHead label="Tools & Technologies" />
-
-        <div className="mt-12 grid grid-cols-1 gap-10 lg:grid-cols-12">
-          <Reveal className="lg:col-span-7">
-            <h2 className="display-lg uppercase">
-              Tools
-              <br />
-              I use
-              <br />
-              <span className="text-[var(--color-green)]">to build.</span>
-            </h2>
-          </Reveal>
-          <Reveal delay={0.1} className="lg:col-span-5 lg:pt-4">
-            <p className="max-w-sm text-pretty text-sm leading-relaxed text-[var(--mut)]">
-              The working stack behind the projects above — design, commerce,
-              development, infrastructure, automation and the office systems I
-              run day to day.
-            </p>
-          </Reveal>
-        </div>
-      </div>
-
-      {/* Marquee */}
-      <div
-        className="group relative overflow-hidden border-y border-[var(--line)] py-6"
-        style={{
-          maskImage:
-            "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
-          WebkitMaskImage:
-            "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
-        }}
-      >
-        <div
-          className={cn(
-            "flex w-max items-center gap-12 px-6",
-            !reduce && "animate-marquee group-hover:[animation-play-state:paused]"
-          )}
-        >
-          {doubled.map((tool, i) => (
-            <div
-              key={`${tool.name}-${i}`}
-              className="group/item flex shrink-0 items-center gap-3"
-              title={tool.name}
-            >
-              <ToolGlyph
-                tool={tool}
-                className="transition-all duration-300 group-hover/item:opacity-100 [&_img]:group-hover/item:[filter:invert(67%)_sepia(38%)_saturate(512%)_hue-rotate(51deg)_brightness(95%)_contrast(88%)]"
-              />
-              <span className="label !text-[var(--mut)] transition-colors duration-300 group-hover/item:text-[var(--color-green)]">
-                {tool.name}
+    <DropdownSection id="tools" index="03" title="Tools & Technologies" theme="light">
+      <div className="space-y-6">
+        {toolGroups.map((g) => (
+          <div
+            key={g.id}
+            id={`tools-${g.id}`}
+            className="grid scroll-mt-24 grid-cols-1 gap-3 border-t border-[var(--line)] pt-5 first:border-0 first:pt-0 sm:grid-cols-12"
+          >
+            <div className="flex items-baseline gap-3 sm:col-span-3">
+              <span className="font-mono text-xs text-[var(--color-green-deep)]">
+                {g.num}
               </span>
+              <h3 className="text-sm font-bold uppercase tracking-tight">
+                {g.label}
+              </h3>
             </div>
-          ))}
-        </div>
+            <ul className="flex flex-wrap content-start gap-1.5 sm:col-span-9">
+              {g.tools.map((t) => (
+                <ToolChip key={t.name} tool={t} light />
+              ))}
+            </ul>
+          </div>
+        ))}
+        <p className="text-xs leading-relaxed text-[var(--sub)]">
+          Commerce systems in practice: see{" "}
+          <a href="#work" className="font-semibold text-[var(--color-green-deep)] underline underline-offset-2">
+            BrandPeth.ae
+          </a>{" "}
+          and{" "}
+          <a href="#work" className="font-semibold text-[var(--color-green-deep)] underline underline-offset-2">
+            Edge Plus Fitness
+          </a>{" "}
+          in the work section.
+        </p>
       </div>
-
-      {/* Grouped wall */}
-      <div className="mx-auto max-w-[90rem] px-5 py-20 sm:px-8">
-        <div className="grid grid-cols-1 gap-px bg-[var(--line)] sm:grid-cols-2 lg:grid-cols-3">
-          {toolGroups.map((g) => (
-            <div key={g.id} className="bg-[var(--bg)] p-6 sm:p-8">
-              <span className="label label-green">{g.label}</span>
-              <ul className="mt-6 space-y-3">
-                {g.tools.map((t) => (
-                  <li
-                    key={t.name}
-                    className="group/tool flex items-center gap-3 text-sm font-medium text-[var(--fg)]"
-                  >
-                    <ToolGlyph
-                      tool={t}
-                      className="h-5 w-5 [&_img]:group-hover/tool:[filter:invert(67%)_sepia(38%)_saturate(512%)_hue-rotate(51deg)_brightness(95%)_contrast(88%)]"
-                    />
-                    <span className="transition-colors duration-300 group-hover/tool:text-[var(--color-green)]">
-                      {t.name}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
+    </DropdownSection>
   );
 }

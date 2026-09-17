@@ -21,23 +21,22 @@ const inter = localFont({
 });
 
 const title =
-  "Joepeth Del Puerto — Graphic Design, E-Commerce & Digital Professional";
+  "Joepeth Del Puerto — Administrative & Operations Professional";
 const description =
-  "Joepeth Del Puerto is a multidisciplinary digital professional in Dubai combining graphic design, e-commerce, IT, digital systems, and operations to create practical business solutions.";
+  "Joepeth Del Puerto is an administrative and operations professional in Dubai with an IT and digital systems background — keeping teams organized, operations moving, and work flowing efficiently.";
 const keywords = [
   "Joepeth Del Puerto",
-  "Multidisciplinary Digital Professional",
-  "Graphic Designer Dubai",
-  "E-Commerce Specialist Dubai",
-  "Digital Professional UAE",
+  "Administrative Professional Dubai",
+  "Operations Professional UAE",
+  "Administrative Coordinator",
+  "Team Leader Dubai",
   "IT Support Dubai",
-  "Operations Coordinator",
-  "Shopify",
-  "Noon",
-  "Amazon FBA",
-  "Product Catalog Management",
+  "Digital Systems",
   "Process Improvement",
-  "Project Coordination",
+  "Records Management",
+  "Vendor Coordination",
+  "E-Commerce Operations",
+  "Automation",
 ];
 
 export const metadata: Metadata = {
@@ -97,16 +96,17 @@ const personJsonLd = {
   url: profile.url,
   sameAs: [profile.linkedin, profile.github].filter(Boolean),
   knowsAbout: [
-    "Graphic Design",
-    "E-Commerce",
-    "Product Catalog Management",
-    "Information Technology",
-    "Database Management",
     "Office Administration",
     "Operations",
-    "Project Coordination",
+    "Information Technology",
+    "Digital Systems",
+    "Records Management",
+    "E-Commerce",
     "Process Improvement",
+    "Technical Support",
+    "Vendor Coordination",
     "Microsoft Excel",
+    "Automation",
   ],
 };
 

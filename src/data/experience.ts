@@ -5,8 +5,6 @@ export type Experience = {
   location: string;
   period: string;
   current: boolean;
-  /** Compact area labels shown on the timeline. */
-  areas: string[];
   /** A few verified highlights. */
   highlights: string[];
 };
@@ -14,26 +12,21 @@ export type Experience = {
 export const experiences: Experience[] = [
   {
     id: "unimar",
-    role: "E-Commerce Specialist",
-    company: "Unimar BLDG Services LLC",
+    role: "Team Leader",
+    company: "Unimar BLDG Service LLC",
     location: "Dubai, UAE",
     period: "Aug 2024 — Aug 2026",
     current: true,
-    areas: [
-      "Product listings",
-      "Catalog management",
-      "SEO",
-      "Inventory",
-      "Marketplaces",
-      "Analytics",
-      "Excel",
-      "Content",
-      "Cross-functional collaboration",
-    ],
     highlights: [
-      "Product listings, catalog management and marketplace content across Shopify, Noon and Amazon FBA.",
-      "Inventory tracking, order processing, customer service and merchandising support.",
-      "Excel reporting and performance analysis for day-to-day commercial decisions.",
+      "Team coordination",
+      "Scheduling",
+      "Customer service",
+      "Client coordination",
+      "Supplier coordination",
+      "Reporting",
+      "Inventory monitoring",
+      "Business development support",
+      "Photo/video documentation",
     ],
   },
   {
@@ -43,21 +36,23 @@ export const experiences: Experience[] = [
     location: "Philippines",
     period: "May 2018 — Mar 2024",
     current: false,
-    areas: [
-      "Administration",
-      "IT support",
-      "Records",
-      "Databases",
-      "Procurement",
-      "Vendors",
-      "Data accuracy",
-      "IT assets",
-      "Data privacy",
-    ],
     highlights: [
-      "Promoted from IT Help Desk Support to Administrative Coordinator for strong performance and dependable service.",
-      "Maintained administrative records and databases with rigorous accuracy and record-keeping protocols.",
-      "Managed procurement, vendors and IT assets while safeguarding data privacy and secure records.",
+      "Administrative coordination",
+      "Records management",
+      "Reporting",
+      "Procurement",
+      "Vendor coordination",
+      "IT support",
+      "IT asset management",
+      "Data privacy",
+      "Documentation",
     ],
   },
 ];
+
+export const education = {
+  degree: "Bachelor of Science in Information Technology",
+  school: "University of Science and Technology of Southern Philippines",
+  major: "Database Management",
+  period: "2020 — 2024",
+} as const;
